@@ -8,6 +8,6 @@ body:
       value: "Please add fitting labels to your issue."
   - type: textarea
     attributes:
-      label: 
+      label: ""
     validations:
       required: true

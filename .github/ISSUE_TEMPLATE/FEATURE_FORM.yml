@@ -7,6 +7,12 @@ body:
   - type: textarea
     attributes:
       label: The feature
-      description: Describe the problem you have/What new integration you would like? 
+      description: Describe the feature you would like to have.
     validations:
       required: true
+  - type: dropdown
+    label: Priority
+    options:
+      - Must
+      - Should
+      - Could

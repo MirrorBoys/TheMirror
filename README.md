@@ -6,9 +6,10 @@ This project focuses on building a smart mirror that displays useful information
 # Getting started
 
 # Development
-Follow these steps to setup your development environment.
+
 
 ## Development setup
+Follow these steps to setup your development environment.
 
 ## File structure
 The files in this repository are organised as followed:

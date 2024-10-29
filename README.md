@@ -1,7 +1,13 @@
 # TheMirror
-This project focuses on building a smart mirror that displays useful information, such as weather updates, calendar events, news, and more.
+This project focuses on building a smart mirror that displays useful information.
 
 # Features
+- weather updates
+- calendar events
+- news
+- voice and face recognition
+- and more...
+
 
 # Getting started
 

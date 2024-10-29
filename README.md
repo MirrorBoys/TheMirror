@@ -6,6 +6,7 @@ This project focuses on building a smart mirror that displays useful information
 - calendar events
 - news
 - voice and face recognition
+- hand gesture functions for interactions
 - and more...
 
 

@@ -11,8 +11,14 @@ body:
     validations:
       required: true
   - type: dropdown
-    label: Priority
-    options:
-      - Must
-      - Should
-      - Could
+    attributes:
+      label: Priority
+      description: What priority should this feature have?
+      multiple: false
+      options:
+        - Must have
+        - Should have
+        - Could have
+      default: 2
+    validations:
+      required: true

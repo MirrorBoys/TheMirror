@@ -1,7 +1,8 @@
 name: Bug Report
 description: Report a bug
 title: Bug Report
-projects: "TheMirror"
+projects: "TheMirror/TheMirror"
+labels: "bug"
 body:
   - type: textarea
     attributes:

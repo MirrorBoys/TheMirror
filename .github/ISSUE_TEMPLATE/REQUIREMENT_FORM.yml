@@ -1,0 +1,24 @@
+name: Requirement
+description: Add a requirement
+title: Requirement
+projects: "MirrorBoys/3"
+labels: "Requirement"
+body:
+  - type: textarea
+    attributes:
+      label: Requirement
+      description: Describe the requirement.
+    validations:
+      required: true
+  - type: dropdown
+    attributes:
+      label: Priority
+      description: What priority should this requirement have?
+      multiple: false
+      options:
+        - Must have
+        - Should have
+        - Could have
+      default: 2
+    validations:
+      required: true

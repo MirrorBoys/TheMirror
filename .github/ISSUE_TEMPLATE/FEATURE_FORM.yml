@@ -1,0 +1,12 @@
+name: Feature request
+description: Request a feature
+title: Feature request
+projects: "MirrorBoys/3"
+labels: "Enhancement"
+body:
+  - type: textarea
+    attributes:
+      label: The feature
+      description: Describe the problem you have/What new integration you would like? 
+    validations:
+      required: true

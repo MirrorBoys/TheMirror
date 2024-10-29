@@ -1,0 +1,13 @@
+name: Empty issue
+description: Use this form of the other forms do not suit your needs.
+title: Empty issue
+projects: "MirrorBoys/3"
+body:
+  - type: markdown
+    attributes:
+      value: "Please add fitting labels to your issue."
+  - type: textarea
+    attributes:
+      label: Inputfield
+    validations:
+      required: true

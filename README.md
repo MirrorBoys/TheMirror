@@ -25,3 +25,4 @@ The files in this repository are organised as followed:
 
 ## Branches
 [Provide information about the branching strategy and purpose of each branch.]
+

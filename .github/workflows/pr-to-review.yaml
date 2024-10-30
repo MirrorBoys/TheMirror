@@ -10,7 +10,7 @@ jobs:
 
     steps:
       - name: Move pull request to "Review" column
-        uses: actions/add-to-project@v1
+        uses: actions/add-to-project@v1.0.2
         with:
           project-url: "https://github.com/MirrorBoys/TheMirror/projects/3"
           column-name: "Review"

@@ -2,6 +2,7 @@ name: Empty issue
 description: Use this form of the other forms do not suit your needs.
 title: Empty issue
 projects: "MirrorBoys/3"
+type: "task"
 body:
   - type: markdown
     attributes:

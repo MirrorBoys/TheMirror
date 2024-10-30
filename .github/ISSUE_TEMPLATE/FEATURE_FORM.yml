@@ -2,7 +2,7 @@ name: Feature request
 description: Request a feature
 title: Feature request
 projects: "MirrorBoys/3"
-labels: "enhancement"
+type: "feature"
 body:
   - type: textarea
     attributes:

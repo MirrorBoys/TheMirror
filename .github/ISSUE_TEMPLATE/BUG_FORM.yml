@@ -2,7 +2,7 @@ name: Bug Report
 description: Report a bug
 title: Bug Report
 projects: "MirrorBoys/3"
-labels: "bug"
+type: "bug"
 body:
   - type: textarea
     attributes:

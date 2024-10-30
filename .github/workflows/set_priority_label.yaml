@@ -28,7 +28,13 @@ jobs:
             exit 0
           fi
 
-      - name: Add label to issue
+      - name: Remove existing priority labels
+        uses: actions-ecosystem/action-remove-labels@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          labels: requirement-must, requirement-should, requirement-could
+
+      - name: Add new label
         uses: actions-ecosystem/action-add-labels@v1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}

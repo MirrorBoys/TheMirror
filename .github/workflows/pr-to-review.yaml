@@ -1,0 +1,18 @@
+name: Move PR to Review column
+
+on:
+  pull_request:
+    types: [opened]
+
+jobs:
+  move-to-review:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Move pull request to "Review" column
+        uses: actions/add-to-project@v1
+        with:
+          project-url: "https://github.com/MirrorBoys/TheMirror/projects/3"
+          column-name: "Review"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

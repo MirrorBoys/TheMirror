@@ -16,7 +16,8 @@ jobs:
       id: extract_priority
       run: |
         echo "Extracting the priority from the issue content..."
-        PRIORITY=$(echo "${{ github.event.issue.body }}" | grep -oP '(?<=### Priority: ).*')
+        BODY="${{ github.event.issue.body }}"
+        PRIORITY=$(echo "${BODY}" | grep -oP '(?<=#Priority\s*\n).+')
         case "${PRIORITY}" in
           "Must have") PRIORITY_LABEL="requirement-must" ;;
           "Should have") PRIORITY_LABEL="requirement-should" ;;

@@ -2,6 +2,7 @@
 This project focuses on building a smart mirror that displays useful information, such as weather updates, calendar events, news, and more. 
 
 # Features
+- Clock
 - Weather updates
 - Calendar events
 - News

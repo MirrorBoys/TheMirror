@@ -17,14 +17,19 @@ jobs:
       run: |
         echo "Extracting the priority from the issue content..."
         PRIORITY=$(echo "${{ github.event.issue.body }}" | grep -oP '(?<=### Priority: ).*')
-        PRIORITY_LABEL=$(echo "${PRIORITY}" | sed 's/ /-/g')
+        case "${PRIORITY}" in
+          "Must have") PRIORITY_LABEL="requirement-must" ;;
+          "Should have") PRIORITY_LABEL="requirement-should" ;;
+          "Could have") PRIORITY_LABEL="requirement-could" ;;
+          *) PRIORITY_LABEL="" ;;
+        esac
         echo "::set-output name=priority::${PRIORITY_LABEL}"
 
     - name: Remove existing priority labels
       if: steps.extract_priority.outputs.priority != ''
       run: |
         echo "Removing existing priority labels..."
-        PRIORITY_LABELS=("Must-have" "Should-have" "Could-have")
+        PRIORITY_LABELS=("requirement-must" "requirement-should" "requirement-could")
         for LABEL in "${PRIORITY_LABELS[@]}"; do
           gh issue remove-label "${{ github.event.issue.number }}" --label "$LABEL" || true
         done

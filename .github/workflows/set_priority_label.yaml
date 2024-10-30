@@ -1,43 +1,32 @@
-name: Label issues based on priority
+name: Label Issue by Priority
 
 on:
   issues:
-    types: [opened, edited]
+    types:
+      - opened
+      - edited
 
 jobs:
-  add-or-update-priority-label:
+  label_issue:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Check out the repository
-      uses: actions/checkout@v2
+      - name: Determine label based on priority
+        id: label_priority
+        run: |
+          if [[ "${{ github.event.issue.body }}" == *"Must have"* ]]; then
+            echo "label=requirement-must" >> $GITHUB_ENV
+          elif [[ "${{ github.event.issue.body }}" == *"Should have"* ]]; then
+            echo "label=requirement-should" >> $GITHUB_ENV
+          elif [[ "${{ github.event.issue.body }}" == *"Could have"* ]]; then
+            echo "label=requirement-could" >> $GITHUB_ENV
+          else
+            echo "No matching priority found."
+            exit 0
+          fi
 
-    - name: Extract priority from issue content
-      id: extract_priority
-      run: |
-        echo "Extracting the priority from the issue content..."
-        BODY="${{ github.event.issue.body }}"
-        PRIORITY=$(echo "${BODY}" | awk '/### Priority/{getline; print}' | xargs)
-        case "${PRIORITY}" in
-          "Must have") PRIORITY_LABEL="requirement-must" ;;
-          "Should have") PRIORITY_LABEL="requirement-should" ;;
-          "Could have") PRIORITY_LABEL="requirement-could" ;;
-          *) PRIORITY_LABEL="" ;;
-        esac
-        echo "::set-output name=priority::${PRIORITY_LABEL}"
-
-    - name: Remove existing priority labels
-      if: steps.extract_priority.outputs.priority != ''
-      run: |
-        echo "Removing existing priority labels..."
-        PRIORITY_LABELS=("requirement-must" "requirement-should" "requirement-could")
-        for LABEL in "${PRIORITY_LABELS[@]}"; do
-          gh issue remove-label "${{ github.event.issue.number }}" --label "$LABEL" || true
-        done
-
-    - name: Apply priority label to issue
-      if: steps.extract_priority.outputs.priority != ''
-      uses: actions-ecosystem/action-add-labels@v1
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        labels: ${{ steps.extract_priority.outputs.priority }}
+      - name: Add label to issue
+        uses: actions-ecosystem/action-add-labels@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          labels: ${{ env.label }}

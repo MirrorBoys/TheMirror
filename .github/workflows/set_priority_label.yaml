@@ -1,0 +1,37 @@
+name: Label issues based on priority
+
+on:
+  issues:
+    types: [opened, edited]
+
+jobs:
+  add-or-update-priority-label:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out the repository
+      uses: actions/checkout@v2
+
+    - name: Extract priority from issue content
+      id: extract_priority
+      run: |
+        echo "Extracting the priority from the issue content..."
+        PRIORITY=$(echo "${{ github.event.issue.body }}" | grep -oP '(?<=### Priority: ).*')
+        PRIORITY_LABEL=$(echo "${PRIORITY}" | sed 's/ /-/g')
+        echo "::set-output name=priority::${PRIORITY_LABEL}"
+
+    - name: Remove existing priority labels
+      if: steps.extract_priority.outputs.priority != ''
+      run: |
+        echo "Removing existing priority labels..."
+        PRIORITY_LABELS=("Must-have" "Should-have" "Could-have")
+        for LABEL in "${PRIORITY_LABELS[@]}"; do
+          gh issue remove-label "${{ github.event.issue.number }}" --label "$LABEL" || true
+        done
+
+    - name: Apply priority label to issue
+      if: steps.extract_priority.outputs.priority != ''
+      uses: actions-ecosystem/action-add-labels@v1
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        labels: ${{ steps.extract_priority.outputs.priority }}

@@ -1,0 +1,16 @@
+name: Add pull request to project
+
+on:
+  pull_request:
+    types:
+      - opened
+      
+jobs:
+  add-to-project:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: konradpabjan/actions-add-new-issue-to-column@v1.1
+      with:
+        action-token: "${{ secrets.GITHUB_TOKEN }}"
+        project-url: "https://github.com/orgs/MirrorBoys/projects/3"
+        column-name: "Review"

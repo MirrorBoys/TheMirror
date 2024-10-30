@@ -1,4 +1,4 @@
-name: Label Issue by Priority
+name: Process new issues
 
 on:
   issues:
@@ -9,12 +9,13 @@ permissions:
   issues: write
 
 jobs:
-  label_issue:
+  process_issue:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Determine label based on priority
-        id: label_priority
+    
+      # Step 1: Determine Issue Priority Label
+      - name: Determine priority label
+        id: determine_priority
         run: |
           if [[ "${{ github.event.issue.body }}" == *"Must have"* ]]; then
             echo "label=requirement-must" >> $GITHUB_ENV
@@ -27,8 +28,12 @@ jobs:
             exit 0
           fi
 
-      - name: Add label to issue
+      # Step 2: Add Priority Label to Issue
+      - name: Add priority label to issue
         uses: actions-ecosystem/action-add-labels@v1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           labels: ${{ env.label }}
+
+      # Placeholder for Additional Steps
+      # For future steps such as assigning issues, adding additional labels, notifying stakeholders, etc.

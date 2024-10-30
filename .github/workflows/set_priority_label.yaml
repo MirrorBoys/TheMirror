@@ -26,26 +26,9 @@ jobs:
           else
             echo "No matching priority found."
             exit 0
+          fi
 
-      - name: Get current labels
-        id: get_labels
-        uses: actions-ecosystem/action-get-labels@v1
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Remove existing priority labels if present
-        uses: actions-ecosystem/action-remove-labels@v1
-        if: contains(steps.get_labels.outputs.labels, 'requirement-must') || 
-            contains(steps.get_labels.outputs.labels, 'requirement-should') || 
-            contains(steps.get_labels.outputs.labels, 'requirement-could')
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          labels: |
-            ${{ contains(steps.get_labels.outputs.labels, 'requirement-must') && 'requirement-must' || '' }}
-            ${{ contains(steps.get_labels.outputs.labels, 'requirement-should') && 'requirement-should' || '' }}
-            ${{ contains(steps.get_labels.outputs.labels, 'requirement-could') && 'requirement-could' || '' }}
-
-      - name: Add new label
+      - name: Add label to issue
         uses: actions-ecosystem/action-add-labels@v1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}

@@ -1,0 +1,12 @@
+name: Improvement request
+description: Request an improvement
+title: Improvement request
+projects: "MirrorBoys/3"
+type: "improvement"
+body:
+  - type: textarea
+    attributes:
+      label: The improvement
+      description: Describe the improvement you would like to have.
+    validations:
+      required: true

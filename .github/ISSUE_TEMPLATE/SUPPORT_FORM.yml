@@ -1,0 +1,12 @@
+name: Support
+description: Add a task that supports or facilitates the project but does not directly add a feature or improvement
+title: Support
+projects: "MirrorBoys/3"
+type: "support"
+body:
+  - type: textarea
+    attributes:
+      label: The task
+      description: Describe the task.
+    validations:
+      required: true

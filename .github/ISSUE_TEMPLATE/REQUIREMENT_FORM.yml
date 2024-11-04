@@ -2,7 +2,7 @@ name: Requirement
 description: Add a requirement
 title: Requirement
 projects: "MirrorBoys/3"
-type: 'Feature'
+type: "feature"
 body:
   - type: textarea
     attributes:

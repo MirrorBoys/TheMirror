@@ -35,15 +35,5 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           labels: ${{ env.label }}
 
-      # Step 3: Add Feature type to issue if it is a requirement
-      - name: Add feature type to issue
-        if: contains(env.label, 'requirement-')
-        run: |
-          curl -X PATCH \
-            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-            -H "Accept: application/vnd.github.v3+json" \
-            https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.issue.number }} \
-            -d '{"issue_type":"feature"}'
-
       # Placeholder for Additional Steps
       # For future steps such as assigning issues, adding additional labels, notifying stakeholders, etc.

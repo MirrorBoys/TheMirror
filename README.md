@@ -10,15 +10,11 @@ This project focuses on building a smart mirror that displays useful information
 - Hand gesture functions for interactions
 - And more...
 
+# Screenshots
+TODO: [43](https://github.com/MirrorBoys/TheMirror/issues/43)
+
 # Getting started
 TODO: [#7](https://github.com/MirrorBoys/TheMirror/issues/7)
 
-# Development
-## Development setup
-TODO: [#8](https://github.com/MirrorBoys/TheMirror/issues/8)
-
-## File structure
-TODO: [#10](https://github.com/MirrorBoys/TheMirror/issues/10)
-
-## Branches
-TODO: [#9](https://github.com/MirrorBoys/TheMirror/issues/9)
+# Documentation
+- Development: see [the development docs](docs/DEVELOPMENT.md) for development information.

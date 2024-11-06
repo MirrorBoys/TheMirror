@@ -10,15 +10,3 @@ body:
       description: Describe the feature you would like to have.
     validations:
       required: true
-  - type: dropdown
-    attributes:
-      label: Priority
-      description: What priority should this feature have?
-      multiple: false
-      options:
-        - Must have
-        - Should have
-        - Could have
-      default: 2
-    validations:
-      required: true

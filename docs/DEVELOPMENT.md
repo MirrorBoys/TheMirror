@@ -49,7 +49,7 @@ sudo apt install python3-venv
 ```
   - Create an environment at a specified path by running `python3 -m venv /<example>/<path>`.
 ```shell
-python3 -m venv ~/Django
+python3 -m venv ~/django
 ```
   - Enter the enviroment you just created by running `source /<example>/<path>/bin/activate`
 ```shell
@@ -57,9 +57,13 @@ source ~/django/bin/activate
 ```
 > [!TIP]
 > You can leave the enviroment by running the `deactivate` command.
-  - Install Django
+  - Update pip
 ```shell
-python -m pip install Django
+python3 -m pip install --upgrade pip
+```
+  - Use pip to install Django
+```shell
+python3 -m pip install Django
 ```
 
 # File structure

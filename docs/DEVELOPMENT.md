@@ -80,7 +80,7 @@ python3 -m pip install --upgrade pip
 ```
 7.5 Install the needed packages using the `requirements.txt` file.
 ```shell
-pip install -r ~/TheMirror/src/requirements.txt
+pip install -r ~/TheMirror/src/mirror_project/requirements.txt
 ```
 > [!NOTE]
 > The `requirements.txt` file contains a list of multiple packages (including Django) and their respective versions. See [the pip documentation](https://pip.pypa.io/en/stable/reference/requirements-file-format/) for more details.
@@ -113,23 +113,17 @@ The Django project files are located in the `src/mirror_project` directory of th
 
 1. If present, install newly added packages
 ```shell
-pip install -r ~/TheMirror/src/requirements.txt
+pip install -r ~/TheMirror/src/mirror-project/requirements.txt
 ```
 2. Navigate to the Django project files.
 ```shell
 cd ~/TheMirror/src/mirror_project
 ```
-3. Create migrations for possible changes in the models
-```shell
-python3 manage.py makemigrations
-```
-> [!NOTE]
-> If changes in existing models are detected by Django, it will prompt you with the question if you want to apply them. 
-4. Migrate the models
+3. Migrate the models
 ```shell
 python3 manage.py migrate
 ```
-5. Start the Django server.
+4. Start the Django server.
 ```shell
 python3 manage.py runserver
 ```
@@ -140,3 +134,32 @@ The server is now running and you can view it by visiting [http://127.0.0.1:8000
 You can now edit the Django project files. Edits to this files should be directly reflected, with the exception of the `settings.py` file. When editing this file you will need to restart the server.
 
 When you are satisfied with your changes, you can commit (and push) these changes to the repository.
+
+> [!WARNING]
+> If you have made changes to the models or updated packages, you need to execute additional steps before committing your changes. See [changed models](#changed-models) and/or [updated packages](#updated-packages).
+
+###### Changed models
+Follow these steps if you have edited, added or deleted models.
+
+1. Navigate to the Django project files.
+```shell
+cd ~/TheMirror/src/mirror_project
+```
+2. Create migrations for possible changes in the models
+```shell
+python3 manage.py makemigrations
+```
+> [!NOTE]
+> If changes in existing models are detected by Django, it will prompt you with the question if you want to apply them. 
+
+###### Updated packages
+Follow these steps if you have added or deleted pip packages.
+
+1. Navigate to the Django project files.
+```shell
+cd ~/TheMirror/src/mirror_project
+```
+2. Generate a new `requirements.txt` file.
+```shell
+pip freeze > requirements.txt
+```

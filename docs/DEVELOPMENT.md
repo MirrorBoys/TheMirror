@@ -65,11 +65,11 @@ sudo apt install python3-venv
 ```
 7.2 Create an environment in your home directory called `themirror-env`.
 ```shell
-python3 -m venv ~/themirror-env
+python3 -m venv ~/.virtualenvs/themirror-env
 ```
 7.3 Enter the enviroment you just created.
 ```shell
-source ~/themirror-env/bin/activate
+source ~/.virtualenvs/themirror-env/bin/activate
 ```
 > [!NOTE]
 > You can leave the environment by running the `deactivate` command. For this tutorial you must not leave the environment.

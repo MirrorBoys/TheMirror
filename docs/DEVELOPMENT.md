@@ -111,18 +111,26 @@ The Django project files are located in the `src/mirror_project` directory of th
 > [!IMPORTANT]
 > You will need run these steps every time you pull from the repository. This will ensure that you have installed all the needed packages and migrate changed databases!
 
-1. Check for newly added packages
+1. If present, install newly added packages
 ```shell
 pip install -r ~/TheMirror/src/requirements.txt
 ```
-2. Migrate the database.
+2. Navigate to the Django project files.
 ```shell
 cd ~/TheMirror/src/mirror_project
+```
+3. Create migrations for possible changes in the models
+```shell
+python3 manage.py makemigrations
+```
+> [!NOTE]
+> If changes in existing models are detected by Django, it will prompt you with the question if you want to apply them. 
+4. Migrate the models
+```shell
 python3 manage.py migrate
 ```
-3. Start the Django server.
+5. Start the Django server.
 ```shell
-cd ~/TheMirror/src/mirror_project
 python3 manage.py runserver
 ```
 

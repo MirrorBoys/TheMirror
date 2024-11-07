@@ -92,8 +92,21 @@ Your development setup is now ready! See the [contributing instructions](#contri
 > This information has not been documented yet. Please see [#10](https://github.com/MirrorBoys/TheMirror/issues/10) for the current status of this documentation.
 
 ## Branch strategy
-> [!NOTE]
-> This information has not been documented yet. Please see [#9](https://github.com/MirrorBoys/TheMirror/issues/9) for the current status of this documentation.
+Our project follows a simple feature branch strategy based on GitHub issues.
+
+- Main branch: this branch contains production-ready code and remains stable. Only tested and reviewed code is merged into main.
+- Feature branches: for each new feature request:
+  - Create an issue or select existing issue: create or select an issue in the repository. This issue describes the feature and its requirements.
+  - Create a feature branch: a feature branch is created from main and linked to the corresponding issue.
+  - Develop and test: development is done on this branch
+  - Pull request and merge: once complete, a pull request is created to merge the feature branch into main. After review and approval the branch is merged and deleted.
+- Bugfix branches: for each bug fix:
+  - Create an issue or select existing issue: create or select an issue in the repository. This issue describes the bugs.
+  - Create a bugfix branch: a bugfix branch is created from main and linked to the corresponding issue.
+  - Develop and test: the bug is fixed within this branch.
+  - Pull request and merge: once the fix is complete, a pull request is created to merge the bugfix branch into main. After review and approval the branch is merged and deleted.
+
+![Picture of branch strategy.](branch_strategy.png)
 
 ## Contributing instructions
 This paragraph outlines how you can contribute to this project.

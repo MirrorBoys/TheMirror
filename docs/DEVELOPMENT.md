@@ -80,7 +80,7 @@ python3 -m pip install --upgrade pip
 ```
 7.5 Install the needed packages using the `requirements.txt` file.
 ```shell
-pip install -r ~/TheMirror/src/mirror_project/requirements.txt
+pip install -r ~/TheMirror/src/smartMirrorProject/requirements.txt
 ```
 > [!NOTE]
 > The `requirements.txt` file contains a list of multiple packages (including Django) and their respective versions. See [the pip documentation](https://pip.pypa.io/en/stable/reference/requirements-file-format/) for more details.
@@ -102,7 +102,7 @@ This paragraph outlines how you can contribute to this project.
 > If you want to contribute to this project, first install and configure the software needed as outlined in [development setup](#development-setup).
 
 ### Contributing to Django files
-The Django project files are located in the `src/mirror_project` directory of the repository (or `~/TheMirror/src/mirror_project` in your local repository). You will be editing these files when contributing to the Django files. But first you will have to start the Django server.
+The Django project files are located in the `src/smartMirrorProject` directory of the repository (or `~/TheMirror/src/smartMirrorProject` in your local repository). You will be editing these files when contributing to the Django files. But first you will have to start the Django server.
 
 #### Start the Django server
 > [!IMPORTANT]
@@ -117,7 +117,7 @@ pip install -r ~/TheMirror/src/mirror-project/requirements.txt
 ```
 2. Navigate to the Django project files.
 ```shell
-cd ~/TheMirror/src/mirror_project
+cd ~/TheMirror/src/smartMirrorProject
 ```
 3. Migrate the models
 ```shell
@@ -143,7 +143,7 @@ Follow these steps if you have edited, added or deleted models.
 
 1. Navigate to the Django project files.
 ```shell
-cd ~/TheMirror/src/mirror_project
+cd ~/TheMirror/src/smartMirrorProject
 ```
 2. Create migrations for possible changes in the models
 ```shell
@@ -157,7 +157,7 @@ Follow these steps if you have added or deleted pip packages.
 
 1. Navigate to the Django project files.
 ```shell
-cd ~/TheMirror/src/mirror_project
+cd ~/TheMirror/src/smartMirrorProject
 ```
 2. Generate a new `requirements.txt` file.
 ```shell

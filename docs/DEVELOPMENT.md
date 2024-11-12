@@ -92,8 +92,21 @@ Your development setup is now ready! See the [contributing instructions](#contri
 > This information has not been documented yet. Please see [#10](https://github.com/MirrorBoys/TheMirror/issues/10) for the current status of this documentation.
 
 ## Branch strategy
-> [!NOTE]
-> This information has not been documented yet. Please see [#9](https://github.com/MirrorBoys/TheMirror/issues/9) for the current status of this documentation.
+Our project follows a simple feature branch strategy based on GitHub issues.
+
+- Main branch: this branch contains production-ready code and remains stable. Only tested and reviewed code is merged into main.
+- Feature branches: for each new feature request:
+  - Create an issue or select existing issue: create or select an issue in the repository. This issue describes the feature and its requirements.
+  - Create a feature branch: a feature branch is created from main and linked to the corresponding issue.
+  - Develop and test: development is done on this branch
+  - Pull request and merge: once complete, a pull request is created to merge the feature branch into main. After review and approval the branch is merged and deleted.
+- Bugfix branches: for each bug fix:
+  - Create an issue or select existing issue: create or select an issue in the repository. This issue describes the bugs.
+  - Create a bugfix branch: a bugfix branch is created from main and linked to the corresponding issue.
+  - Develop and test: the bug is fixed within this branch.
+  - Pull request and merge: once the fix is complete, a pull request is created to merge the bugfix branch into main. After review and approval the branch is merged and deleted.
+
+![Picture of branch strategy.](branch_strategy.png)
 
 ## Contributing instructions
 This paragraph outlines how you can contribute to this project.
@@ -125,10 +138,10 @@ python3 manage.py migrate
 ```
 4. Start the Django server.
 ```shell
-python3 manage.py runserver
+python3 manage.py runserver 0.0.0.0:8000
 ```
 
-The server is now running and you can view it by visiting [http://127.0.0.1:8000](http://127.0.0.1:8000).
+The server is now running and you can view it. You can visit it either by visiting [`http://127.0.0.1:8000`](http://127.0.0.1:8000) (when running in WSL) or by visiting `http://<raspberry-ip>:8000` (when running on the Raspberry Pi).
 
 #### Edit Django project files
 You can now edit the Django project files. Edits to this files should be directly reflected, with the exception of the `settings.py` file. When editing this file you will need to restart the server.

@@ -10,11 +10,9 @@
     .main {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
-        /* 3 equal-width columns */
-        grid-template-rows: 200px 200px 200px;
-        /* 3 equal-height rows */
+        grid-template-rows: repeat(3, 1fr);
         gap: 10px;
-        /* Optional: spacing between items */
+        height: 100vh;
     }
 
     .item {
@@ -29,7 +27,7 @@
 </style>
 
 <body>
-    <h1>Welcome to THE mirror!</h1>
+
     <div class="main">
         <div class="item">
             <span>1</span>

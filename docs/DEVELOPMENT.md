@@ -80,7 +80,7 @@ python3 -m pip install --upgrade pip
 ```
 7.5 Install the needed packages using the `requirements.txt` file.
 ```shell
-pip install -r ~/TheMirror/src/smartMirrorProject/requirements.txt
+pip install -r ~/TheMirror/src/smartMirrorProject/requirements.txt --no-cache-dir
 ```
 > [!NOTE]
 > The `requirements.txt` file contains a list of multiple packages (including Django) and their respective versions. See [the pip documentation](https://pip.pypa.io/en/stable/reference/requirements-file-format/) for more details.

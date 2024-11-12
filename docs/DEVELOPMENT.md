@@ -125,10 +125,10 @@ python3 manage.py migrate
 ```
 4. Start the Django server.
 ```shell
-python3 manage.py runserver
+python3 manage.py runserver 0.0.0.0:8000
 ```
 
-The server is now running and you can view it by visiting [http://127.0.0.1:8000](http://127.0.0.1:8000).
+The server is now running and you can view it. You can visit it either by visiting [`http://127.0.0.1:8000`](http://127.0.0.1:8000) (when running in WSL) or by visiting `http://<raspberry-ip>:8000` (when running on the Raspberry Pi).
 
 #### Edit Django project files
 You can now edit the Django project files. Edits to this files should be directly reflected, with the exception of the `settings.py` file. When editing this file you will need to restart the server.

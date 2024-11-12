@@ -63,13 +63,13 @@ git clone https://github.com/MirrorBoys/TheMirror.git
 ```shell 
 sudo apt install python3-venv
 ```
-7.2 Create an environment in your home directory called `themirror-env`.
+7.2 Create an environment in your home directory called `theMirrorEnv`.
 ```shell
-python3 -m venv ~/.virtualenvs/themirror-env
+python3 -m venv ~/.virtualEnvs/theMirrorEnv
 ```
 7.3 Enter the enviroment you just created.
 ```shell
-source ~/.virtualenvs/themirror-env/bin/activate
+source ~/.virtualEnvs/theMirrorEnv/bin/activate
 ```
 > [!NOTE]
 > You can leave the environment by running the `deactivate` command. For this tutorial you must not leave the environment.
@@ -113,7 +113,7 @@ The Django project files are located in the `src/smartMirrorProject` directory o
 
 1. If present, install newly added packages
 ```shell
-pip install -r ~/TheMirror/src/mirror-project/requirements.txt
+pip install -r ~/TheMirror/src/smartMirrorProject/requirements.txt
 ```
 2. Navigate to the Django project files.
 ```shell

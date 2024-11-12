@@ -51,17 +51,18 @@ sudo apt install python3-pip python3-venv
  
 Create a directory for the mirror project and the Python environment
 ```
-mkdir <dir>
+mkdir ~/.virtualEnvs/theMirrorEnv
 ```
 
 Create the Python environment
 ```
-python -m venv <dir>
+python -m venv ~/.virtualEnvs/theMirrorEnv
 ```
 
 ### Clone repository 
-To clone the repository go into the directory you just made and run the following command
+To clone the repository into your home directory
 ```
+cd
 git clone https://github.com/MirrorBoys/TheMirror.git
 ```
 this wil create a directory named TheMirror with all the files from Github in it

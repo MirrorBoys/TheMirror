@@ -93,6 +93,8 @@ This paragraph gives a brief, global overview of the file structure of this proj
 ```shell
 .
 ├── docs
+│   └── img
+│       └── # A seperate image folder for each document
 ├── .git
 │   └── # Configuration folders for Git
 ├── .github
@@ -105,11 +107,12 @@ This paragraph gives a brief, global overview of the file structure of this proj
 > [!TIP]
 > You can easily generate such a folder tree by running `tree -a -d` in your shell.
 
-This table describes the function of each folder.
+This table describes the function of each folder:
 
 | Folder |  Function|
 | ----------- | ----------- |
 | `docs` | Documentation |
+| `docs/img` | Images used in documentation |
 | `.git` | Git configuration | 
 | `.github` | GitHub configuration |
 | `.github/ISSUE_TEMPLATE` | Templates for GitHub issues |

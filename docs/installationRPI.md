@@ -2,22 +2,22 @@
 The following document describes the relevant information to make the raspberry pi ready for use. 
 
 ## Flashing SD card
-To put the os on the SD card the raspberry imager is used 
+To put the OS on the SD card the Raspberry Pi imager is used 
 ### OS
 The OS that is used is Raspbian Desktop. The desktop version is used because this enables us to use the kiosk mode of the RPI. 
 
 ### Hostname, username and password 
-Chose a hostname for the RPI and put in the username and password you want to use. 
+Choose a hostname for the RPI and put in the username and password you want to use. 
 ![raspberry imager hostname](img/installationRPI/hostname.png)
 
-### wifi (optional)
-If you want to use the raspberry over wifi, you can put in the SSID and password of the wifi network you want to use. The RPI will then automatically connect to this wifi network. 
+### Wifi (optional)
+If you want to use the RPI over wifi, you can put in the SSID and password of the wifi network you want to use. The RPI will then automatically connect to this wifi network. 
 
 ![raspberry imager wifi](img/installationRPI/wifi.png)
 
-### ssh (optional)
+### SSH (optional)
 
-It's also possible to give a ssh key for login during the flashing of the sd card. To do this select the option for ssh key under services and put in your public ssh key.
+It's also possible to give an SSH key for login during the flashing of the SD card. To do this select the option for ssh key under services and put in your public ssh key.
 
 ![raspberry imager ssh](img/installationRPI/ssh.png)
 
@@ -35,7 +35,7 @@ sudo apt upgrade -y
 
 ### Python 
 
-check if a version of Python is installed 
+Check if a version of Python is installed 
 ```
 python3 --version
 ```
@@ -44,7 +44,7 @@ If not, install Python
 sudo apt install python3 -y
 ```
 
-To make it possible to install and use python libaries install pip3 and venv
+To make it possible to install and use Python libaries install pip3 and venv
 ```
 sudo apt install python3-pip python3-venv
 ```
@@ -65,10 +65,10 @@ To clone the repository into your home directory
 cd
 git clone https://github.com/MirrorBoys/TheMirror.git
 ```
-this wil create a directory named TheMirror with all the files from Github in it
+this will create a directory named TheMirror with all the files from GitHub in it
 
 ### Pip
-To make it possible to use the different libraries that are in the used in the project the libraries need to be installed into a python environment. 
+To make it possible to use the different libraries that are used in the project the libraries need to be installed into a Python environment. 
 
 First start the environment you created
 ```
@@ -87,16 +87,32 @@ pip install -r ~/TheMirror/src/smartMirrorProject/requirements.txt
 
 ## All done 
 
-With this the RPI should be ready to be used. If you want run the mirror you can use the following commands to start the webserver: 
+With this the RPI should be ready to be used. If you want to run the mirror you can use the following commands to start the web server: 
+
+1. If present, install newly added packages
+```shell
+pip install -r ~/TheMirror/src/smartMirrorProject/requirements.txt
 ```
-python manage.py runserver
+2. Navigate to the Django project files.
+```shell
+cd ~/TheMirror/src/smartMirrorProject
 ```
-This will start the project and it will be visible from the RPI it is running on. 
+3. Migrate the models
+```shell
+python3 manage.py migrate
+```
+4. Start the Django server.
+```shell
+python3 manage.py runserver
+```
+This will start the project and it will be visible on the RPI and can be viewed by visiting 127.0.0.1:8000 or localhost:8000 
 
 To make it so that the webserver can be visited by external devices use the following command 
 ```
 python manage.py runserver 0.0.0.0:8000
 ```
+The webserver can then be visited by other devices on the network by visiting: ipAddressOffRPI:8000
+
 This can give the error that the IP address of the device needs to be added to the ALLOWED_HOSTS in settings.py
 ![allowed_hosts](img/installationRPI/allowed_hosts.png)
 

@@ -4,6 +4,8 @@ from django.template import loader
 
 # Create your views here.
 
-def grid(request):
-  template = loader.get_template('mainPage/grid.html')
-  return HttpResponse(template.render())
+def base(response):
+  return render(response, "mainPage/base.html", {})
+
+def home(response):
+  return render(response, "mainPage/home.html", {})

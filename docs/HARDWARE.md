@@ -8,7 +8,7 @@ This project uses certain hardware to function. Some examples are the Raspberry 
 
 ## Raspberry Pi
 > [!NOTE]
-> This information has not been documented yet. Please see [#..](https://github.com/MirrorBoys/TheMirror/issues/..) for the current status of this documentation.
+> This information has not been documented yet. Please see [#75](https://github.com/MirrorBoys/TheMirror/issues/75) for the current status of this documentation.
 
 ## NFC card reader
 The NFC card reader identifies users through an NFC tag. When a user taps their tag against the reader, they are logged in. This tag can be a physical card or embedded within another device, such as a smartphone.
@@ -36,4 +36,4 @@ The reader is connected to the Raspberry Pi with jumper wires as shown in the fo
 
 ## Webcam
 > [!NOTE]
-> This information has not been documented yet. Please see [#..](https://github.com/MirrorBoys/TheMirror/issues/..) for the current status of this documentation.
+> This information has not been documented yet. Please see [#76](https://github.com/MirrorBoys/TheMirror/issues/76) for the current status of this documentation.

@@ -72,7 +72,7 @@ To make it possible to use the different libraries that are used in the project 
 
 First start the environment you created
 ```
-source <dir>/bin/activate
+source ~/.virtualEnvs/theMirrorEnv/bin/activate
 ``` 
 
 To deactivate the environment:
@@ -113,6 +113,5 @@ python manage.py runserver 0.0.0.0:8000
 ```
 The webserver can then be visited by other devices on the network by visiting: ipAddressOffRPI:8000
 
-This can give the error that the IP address of the device needs to be added to the ALLOWED_HOSTS in settings.py
-![allowed_hosts](img/installationRPI/allowed_hosts.png)
+
 

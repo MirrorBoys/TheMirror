@@ -85,6 +85,21 @@ When you have activated the environment use the requirements.txt to install all 
 pip install -r ~/TheMirror/src/smartMirrorProject/requirements.txt
 ```
 
+## Enable Serial Peripheral Interface
+Serial Peripheral Interface (SPI) is neseccary for communicating with the NFC reader. This is disabled by default and therefore has to be enabled manually.
+
+1. Open de `raspi-config` utility.
+```shell
+sudo raspi-config
+```
+2. Select `3 Interface Options`
+3. Select `I4 SPI`
+4. Enable SPI
+5. Reboot the Raspberry Pi to enable the interface.
+```shell
+sudo reboot now
+```
+
 ## All done 
 
 With this the RPI should be ready to be used. If you want to run the mirror you can use the following commands to start the web server: 

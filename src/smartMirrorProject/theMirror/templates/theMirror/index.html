@@ -16,9 +16,11 @@
     <header>PLACEHOLDER FOR HEADER</header>
 
     <main>
-        {% if widgets %}        
-            {% for widget in widgets %}
-            <div class="grid-item">{{ widget }}</div>
+        {% if widgets %}
+            {% for widget, details in widgets.items %}
+            <div class="grid-item {{ details.type }}-widget">
+                {% include "theMirror/widgets/"|add:details.type|add:".html" with data=details.data %}
+            </div>
             {% endfor %}
         {% else %}
             <p>No widgets are available.</p>

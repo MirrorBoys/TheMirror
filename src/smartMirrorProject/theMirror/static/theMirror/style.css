@@ -1,0 +1,55 @@
+/* Reset margin and padding of all elmements to compensate for differences in browsers. */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    padding: 10px;
+}
+
+header {
+    /* Debugging */
+    border-style: dotted;
+    background-color: lightskyblue;
+
+    height: 5%;
+    padding: 10px;
+}
+
+main {
+    /* Debugging */
+    border-style: dotted;
+    background-color: aquamarine;
+
+    height: 90%;
+    padding: 10px;
+
+    /* Grid */
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    overflow: auto;
+}
+
+.grid-item {
+    /* Debugging */
+    border: 1px solid #000;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 150px;
+}
+
+
+footer {
+    /* Debugging */
+    border-style: dotted;
+    background-color: lemonchiffon;
+
+    height: 5%;
+    padding: 10px;
+}

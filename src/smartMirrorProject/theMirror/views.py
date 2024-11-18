@@ -105,6 +105,11 @@ def index(request):
             "type": "weather",
             "data": {"temperature": 21, "condition": "Windy"},
         },
+        "Time": {
+            "id": 21,
+            "type": "time",
+            "data": {"time": "12:00"},
+        },
     }
     context = {"widgets": widgets}
     return render(request, "theMirror/index.html", context)

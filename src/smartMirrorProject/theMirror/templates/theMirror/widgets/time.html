@@ -1,0 +1,56 @@
+<style>
+    /* Custom styles for clock */
+    .clock {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #fff;
+    }
+
+    .clock-container {
+        background-color: #343a40;
+        /* Dark background */
+        padding: 5px;
+        border-radius: 8px;
+        display: inline-block;
+        text-align: center;
+    }
+
+    .date-display {
+        font-size: 1.5rem;
+        /* Make the date text larger */
+        font-weight: bold;
+        color: #0d6efd;
+        /* Bootstrap primary color */
+        padding: 10px 20px;
+        border-radius: 8px;
+        background-color: #e9ecef;
+        /* Light gray background */
+        display: inline-block;
+    }
+</style>
+
+<div class="date-display">
+    <div id="date"></div>
+</div><br>
+
+<div class="clock-container">
+    <div class="clock" id="time"></div>
+</div>
+
+<script>
+    function fetchDateTime() {
+        fetch('https://www.timeapi.io/api/time/current/zone?timeZone=Europe%2FAmsterdam')
+            .then(response => response.json())
+            .then(data => {
+                var date = data.dayOfWeek + ", " + data.date
+                document.getElementById("date").innerHTML = date;
+
+                var time = data.time + ":" + data.seconds
+                document.getElementById("time").innerHTML = time;
+
+            });
+    }
+
+    setInterval(fetchDateTime, 1000);
+
+</script>

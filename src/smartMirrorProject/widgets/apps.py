@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class GridtemplateConfig(AppConfig):
+class WidgetsConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'gridTemplate'
+    name = 'widgets'

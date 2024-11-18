@@ -20,5 +20,5 @@ from django.urls import include, path
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("theMirror/", include("theMirror.urls")),
+    path("TheMirror/", include("theMirror.urls")),
 ]

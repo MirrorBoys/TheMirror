@@ -3,7 +3,7 @@ from django.shortcuts import render
 import requests
 
 
-def time_api(request):
+def time_api():
     response = requests.get(
         "https://www.timeapi.io/api/time/current/zone?timeZone=Europe%2FAmsterdam",
         timeout=10,
@@ -123,8 +123,9 @@ def index(request):
         },
         "Time": {
             "type": "time",
-            "data": time_api(request),
+            "data": time_api(),
         },
     }
+
     context = {"widgets": widgets}
     return render(request, "theMirror/index.html", context)

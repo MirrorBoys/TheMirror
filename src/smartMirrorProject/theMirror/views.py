@@ -1,6 +1,7 @@
 import feedparser
 from django.http import HttpResponse
 from django.shortcuts import render
+import requests
     
     
 def fetch_news():
@@ -8,6 +9,20 @@ def fetch_news():
     feed = feedparser.parse(feed_url)
     news_data = [{"title": entry.title, "link": entry.link} for entry in feed.entries[:2]]
     return news_data
+
+def time_api(request):
+    response = requests.get(
+        "https://www.timeapi.io/api/time/current/zone?timeZone=Europe%2FAmsterdam",
+        timeout=10,
+    )
+    data = response.json()
+    time_data = {
+        "time": data["time"],
+        "seconds": data["seconds"],
+        "date": data["date"],
+        "dayOfWeek": data["dayOfWeek"],
+    }
+    return time_data
 
 def index(request):
     # Example data with widget types or specific templates
@@ -115,7 +130,11 @@ def index(request):
         "News": {
             "id": 22,
             "type": "news",
-            "data": fetch_news(),
+            "data": fetch_news()
+        },
+        "Time": {
+            "type": "time",
+            "data": time_api(request)
         },
     }
     context = {"widgets": widgets}

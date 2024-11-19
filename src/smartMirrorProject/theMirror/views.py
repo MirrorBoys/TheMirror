@@ -1,9 +1,10 @@
 import feedparser
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 import requests
-    
-    
+import spotipy
+from spotipy import SpotifyOAuth
+
 def fetch_news():
     feed_url = "https://www.nu.nl/rss"
     feed = feedparser.parse(feed_url)
@@ -23,6 +24,34 @@ def time_api(request):
         "dayOfWeek": data["dayOfWeek"],
     }
     return time_data
+
+def fetch_current_song(request):
+    token = request.session.get("spotify_token")
+    if not token:
+        return {"song": "Not logged in", "artist": "N/A"}
+
+    sp = spotipy.Spotify(auth=token)
+    current_track = sp.current_playback()
+    if not current_track or not current_track['is_playing']:
+        return {"song": "No song playing", "artist": "N/A"}
+
+    item = current_track['item']
+    return {
+        "song": item['name'],
+        "artist": ", ".join([artist['name'] for artist in item['artists']])
+    }
+    
+def exchange_code_for_token(request):
+    code = request.GET.get("code")
+    if not code:
+        return HttpResponse("No code provided", status=400)
+
+    try:
+        token_info = sp_oauth.get_access_token(code)
+        request.session["spotify_token"] = token_info["access_token"]
+        return HttpResponse("Token successfully retrieved and stored in session")
+    except Exception as e:
+        return HttpResponse(f"Error retrieving token: {str(e)}", status=500)
 
 def index(request):
     # Example data with widget types or specific templates
@@ -120,11 +149,6 @@ def index(request):
         "Weather_19": {
             "id": 19,
             "type": "weather",
-            "data": {"temperature": 24, "condition": "Sunny"},
-        },
-        "Weather_20": {
-            "id": 20,
-            "type": "weather",
             "data": {"temperature": 21, "condition": "Windy"},
         },
         "News": {
@@ -135,6 +159,11 @@ def index(request):
         "Time": {
             "type": "time",
             "data": time_api(request)
+        },
+        "Music": {
+            "id": 23,
+            "type": "music",
+            "data": fetch_current_song(request)
         },
     }
     context = {"widgets": widgets}

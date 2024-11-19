@@ -1,5 +1,21 @@
 from django.http import HttpResponse
 from django.shortcuts import render
+import requests
+
+
+def time_api(request):
+    response = requests.get(
+        "https://www.timeapi.io/api/time/current/zone?timeZone=Europe%2FAmsterdam",
+        timeout=10,
+    )
+    data = response.json()
+    time_data = {
+        "time": data["time"],
+        "seconds": data["seconds"],
+        "date": data["date"],
+        "dayOfWeek": data["dayOfWeek"],
+    }
+    return time_data
 
 
 def index(request):
@@ -104,6 +120,10 @@ def index(request):
             "id": 20,
             "type": "weather",
             "data": {"temperature": 21, "condition": "Windy"},
+        },
+        "Time": {
+            "type": "time",
+            "data": time_api(request),
         },
     }
     context = {"widgets": widgets}

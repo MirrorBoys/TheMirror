@@ -8,6 +8,7 @@
     {% load static %}
     <link rel="stylesheet" href="{% static 'theMirror/style.css' %}">
     <script src="{% static 'theMirror/script.js' %}"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 
     <title>TheMirror</title>
 </head>
@@ -17,13 +18,13 @@
 
     <main>
         {% if widgets %}
-            {% for widget, details in widgets.items %}
-            <div class="grid-item {{ details.type }}-widget">
-                {% include "theMirror/widgets/"|add:details.type|add:".html" with data=details.data %}
-            </div>
-            {% endfor %}
+        {% for widget, details in widgets.items %}
+        <div class="grid-item {{ details.type }}-widget">
+            {% include "theMirror/widgets/"|add:details.type|add:".html" with data=details.data %}
+        </div>
+        {% endfor %}
         {% else %}
-            <p>No widgets are available.</p>
+        <p>No widgets are available.</p>
         {% endif %}
     </main>
 

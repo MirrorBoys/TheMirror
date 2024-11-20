@@ -1,10 +1,11 @@
-from dotenv import load_dotenv
 import urllib.parse
-import os
 import requests
 from datetime import datetime
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+
+import os
+from dotenv import load_dotenv
 
 load_dotenv()
 

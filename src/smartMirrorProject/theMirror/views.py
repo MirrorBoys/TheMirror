@@ -1,8 +1,13 @@
-import feedparser
 from django.http import HttpResponse
 from django.shortcuts import render
+
+# Multiple widgets
 import requests
 
+# News widget
+import feedparser
+
+# Weather widget
 import sys
 import os
 import xml.etree.ElementTree as ET

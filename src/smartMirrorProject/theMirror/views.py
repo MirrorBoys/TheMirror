@@ -2,8 +2,12 @@ import feedparser
 from django.http import HttpResponse
 from django.shortcuts import render
 import requests
-    
-    
+
+import sys
+import os
+import xml.etree.ElementTree as ET
+
+
 def fetch_news():
     feed_url = "https://www.nu.nl/rss"
     feed = feedparser.parse(feed_url)
@@ -24,13 +28,117 @@ def time_api(request):
     }
     return time_data
 
+
+# Code is based on KNMI's example code (https://developer.dataplatform.knmi.nl/open-data-api#example-last)
+def fetchWeather():
+    # These values are set by the user
+    api_key = "eyJvcmciOiI1ZTU1NGUxOTI3NGE5NjAwMDEyYTNlYjEiLCJpZCI6Ijc2ZjdmNTE1Y2QwNzRiMzI4MDEzYmMxMTBjNDkyYWM1IiwiaCI6Im11cm11cjEyOCJ9"
+    dataset_name = "outlook_weather_forecast"
+    dataset_version = "1.0"
+
+    print(f"Fetching latest file of {dataset_name} version {dataset_version}")
+
+    api = OpenDataAPI(api_token=api_key)
+
+    # Sort files in descending order and only retrieve the first file
+    params = {"maxKeys": 1, "orderBy": "created", "sorting": "desc"}
+    response = api.listFiles(dataset_name, dataset_version, params)
+    if "error" in response:
+        print(f"Unable to retrieve list of files: {response['error']}.")
+        sys.exit(1)
+
+    latest_file = response["files"][0].get("filename")
+    print(f"Latest file is: {latest_file}.")
+
+    # Get download url and download the file
+    response = api.getFileUrl(dataset_name, dataset_version, latest_file)
+    downloadFileFromUrl(response["temporaryDownloadUrl"], latest_file)
+
+    # Process file
+    weatherData = generateWeatherObject(latest_file, "KNMI")
+
+    # Delete the file after downloading
+    os.remove(latest_file)
+    print(f"File {latest_file} has been deleted.")
+
+    return weatherData
+
+
+class OpenDataAPI:
+    def __init__(self, api_token: str):
+        self.base_url = "https://api.dataplatform.knmi.nl/open-data/v1"
+        self.headers = {"Authorization": api_token}
+
+    def __getData(self, url, params=None):
+        return requests.get(url, headers=self.headers, params=params).json()
+
+    def listFiles(self, dataset_name: str, dataset_version: str, params: dict):
+        return self.__getData(
+            f"{self.base_url}/datasets/{dataset_name}/versions/{dataset_version}/files",
+            params=params,
+        )
+
+    def getFileUrl(self, dataset_name: str, dataset_version: str, file_name: str):
+        return self.__getData(
+            f"{self.base_url}/datasets/{dataset_name}/versions/{dataset_version}/files/{file_name}/url"
+        )
+
+
+def downloadFileFromUrl(download_url, filename):
+    try:
+        with requests.get(download_url, stream=True) as response:
+            # Raise an exception for error status codes
+            response.raise_for_status()
+            with open(filename, "wb") as file:
+                for chunk in response.iter_content(chunk_size=8192):
+                    file.write(chunk)
+    except Exception:
+        print(f"An error occurred while downloading the file: {Exception}.")
+        sys.exit(1)
+
+    print(f"Successfully downloaded dataset file to {filename}.")
+
+
+def generateWeatherObject(weatherFile, source):
+    # Load XML file and select main element that contains the forecast data
+    tree = ET.parse(weatherFile)
+    root = tree.getroot()
+    forecast = root.find("*")
+
+    # Populate array with data from XML file
+    weatherData = {
+        "source": source,
+        "last_update": forecast.find("tijd_aanmaak").text,
+        "expectation": forecast.find("verwachting_meerdaagse").text,
+        "daily_forecast": [],
+    }
+
+    # Loop through 7 days to populate array with precipitation and temperature for each day
+    for index in range(1, 8):
+        dayData = {
+            "day": forecast.find(f"dag{index}_ddd").text,
+            "precipitation": {
+                "min": forecast.find(f"neerslaghoeveelheid_min_dag{index}").text,
+                "max": forecast.find(f"neerslaghoeveelheid_max_dag{index}").text,
+                "chance": forecast.find(f"neerslagkans_dag{index}").text,
+            },
+            "temperature": {
+                "min": forecast.find(f"minimumtemperatuur_min_dag{index}").text,
+                "max": forecast.find(f"maximumtemperatuur_max_dag{index}").text,
+            },
+        }
+        weatherData["daily_forecast"].append(dayData)
+
+    return weatherData
+
+
 def index(request):
     # Example data with widget types or specific templates
     widgets = {
         "Weather_1": {
             "id": 1,
             "type": "weather",
-            "data": {"temperature": 22, "condition": "Sunny"},
+            "data": fetchWeather(),
         },
         "Weather_2": {
             "id": 2,

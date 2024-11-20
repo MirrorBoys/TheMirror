@@ -2,22 +2,96 @@ import feedparser
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 import requests
-import spotipy
-from spotipy import SpotifyOAuth
+import urllib.parse
+from datetime import datetime
+from django.http import JsonResponse
 
-import os
+CLIENT_ID = 'bc83652da432412e9f1b58c2d9423a78'
+CLIENT_SECRET = '43baf4d44538426bbabdd4c6d9d6109a'
+REDIRECT_URI = 'http://127.0.0.1:8000/theMirror/callback'
 
-def fetch_recommended_songs():
-    scope = "user-library-read"
+AUTH_URL = 'https://accounts.spotify.com/authorize'
+TOKEN_URL = 'https://accounts.spotify.com/api/token'
+API_BASE_URL = 'https://api.spotify.com/v1/'
 
-    sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=scope))
+def login(request):
+    scope = 'user-read-private user-read-email'
+    
+    params = {
+        'client_id': CLIENT_ID,
+        'response_type': 'code',
+        'scope': scope,
+        'redirect_uri': REDIRECT_URI,
+        'show_dialog': False
+    }
+    
+    auth_url = f"{AUTH_URL}?{urllib.parse.urlencode(params)}"
+    return redirect(auth_url)
 
-    results = sp.current_user_saved_tracks()
-    tracks = []
-    for idx, item in enumerate(results['items']):
-        track = item['track']
-        tracks.append(f"{idx} {track['artists'][0]['name']} – {track['name']}")
-    return tracks
+def callback(request):
+    if 'error' in request.GET:
+        return HttpResponse(request.GET['error'])
+    
+    if 'code' in request.GET:
+        req_body = {
+            'code': request.GET['code'],
+            'grant_type': 'authorization_code',
+            'redirect_uri': REDIRECT_URI,
+            'client_id': CLIENT_ID,
+            'client_secret': CLIENT_SECRET,
+        }
+        
+        response = requests.post(TOKEN_URL, data=req_body)
+        token_info = response.json()
+        
+        request.session['access_token'] = token_info['access_token']
+        request.session['refresh_token'] = token_info['refresh_token']
+        request.session['expires_at'] = datetime.now().timestamp() + token_info['expires_in']
+        
+        return redirect('/theMirror')
+    
+def get_playlist(request):
+    if 'access_token' not in request.session:
+        return redirect('/login')
+    
+    if datetime.now().timestamp() > request.session['expires_at']:
+        print('Token expired. Refreshing token...')
+        refresh_token(request)
+    
+    headers = {
+        'Authorization': f"Bearer {request.session['access_token']}"
+    }
+    
+    response = requests.get(API_BASE_URL + 'me/playlists', headers=headers)
+    playlists = response.json()
+    
+    playlist_data = [{"name": playlist["name"], "url": playlist["external_urls"]["spotify"]} for playlist in playlists["items"]]
+    
+    return playlist_data
+
+def refresh_token(request):
+    if 'refresh_token' not in request.session:
+        return redirect('/login')
+    
+    if datetime.now().timestamp() > request.session['expires_at']:
+        print('Token expired. Refreshing token...')
+        req_body = {
+            'grant_type': 'refresh_token',
+            'refresh_token': request.session['refresh_token'],
+            'client_id': CLIENT_ID,
+            'client_secret': CLIENT_SECRET,
+        }
+        
+        response = requests.post(TOKEN_URL, data=req_body)
+        new_token_info = response.json()
+        
+        request.session['access_token'] = new_token_info['access_token']
+        request.session['expires_at'] = datetime.now().timestamp() + new_token_info['expires_in']
+        
+        return redirect('/theMirror')
+    
+    # If the token is not expired, redirect to the playlist page
+    return redirect('/theMirror')
 
 def fetch_news():
     feed_url = "https://www.nu.nl/rss"
@@ -150,7 +224,7 @@ def index(request):
         "Music": {
             "id": 23,
             "type": "music",
-            "data": fetch_recommended_songs()
+            "data": get_playlist(request) if request.user.is_authenticated else None,
         },
     }
     context = {"widgets": widgets}

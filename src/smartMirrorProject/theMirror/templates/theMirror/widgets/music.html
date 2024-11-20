@@ -1,5 +1,5 @@
 <style>
-    .music-widget {
+    .playlist-widget {
         font-family: Arial, sans-serif;
         background-color: #f9f9f9;
         border: 1px solid #ddd;
@@ -10,37 +10,41 @@
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
 
-    .music-widget h3 {
+    .playlist-widget h3 {
         font-size: 1.5em;
         margin-bottom: 10px;
         color: #333;
     }
 
-    .music-widget p {
-        margin: 5px 0;
-        color: #555;
+    .playlist-widget ul {
+        list-style-type: none;
+        padding: 0;
     }
 
-    .music-widget .song {
-        font-weight: bold;
+    .playlist-widget li {
+        margin-bottom: 10px;
+    }
+
+    .playlist-widget a {
+        text-decoration: none;
         color: #007BFF;
+        font-weight: bold;
     }
 
-    .music-widget .artist {
-        font-style: italic;
-        color: #555;
+    .playlist-widget a:hover {
+        text-decoration: underline;
     }
 </style>
 
-{% if user.is_authenticated %}
-    <div class="music-widget">
-        <h3>Now Playing</h3>
-        <p class="song">{{ data.song }}</p>
-        <p class="artist">by {{ data.artist }}</p>
-    </div>
-{% else %}
-    <div class="music-widget">
-        <h3>Please Log In</h3>
-        <a href="{% url 'login' %}" class="btn btn-primary">Log In</a>
-    </div>
-{% endif %}</div>
+<div class="playlist-widget">
+    <h3>Your Playlists</h3>
+    {% if data %}
+        <ul>
+            {% for playlist in data %}
+                <li><a href="{{ playlist.url }}" target="_blank">{{ playlist.name }}</a></li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No playlists available. Please log in.</p>
+    {% endif %}
+</div>

@@ -88,8 +88,37 @@ pip install -r ~/TheMirror/src/smartMirrorProject/requirements.txt --no-cache-di
 Your development setup is now ready! See the [contributing instructions](#contributing-instructions) to learn how to contribute to this project.
 
 ## File structure
-> [!NOTE]
-> This information has not been documented yet. Please see [#10](https://github.com/MirrorBoys/TheMirror/issues/10) for the current status of this documentation.
+This paragraph gives a brief, global overview of the file structure of this project. 
+
+```shell
+.
+├── docs
+│   └── img
+│       └── # A seperate image folder for each document
+├── .git
+│   └── # Configuration folders for Git
+├── .github
+│   ├── ISSUE_TEMPLATE
+│   └── workflows
+└── src
+    └── smartMirrorProject
+        └── smartMirror
+```
+> [!TIP]
+> You can easily generate such a folder tree by running `tree -a -d` in your shell.
+
+This table describes the function of each folder:
+
+| Folder |  Function|
+| ----------- | ----------- |
+| `docs` | Documentation |
+| `docs/img` | Images used in documentation |
+| `.git` | Git configuration | 
+| `.github` | GitHub configuration |
+| `.github/ISSUE_TEMPLATE` | Templates for GitHub issues |
+| `.github/workflows` | [GitHub workflows](https://docs.github.com/en/actions/writing-workflows) |
+| `src` | Source code |
+| `src/smartMirrorProject` | Source code for Django files |
 
 ## Branch strategy
 Our project follows a simple feature branch strategy based on GitHub issues.

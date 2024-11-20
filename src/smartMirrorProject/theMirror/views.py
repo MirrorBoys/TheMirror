@@ -5,14 +5,25 @@ import requests
 import urllib.parse
 from datetime import datetime
 from django.http import JsonResponse
+import os
+from dotenv import load_dotenv
 
-CLIENT_ID = 'bc83652da432412e9f1b58c2d9423a78'
-CLIENT_SECRET = '43baf4d44538426bbabdd4c6d9d6109a'
-REDIRECT_URI = 'http://127.0.0.1:8000/theMirror/callback'
+# CLIENT_ID = 'bc83652da432412e9f1b58c2d9423a78'
+# CLIENT_SECRET = '43baf4d44538426bbabdd4c6d9d6109a'
+# REDIRECT_URI = 'http://127.0.0.1:8000/theMirror/callback'
 
-AUTH_URL = 'https://accounts.spotify.com/authorize'
-TOKEN_URL = 'https://accounts.spotify.com/api/token'
-API_BASE_URL = 'https://api.spotify.com/v1/'
+# AUTH_URL = 'https://accounts.spotify.com/authorize'
+# TOKEN_URL = 'https://accounts.spotify.com/api/token'
+# API_BASE_URL = 'https://api.spotify.com/v1/'
+
+load_dotenv()
+
+CLIENT_ID = os.getenv('CLIENT_ID')
+CLIENT_SECRET = os.getenv('CLIENT_SECRET')
+REDIRECT_URI = os.getenv('REDIRECT_URI')
+AUTH_URL = os.getenv('AUTH_URL')
+TOKEN_URL = os.getenv('TOKEN_URL')
+API_BASE_URL = os.getenv('API_BASE_URL')
 
 def login(request):
     scope = 'user-read-private user-read-email'

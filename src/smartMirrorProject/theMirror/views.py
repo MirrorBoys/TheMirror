@@ -1,7 +1,7 @@
 import feedparser
-from django.shortcuts import render, redirect
+from django.http import HttpResponse
+from django.shortcuts import render
 import requests
-from django.http import JsonResponse
 from . import spotify
 
 

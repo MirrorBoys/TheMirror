@@ -33,12 +33,14 @@
     <div>{{data.dayOfWeek}} {{data.date}}</div>
 </div><br>
 
-<div class="clock-container">
+<div class="clock-container" id="clock">
     <div class="clock">{{data.time}}:{{data.seconds}}</div>
 </div>
 
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+
 <script>
-    setTimeout(function () {
-        location.reload();
-    }, 5000); // Reloads the page after 5000 milliseconds (5 seconds)
+    setInterval(function () {
+        $("#clock").load(window.location.href + " #clock");
+    }, 1000);
 </script>

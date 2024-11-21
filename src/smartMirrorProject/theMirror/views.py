@@ -3,6 +3,12 @@ from django.http import HttpResponse
 from django.shortcuts import render
 import requests
 from datetime import datetime
+import os 
+from dotenv import load_dotenv
+
+load_dotenv()
+
+NS_KEY = os.getenv('NS_KEY')
 
 def ns_api():
     # Define the start and end stations inside the function
@@ -20,7 +26,7 @@ def ns_api():
 
     headers = {
         'Cache-Control': 'no-cache',
-        'Ocp-Apim-Subscription-Key': '1ccd5d99ee5d47668909933a5c848db4',
+        'Ocp-Apim-Subscription-Key': 'x',
     }
 
     try:
@@ -86,7 +92,7 @@ def ns_api():
                         "planned_arrival": formatted_planned_arrival,
                         "actual_arrival": formatted_actual_arrival,
                         "is_final_station": is_final_station,
-                        "delay": delay,  # Include the delay
+                        "delay": delay,
                         "first_station": first_station,
                         "last_station": last_station,
                     })

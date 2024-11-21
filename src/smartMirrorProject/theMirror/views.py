@@ -26,7 +26,7 @@ def ns_api():
 
     headers = {
         'Cache-Control': 'no-cache',
-        'Ocp-Apim-Subscription-Key': 'x',
+        'Ocp-Apim-Subscription-Key': NS_KEY,
     }
 
     try:

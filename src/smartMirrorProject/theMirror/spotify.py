@@ -17,7 +17,7 @@ TOKEN_URL = os.getenv('TOKEN_URL')
 API_BASE_URL = os.getenv('API_BASE_URL')
 
 def login(request):
-    scope = 'user-read-private user-read-email'
+    scope = 'user-read-private user-read-email streaming'
     
     params = {
         'client_id': CLIENT_ID,
@@ -48,7 +48,7 @@ def callback(request):
         
         request.session['access_token'] = token_info['access_token']
         request.session['refresh_token'] = token_info['refresh_token']
-        request.session['expires_at'] = datetime.now().timestamp() + token_info['expires_in']
+        request.session['expires_at'] = datetime.now().timestamp() + 1
         
         return redirect('/theMirror')
     
@@ -88,7 +88,7 @@ def refresh_token(request):
         new_token_info = response.json()
         
         request.session['access_token'] = new_token_info['access_token']
-        request.session['expires_at'] = datetime.now().timestamp() + new_token_info['expires_in']
+        request.session['expires_at'] = datetime.now().timestamp() + 1
         
         return redirect('/theMirror')
     

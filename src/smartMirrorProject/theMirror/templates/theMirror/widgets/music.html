@@ -37,14 +37,76 @@
 </style>
 
 <div class="playlist-widget">
-    <h3>Your Playlists</h3>
-    {% if data %}
-        <ul>
-            {% for playlist in data %}
-                <li><a href="{{ playlist.url }}" target="_blank">{{ playlist.name }}</a></li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>No playlists available. Please log in.</p>
-    {% endif %}
+    <h3>Spotify</h3>
+    <button id="togglePlay">Toggle Play</button>
+    <button id="skipTrack">Skip Track</button>
+    <p id="current-track">Now Playing:</p>
+    <p id="next-track">Next:</p>
 </div>
+
+<script src="https://sdk.scdn.co/spotify-player.js"></script>
+<script>
+    let player;
+    window.onSpotifyWebPlaybackSDKReady = () => {
+        const token = '{{ request.session.access_token }}';
+        player = new Spotify.Player({
+            name: 'Web Playback SDK Quick Start Player',
+            getOAuthToken: cb => { cb(token); },
+            volume: 0.5
+        });
+        player.addListener('player_state_changed', state => {
+            if (!state) {
+                return;
+            }
+
+            const currentTrack = state.track_window.current_track;
+            const nextTrack = state.track_window.next_tracks[0];
+
+            document.getElementById('current-track').innerText = `Now Playing: ${currentTrack.name} by ${currentTrack.artists[0].name}`;
+            document.getElementById('next-track').innerText = `Next: ${nextTrack ? nextTrack.name : 'None'} by ${nextTrack ? nextTrack.artists[0].name : 'N/A'}`;
+        });
+        // Ready
+        player.addListener('ready', ({ device_id }) => {
+            console.log('Ready with Device ID', device_id);
+        });
+
+        // Not Ready
+        player.addListener('not_ready', ({ device_id }) => {
+            console.log('Device ID has gone offline', device_id);
+        });
+        player.addListener('initialization_error', ({ message }) => {
+            console.error(message);
+        });
+
+        player.addListener('authentication_error', ({ message }) => {
+            console.error(message);
+        });
+
+        player.addListener('account_error', ({ message }) => {
+            console.error(message);
+        });
+        player.connect();
+
+    }
+    document.addEventListener('keydown', function(event) {
+        player.togglePlay();
+    });
+
+    document.getElementById('togglePlay').onclick = function () {
+        player.togglePlay();
+    };
+
+    document.addEventListener('keydown', function(event) {
+        if (event.key == 'ArrowUp') {
+            player.nextTrack().then(() => {
+                console.log('Skipped to next track!');
+            });
+        }
+    });
+
+    document.getElementById('skipTrack').onclick = function () {
+        player.nextTrack().then(() => {
+            console.log('Skipped to next track!');
+        });
+    };
+</script>

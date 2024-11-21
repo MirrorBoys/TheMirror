@@ -6,25 +6,21 @@ To automatically start the django server on boot, the script autostartDjango.sh 
 To use this script you need to do the following: 
 1. Open the terminal and navigate to the folder /TheMirror/src/startup.
 
-2. Run the following command and replace the home directory with your username;
-```
-sudo nano ~/TheMirror/src/startup/autostartDjango.sh
-```	
-3. Run the following command to make the script executable: 
+2. Run the following command to make the script executable: 
 ``` 
 chmod +x autostartDjango.sh 
 ```
-4. To make the script run on boot, run the following command to add the script to the rc.local file: 
+3. To make the script run on boot, run the following command to add the script to the rc.local file: 
 ```
 sudo nano /etc/rc.local
 ```
-5. Add the following line to the rc.local file before the exit 0 line: 
+4. Add the following line to the rc.local file before the exit 0 line: 
 ```
 sudo -u <username> /home/<username>/TheMirror/src/startup/autostartDjango.sh
 ```
 ![example](img/startup/rc.local.png)
 
-6. Save the file and reboot the RPI.
+5. Save the file and reboot the RPI.
 
 ## Kioskmode
 To automatically start the RPI in kioskmode, the following things need to be done:

@@ -139,5 +139,6 @@ def index(request):
             "data": spotify.get_playlist(request) if request.user.is_authenticated else None,
         },
     }
+
     context = {"widgets": widgets}
     return render(request, "theMirror/index.html", context)

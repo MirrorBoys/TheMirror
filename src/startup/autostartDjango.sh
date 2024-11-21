@@ -1,9 +1,9 @@
 #!/bin/bash
 
-cd /home/thor/TheMirror
+cd ~/TheMirror
 git pull
 
-cd /home/thor/TheMirror/src/smartMirrorProject
+cd ~/TheMirror/src/smartMirrorProject
 source ~/.virtualEnvs/theMirrorEnv/bin/activate
 python manage.py  runserver 0.0.0.0:8000 &
 

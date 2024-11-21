@@ -137,5 +137,6 @@ def index(request):
             "data": time_api(request)
         },
     }
+
     context = {"widgets": widgets}
     return render(request, "theMirror/index.html", context)

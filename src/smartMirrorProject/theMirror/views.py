@@ -10,6 +10,8 @@ import feedparser
 # Weather widget
 import sys
 import os
+import locale
+from datetime import datetime, timedelta
 import xml.etree.ElementTree as ET
 
 
@@ -125,7 +127,11 @@ def generateWeatherObject(weatherFile, source):
     # Loop through 7 days to populate array with precipitation and temperature for each day
     for index in range(1, 8):
         dayData = {
-            "day": forecast.find(f"dag{index}_ddd").text,
+            "day": convertDateToRelative(
+                forecast.find(f"dag{index}_dddd_dd_mmmm_yyyy").text
+            ),
+            # "day": forecast.find(f"dag{index}_ddd").text,
+            # "day": forecast.find(f"dag{index}_dddd_dd_mmmm_yyyy").text,
             "precipitation": {
                 "min": forecast.find(f"neerslaghoeveelheid_min_dag{index}").text,
                 "max": forecast.find(f"neerslaghoeveelheid_max_dag{index}").text,
@@ -139,6 +145,31 @@ def generateWeatherObject(weatherFile, source):
         weatherData["dailyForecast"].append(dayData)
 
     return weatherData
+
+
+def convertDateToRelative(date: str):
+    returnValue = ""
+
+    # Change locale to Dutch for correct date formatting
+    locale.setlocale(locale.LC_TIME, "nl_NL.UTF-8")
+    dateFormat = "%A %d %B %Y"
+    inputDate = datetime.strptime(date, dateFormat).date()
+    today = datetime.today().date()
+
+    if inputDate == today:
+        returnValue = "Vandaag"
+    elif inputDate == today + timedelta(days=1):
+        returnValue = "Morgen"
+    elif inputDate == today - timedelta(days=1):
+        returnValue = "Gisteren"
+    elif inputDate < today:
+        daysDifference = today - inputDate
+        returnValue = f"{daysDifference.days} dagen geleden"
+    else:
+        daysDifference = inputDate - today
+        returnValue = f"Over {daysDifference.days} dagen"
+
+    return returnValue
 
 
 def index(request):

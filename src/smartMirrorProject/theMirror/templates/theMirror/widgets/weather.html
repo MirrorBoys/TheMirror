@@ -16,8 +16,8 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- Show forecast for next four days. You can display 7 days at max. -->
-                {% for forecast in data.dailyForecast|slice:":4" %}
+                <!-- Show forecast for next two days. You can display 7 days at max. -->
+                {% for forecast in data.dailyForecast|slice:":2" %}
                 <tr>
                     <td>{{ forecast.day }}</td>
                     <td>{{ forecast.temperature.min }}-{{ forecast.temperature.max }}</td>

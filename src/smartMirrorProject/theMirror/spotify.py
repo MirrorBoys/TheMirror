@@ -1,4 +1,3 @@
-import urllib.parse
 import requests
 from datetime import datetime
 from django.shortcuts import render, redirect
@@ -11,10 +10,10 @@ load_dotenv()
 
 CLIENT_ID = os.getenv('CLIENT_ID')
 CLIENT_SECRET = os.getenv('CLIENT_SECRET')
-REDIRECT_URI = os.getenv('REDIRECT_URI')
-AUTH_URL = os.getenv('AUTH_URL')
-TOKEN_URL = os.getenv('TOKEN_URL')
-API_BASE_URL = os.getenv('API_BASE_URL')
+REDIRECT_URI='http://127.0.0.1:8000/theMirror/callback'
+AUTH_URL='https://accounts.spotify.com/authorize'
+TOKEN_URL='https://accounts.spotify.com/api/token'
+API_BASE_URL='https://api.spotify.com/v1/'
 
 def login(request):
     scope = 'user-read-private user-read-email streaming'
@@ -27,7 +26,7 @@ def login(request):
         'show_dialog': False
     }
     
-    auth_url = f"{AUTH_URL}?{urllib.parse.urlencode(params)}"
+    auth_url = f"{AUTH_URL}?client_id={CLIENT_ID}&response_type=code&scope={scope}&redirect_uri={REDIRECT_URI}&show_dialog=False"
     return redirect(auth_url)
 
 def callback(request):

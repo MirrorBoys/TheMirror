@@ -47,7 +47,7 @@ def callback(request):
         
         request.session['access_token'] = token_info['access_token']
         request.session['refresh_token'] = token_info['refresh_token']
-        request.session['expires_at'] = datetime.now().timestamp() + 1
+        request.session['expires_at'] = datetime.now().timestamp() + token_info['expires_in']
         
         return redirect('/theMirror')
     
@@ -87,9 +87,33 @@ def refresh_token(request):
         new_token_info = response.json()
         
         request.session['access_token'] = new_token_info['access_token']
-        request.session['expires_at'] = datetime.now().timestamp() + 1
+        request.session['expires_at'] = datetime.now().timestamp() + new_token_info['expires_in']
         
         return redirect('/theMirror')
     
     # If the token is not expired, redirect to the playlist page
     return redirect('/theMirror')
+
+from django.http import JsonResponse
+
+def add_song_to_queue(request):
+    if 'access_token' not in request.session:
+        return JsonResponse({"error": "User not logged in"}, status=401)
+
+    if datetime.now().timestamp() > request.session['expires_at']:
+        refresh_token(request)
+
+    song_uri = request.GET.get('track_uri')
+    if not song_uri:
+        return JsonResponse({"error": "No song URI provided"}, status=400)
+
+    headers = {
+        'Authorization': f"Bearer {request.session['access_token']}"
+    }
+
+    response = requests.post(f"{API_BASE_URL}me/player/queue?uri={song_uri}", headers=headers)
+
+    if response.status_code == 200:
+        return JsonResponse({"message": "Song added to queue"}, status=200)
+    else:
+        return JsonResponse({"error": "Failed to add song to queue"}, status=response.status_code)

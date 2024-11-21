@@ -40,6 +40,9 @@
     <h3>Spotify</h3>
     <button id="togglePlay">Toggle Play</button>
     <button id="skipTrack">Skip Track</button>
+    <input type="text" id="track-uri" placeholder="Enter track URI">
+    <button id="add-to-queue">Add to Queue</button>
+    <p id="queue-message"></p>
     <p id="current-track">Now Playing:</p>
     <p id="next-track">Next:</p>
 </div>
@@ -88,16 +91,18 @@
         player.connect();
 
     }
-    
-    document.addEventListener('keydown', function(event) {
-        player.togglePlay();
+
+    document.addEventListener('keydown', function (event) {
+        if (event.key == ' ') {
+            player.togglePlay();
+        }
     });
 
     document.getElementById('togglePlay').onclick = function () {
         player.togglePlay();
     };
 
-    document.addEventListener('keydown', function(event) {
+    document.addEventListener('keydown', function (event) {
         if (event.key == 'ArrowUp') {
             player.nextTrack().then(() => {
                 console.log('Skipped to next track!');
@@ -109,5 +114,21 @@
         player.nextTrack().then(() => {
             console.log('Skipped to next track!');
         });
+    };
+
+    document.getElementById('add-to-queue').onclick = function () {
+        const trackUri = document.getElementById('track-uri').value;
+        fetch(`/theMirror/add-song/?track_uri=${trackUri}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    document.getElementById('queue-message').innerText = `Error: ${data.error}`;
+                } else {
+                    document.getElementById('queue-message').innerText = data.message;
+                }
+            })
+            .catch(error => {
+                document.getElementById('queue-message').innerText = `Error: ${error}`;
+            });
     };
 </script>

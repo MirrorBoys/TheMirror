@@ -1,7 +1,7 @@
 import requests
 from datetime import datetime
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 
 import os
 from dotenv import load_dotenv
@@ -17,14 +17,6 @@ API_BASE_URL='https://api.spotify.com/v1/'
 
 def login(request):
     scope = 'user-read-private user-read-email streaming'
-    
-    params = {
-        'client_id': CLIENT_ID,
-        'response_type': 'code',
-        'scope': scope,
-        'redirect_uri': REDIRECT_URI,
-        'show_dialog': False
-    }
     
     auth_url = f"{AUTH_URL}?client_id={CLIENT_ID}&response_type=code&scope={scope}&redirect_uri={REDIRECT_URI}&show_dialog=False"
     return redirect(auth_url)
@@ -93,8 +85,6 @@ def refresh_token(request):
     
     # If the token is not expired, redirect to the playlist page
     return redirect('/theMirror')
-
-from django.http import JsonResponse
 
 def add_song_to_queue(request):
     if 'access_token' not in request.session:

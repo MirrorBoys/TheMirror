@@ -16,8 +16,11 @@ import xml.etree.ElementTree as ET
 def fetch_news():
     feed_url = "https://www.nu.nl/rss"
     feed = feedparser.parse(feed_url)
-    news_data = [{"title": entry.title, "link": entry.link} for entry in feed.entries[:2]]
+    news_data = [
+        {"title": entry.title, "link": entry.link} for entry in feed.entries[:2]
+    ]
     return news_data
+
 
 def time_api(request):
     response = requests.get(
@@ -35,63 +38,64 @@ def time_api(request):
 
 
 # Code is based on KNMI's example code (https://developer.dataplatform.knmi.nl/open-data-api#example-last)
+# Used dataset: https://dataplatform.knmi.nl/dataset/short-term-weather-forecast-1-0
 def fetchWeather():
     # These values are set by the user
-    api_key = "eyJvcmciOiI1ZTU1NGUxOTI3NGE5NjAwMDEyYTNlYjEiLCJpZCI6Ijc2ZjdmNTE1Y2QwNzRiMzI4MDEzYmMxMTBjNDkyYWM1IiwiaCI6Im11cm11cjEyOCJ9"
-    dataset_name = "outlook_weather_forecast"
-    dataset_version = "1.0"
+    apiKey = "eyJvcmciOiI1ZTU1NGUxOTI3NGE5NjAwMDEyYTNlYjEiLCJpZCI6Ijc2ZjdmNTE1Y2QwNzRiMzI4MDEzYmMxMTBjNDkyYWM1IiwiaCI6Im11cm11cjEyOCJ9"
+    datasetName = "outlook_weather_forecast"
+    datasetVersion = "1.0"
 
-    print(f"Fetching latest file of {dataset_name} version {dataset_version}")
+    print(f"Fetching latest file of {datasetName} version {datasetVersion}")
 
-    api = OpenDataAPI(api_token=api_key)
+    api = OpenDataAPI(api_token=apiKey)
 
     # Sort files in descending order and only retrieve the first file
     params = {"maxKeys": 1, "orderBy": "created", "sorting": "desc"}
-    response = api.listFiles(dataset_name, dataset_version, params)
+    response = api.listFiles(datasetName, datasetVersion, params)
     if "error" in response:
         print(f"Unable to retrieve list of files: {response['error']}.")
         sys.exit(1)
 
-    latest_file = response["files"][0].get("filename")
-    print(f"Latest file is: {latest_file}.")
+    latestFile = response["files"][0].get("filename")
+    print(f"Latest file is: {latestFile}.")
 
     # Get download url and download the file
-    response = api.getFileUrl(dataset_name, dataset_version, latest_file)
-    downloadFileFromUrl(response["temporaryDownloadUrl"], latest_file)
+    response = api.getFileUrl(datasetName, datasetVersion, latestFile)
+    downloadFileFromUrl(response["temporaryDownloadUrl"], latestFile)
 
     # Process file
-    weatherData = generateWeatherObject(latest_file, "KNMI")
+    weatherData = generateWeatherObject(latestFile, "KNMI")
 
     # Delete the file after downloading
-    os.remove(latest_file)
-    print(f"File {latest_file} has been deleted.")
+    os.remove(latestFile)
+    print(f"File {latestFile} has been deleted.")
 
     return weatherData
 
 
 class OpenDataAPI:
     def __init__(self, api_token: str):
-        self.base_url = "https://api.dataplatform.knmi.nl/open-data/v1"
+        self.baseUrl = "https://api.dataplatform.knmi.nl/open-data/v1"
         self.headers = {"Authorization": api_token}
 
     def __getData(self, url, params=None):
         return requests.get(url, headers=self.headers, params=params).json()
 
-    def listFiles(self, dataset_name: str, dataset_version: str, params: dict):
+    def listFiles(self, datasetName: str, datasetVersion: str, params: dict):
         return self.__getData(
-            f"{self.base_url}/datasets/{dataset_name}/versions/{dataset_version}/files",
+            f"{self.baseUrl}/datasets/{datasetName}/versions/{datasetVersion}/files",
             params=params,
         )
 
-    def getFileUrl(self, dataset_name: str, dataset_version: str, file_name: str):
+    def getFileUrl(self, datasetName: str, datasetVersion: str, fileName: str):
         return self.__getData(
-            f"{self.base_url}/datasets/{dataset_name}/versions/{dataset_version}/files/{file_name}/url"
+            f"{self.baseUrl}/datasets/{datasetName}/versions/{datasetVersion}/files/{fileName}/url"
         )
 
 
-def downloadFileFromUrl(download_url, filename):
+def downloadFileFromUrl(downloadUrl, filename):
     try:
-        with requests.get(download_url, stream=True) as response:
+        with requests.get(downloadUrl, stream=True) as response:
             # Raise an exception for error status codes
             response.raise_for_status()
             with open(filename, "wb") as file:
@@ -113,9 +117,9 @@ def generateWeatherObject(weatherFile, source):
     # Populate array with data from XML file
     weatherData = {
         "source": source,
-        "last_update": forecast.find("tijd_aanmaak").text,
+        "lastUpdate": forecast.find("tijd_aanmaak").text,
         "expectation": forecast.find("verwachting_meerdaagse").text,
-        "daily_forecast": [],
+        "dailyForecast": [],
     }
 
     # Loop through 7 days to populate array with precipitation and temperature for each day
@@ -132,7 +136,7 @@ def generateWeatherObject(weatherFile, source):
                 "max": forecast.find(f"maximumtemperatuur_max_dag{index}").text,
             },
         }
-        weatherData["daily_forecast"].append(dayData)
+        weatherData["dailyForecast"].append(dayData)
 
     return weatherData
 
@@ -240,15 +244,8 @@ def index(request):
             "type": "weather",
             "data": {"temperature": 21, "condition": "Windy"},
         },
-        "News": {
-            "id": 22,
-            "type": "news",
-            "data": fetch_news()
-        },
-        "Time": {
-            "type": "time",
-            "data": time_api(request)
-        },
+        "News": {"id": 22, "type": "news", "data": fetch_news()},
+        "Time": {"type": "time", "data": time_api(request)},
     }
     context = {"widgets": widgets}
     return render(request, "theMirror/index.html", context)

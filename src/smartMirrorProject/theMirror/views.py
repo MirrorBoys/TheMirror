@@ -39,7 +39,6 @@ def time_api(request):
         last_fetched_time = time.time()
     else:
         cached_time_data["seconds"] += 1
-        print(elapsed_seconds)
         if cached_time_data["seconds"] >= 59:
             cached_time_data["seconds"] = 0
             cached_time_data["minute"] += 1

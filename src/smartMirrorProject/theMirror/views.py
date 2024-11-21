@@ -10,12 +10,27 @@ load_dotenv()
 
 NS_KEY = os.getenv('NS_KEY')
 
-def ns_api():
-    # Define the start and end stations inside the function
-    start_station = "WC"
-    end_station = "AHPR"
-    # DID = Didam, AH = Arnhem Centraal, AHPR = Arnhem Presikhaaf, WC = Wijchen
+# Helper function to calculate delay
+def calculate_delay(planned, actual):
+    if not planned or not actual:
+        return "N/A"
+    planned_time = datetime.fromisoformat(planned)
+    actual_time = datetime.fromisoformat(actual)
+    delay_minutes = (actual_time - planned_time).total_seconds() / 60
+    return f"+{int(delay_minutes)} min" if delay_minutes > 0 else "On time"
 
+# Helper function to format the time
+def format_time(time_str):
+    if not time_str:
+        return "N/A"
+    try:
+        # Convert from ISO format string to time
+        time = datetime.fromisoformat(time_str)
+        return time.strftime("%H:%M:%S")  # Format as HH:mm:ss
+    except Exception:
+        return "N/A"
+
+def fetch_reisplanner(start_station, end_station, amount_trips):
     # Build the URL dynamically using f-string (no parentheses)
     url = f"https://gateway.apiportal.ns.nl/reisinformatie-api/api/v3/trips?" \
           f"fromStation={start_station}&toStation={end_station}&originWalk=false&originBike=false&originCar=false&" \
@@ -34,29 +49,9 @@ def ns_api():
         response.raise_for_status()  # Raise HTTPError for bad responses
         data = response.json()
 
-        # Helper function to calculate delay
-        def calculate_delay(planned, actual):
-            if not planned or not actual:
-                return "N/A"
-            planned_time = datetime.fromisoformat(planned)
-            actual_time = datetime.fromisoformat(actual)
-            delay_minutes = (actual_time - planned_time).total_seconds() / 60
-            return f"+{int(delay_minutes)} min" if delay_minutes > 0 else "On time"
-
-        # Helper function to format the time
-        def format_time(time_str):
-            if not time_str:
-                return "N/A"
-            try:
-                # Convert from ISO format string to time
-                time = datetime.fromisoformat(time_str)
-                return time.strftime("%H:%M:%S")  # Format as HH:mm:ss
-            except Exception:
-                return "N/A"
-
         # Extract relevant data from the response
         trips = []
-        for trip in data.get("trips", [])[:1]:
+        for trip in data.get("trips", [])[:amount_trips]:
             first_station = trip["legs"][0]["stops"][0]["name"]  # First station
             last_station = trip["legs"][-1]["stops"][-1]["name"]  # Last station
 
@@ -223,10 +218,10 @@ def index(request):
             "type": "weather",
             "data": {"temperature": 24, "condition": "Sunny"},
         },
-        "Weather_20": {
+        "Travel": {
             "id": 20,
             "type": "travel",
-            "data": ns_api(),
+            "data": fetch_reisplanner("DID","AH",1), # vanaf station, naar station, aantal journeys die hij laat zien
         },
         "News": {
             "id": 22,

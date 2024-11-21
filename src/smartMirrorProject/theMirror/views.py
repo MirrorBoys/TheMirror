@@ -157,5 +157,6 @@ def index(request):
         "News": {"id": 22, "type": "news", "data": fetch_news()},
         "Time": {"type": "time", "data": time_api(request)},
     }
+
     context = {"widgets": widgets}
     return render(request, "theMirror/index.html", context)

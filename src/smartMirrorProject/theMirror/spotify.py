@@ -18,8 +18,12 @@ API_BASE_URL='https://api.spotify.com/v1/'
 def login(request):
     scope = 'user-read-private user-read-email streaming'
     
-    auth_url = f"{AUTH_URL}?client_id={CLIENT_ID}&response_type=code&scope={scope}&redirect_uri={REDIRECT_URI}&show_dialog=False"
+    auth_url = f"{AUTH_URL}?client_id={CLIENT_ID}&response_type=code&scope={scope}&redirect_uri={REDIRECT_URI}&show_dialog=True"
     return redirect(auth_url)
+
+def logout(request):
+    request.session.flush()
+    return redirect('/theMirror')
 
 def callback(request):
     if 'error' in request.GET:

@@ -16,7 +16,7 @@ sudo -u <username> /home/<username>/TheMirror/src/startup/autostartDjango.sh
 ```
 ![example](img/startup/rc.local.png)
 
-4. Save the file and reboot the RPI.
+4. Save the file
 
 ## Kioskmode
 To automatically start the RPI in kioskmode, the following things need to be done:

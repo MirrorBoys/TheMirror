@@ -43,7 +43,8 @@ def time_api(request):
 # Used dataset: https://dataplatform.knmi.nl/dataset/short-term-weather-forecast-1-0
 def fetchWeather():
     # These values are set by the user
-    apiKey = "eyJvcmciOiI1ZTU1NGUxOTI3NGE5NjAwMDEyYTNlYjEiLCJpZCI6Ijc2ZjdmNTE1Y2QwNzRiMzI4MDEzYmMxMTBjNDkyYWM1IiwiaCI6Im11cm11cjEyOCJ9"
+    # See Teams for a valid API key
+    apiKey = ""
     datasetName = "outlook_weather_forecast"
     datasetVersion = "1.0"
 

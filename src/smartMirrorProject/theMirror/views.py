@@ -49,8 +49,6 @@ weatherNumberOfDays = 2
 # Code is based on KNMI's example code (https://developer.dataplatform.knmi.nl/open-data-api#example-last)
 # Used dataset: https://dataplatform.knmi.nl/dataset/short-term-weather-forecast-1-0
 def fetchWeather(apiKey, datasetName, datasetVersion, numberOfDays):
-    print(f"Fetching latest file of {datasetName} version {datasetVersion}")
-
     api = OpenDataAPI(api_token=apiKey)
 
     # Sort files in descending order and only retrieve the first file
@@ -60,8 +58,8 @@ def fetchWeather(apiKey, datasetName, datasetVersion, numberOfDays):
         print(f"Unable to retrieve list of files: {response['error']}.")
         sys.exit(1)
 
+    # Download latest available file from the dataset
     latestFile = response["files"][0].get("filename")
-    print(f"Latest file is: {latestFile}.")
 
     # Get download url and download the file
     response = api.getFileUrl(datasetName, datasetVersion, latestFile)
@@ -72,7 +70,6 @@ def fetchWeather(apiKey, datasetName, datasetVersion, numberOfDays):
 
     # Delete the file after downloading
     os.remove(latestFile)
-    print(f"File {latestFile} has been deleted.")
 
     return weatherData
 
@@ -108,8 +105,6 @@ def downloadFileFromUrl(downloadUrl, filename):
     except Exception:
         print(f"An error occurred while downloading the file: {Exception}.")
         sys.exit(1)
-
-    print(f"Successfully downloaded dataset file to {filename}.")
 
 
 def generateWeatherObject(weatherFile, source, numberOfDays):

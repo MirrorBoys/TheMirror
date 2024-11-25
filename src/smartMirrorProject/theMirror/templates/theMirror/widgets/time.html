@@ -33,6 +33,12 @@
     <div>{{data.dayOfWeek}} {{data.date}}</div>
 </div><br>
 
-<div class="clock-container">
+<div class="clock-container" id="clock">
     <div class="clock">{{data.time}}:{{data.seconds}}</div>
 </div>
+
+<script>
+    setInterval(function () {
+        $("#clock").load(window.location.href + " #clock");
+    }, 1000);
+</script>

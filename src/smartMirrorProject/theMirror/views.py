@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-NS_KEY = os.getenv('NS_KEY')
+NS_KEY = "1ccd5d99ee5d47668909933a5c848db4"
 
 # Helper function to calculate delay
 def calculate_delay(planned, actual):
@@ -30,6 +30,7 @@ def format_time(time_str):
     except Exception:
         return "N/A"
 
+# All Dutch start_station and end_station codes can be found in Teams (Algemeen\NS_API)
 def fetch_reisplanner(start_station, end_station, amount_trips):
     # Build the URL dynamically using f-string (no parentheses)
     url = f"https://gateway.apiportal.ns.nl/reisinformatie-api/api/v3/trips?" \
@@ -97,7 +98,6 @@ def fetch_reisplanner(start_station, end_station, amount_trips):
     except requests.exceptions.RequestException as e:
         print(f"Error fetching NS API: {e}")
         return [{"error": "Unable to fetch travel information."}]
-
 
 
 def fetch_news():

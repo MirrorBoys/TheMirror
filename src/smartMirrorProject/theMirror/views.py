@@ -39,15 +39,16 @@ def time_api(request):
     return time_data
 
 
+# Weather widget variables. See Teams for API key.
+weatherApiKey = "eyJvcmciOiI1ZTU1NGUxOTI3NGE5NjAwMDEyYTNlYjEiLCJpZCI6Ijc2ZjdmNTE1Y2QwNzRiMzI4MDEzYmMxMTBjNDkyYWM1IiwiaCI6Im11cm11cjEyOCJ9"
+weatherDatasetName = "outlook_weather_forecast"
+weatherDatasetVersion = "1.0"
+weatherNumberOfDays = 2
+
+
 # Code is based on KNMI's example code (https://developer.dataplatform.knmi.nl/open-data-api#example-last)
 # Used dataset: https://dataplatform.knmi.nl/dataset/short-term-weather-forecast-1-0
-def fetchWeather():
-    # These values are set by the user
-    # See Teams for a valid API key
-    apiKey = ""
-    datasetName = "outlook_weather_forecast"
-    datasetVersion = "1.0"
-
+def fetchWeather(apiKey, datasetName, datasetVersion, numberOfDays):
     print(f"Fetching latest file of {datasetName} version {datasetVersion}")
 
     api = OpenDataAPI(api_token=apiKey)
@@ -67,7 +68,7 @@ def fetchWeather():
     downloadFileFromUrl(response["temporaryDownloadUrl"], latestFile)
 
     # Process file
-    weatherData = generateWeatherObject(latestFile, "KNMI")
+    weatherData = generateWeatherObject(latestFile, "KNMI", numberOfDays)
 
     # Delete the file after downloading
     os.remove(latestFile)
@@ -111,7 +112,7 @@ def downloadFileFromUrl(downloadUrl, filename):
     print(f"Successfully downloaded dataset file to {filename}.")
 
 
-def generateWeatherObject(weatherFile, source):
+def generateWeatherObject(weatherFile, source, numberOfDays):
     # Load XML file and select main element that contains the forecast data
     tree = ET.parse(weatherFile)
     root = tree.getroot()
@@ -126,7 +127,7 @@ def generateWeatherObject(weatherFile, source):
     }
 
     # Loop through 7 days to populate array with precipitation and temperature for each day
-    for index in range(1, 8):
+    for index in range(1, numberOfDays + 1):
         dayData = {
             "day": convertDateToRelative(
                 forecast.find(f"dag{index}_dddd_dd_mmmm_yyyy").text
@@ -179,7 +180,12 @@ def index(request):
         "Weather_1": {
             "id": 1,
             "type": "weather",
-            "data": fetchWeather(),
+            "data": fetchWeather(
+                weatherApiKey,
+                weatherDatasetName,
+                weatherDatasetVersion,
+                weatherNumberOfDays,
+            ),
         },
         "Weather_2": {
             "id": 2,

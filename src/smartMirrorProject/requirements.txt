@@ -10,11 +10,8 @@ python-dotenv==1.0.1
 requests==2.32.3
 sgmllib3k==1.0.0
 sqlparse==0.5.1
-<<<<<<< Updated upstream
 mfrc522==0.0.7
 RPi.GPIO==0.7.1
 spidev==3.6
 feedparser==6.0.11
-=======
->>>>>>> Stashed changes
 urllib3==2.2.3

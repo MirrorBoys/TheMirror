@@ -239,7 +239,7 @@ def index(request):
         "Music": {
             "id": 23,
             "type": "music",
-            "data": spotify.get_playlist(request) if request.user.is_authenticated else None,
+            "data": "",
         },
     }
 

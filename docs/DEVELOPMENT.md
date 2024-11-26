@@ -48,7 +48,7 @@ sudo apt full-upgrade -y
 4. Configure Ubuntu to install Dutch locale. This is needed for translations, date conversion and more.
 ```shell
 sudo update-locale nl_NL.utf8
-sudo sudo locale-gen nl_NL.UTF-8
+sudo locale-gen nl_NL.utf8
 ```
 
 5. Install and configure VS Code on the host machine by following [Microsoft's installation instructions](https://code.visualstudio.com/docs/setup/setup-overview).

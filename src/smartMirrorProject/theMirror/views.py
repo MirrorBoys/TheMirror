@@ -40,7 +40,7 @@ def time_api(request):
 
 
 # Weather widget variables. See Teams for API key.
-weatherApiKey = "eyJvcmciOiI1ZTU1NGUxOTI3NGE5NjAwMDEyYTNlYjEiLCJpZCI6Ijc2ZjdmNTE1Y2QwNzRiMzI4MDEzYmMxMTBjNDkyYWM1IiwiaCI6Im11cm11cjEyOCJ9"
+weatherApiKey = None
 weatherDatasetName = "outlook_weather_forecast"
 weatherDatasetVersion = "1.0"
 weatherNumberOfDays = 2

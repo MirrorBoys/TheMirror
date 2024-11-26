@@ -45,11 +45,17 @@ Follow these steps to install and configure the software:
 sudo apt update
 sudo apt full-upgrade -y
 ```
-4. Install and configure VS Code on the host machine by following [Microsoft's installation instructions](https://code.visualstudio.com/docs/setup/setup-overview).
-5. Install and configure the VS Code extensions.
+4. Configure Ubuntu to install Dutch locale. This is needed for translations, date conversion and more.
+```shell
+sudo update-locale nl_NL.utf8
+sudo locale-gen nl_NL.utf8
+```
+
+5. Install and configure VS Code on the host machine by following [Microsoft's installation instructions](https://code.visualstudio.com/docs/setup/setup-overview).
+6. Install and configure the VS Code extensions.
 > [!TIP]
 > See [VS Code's documentation](https://code.visualstudio.com/docs/remote/wsl) for instructions on how to develop in WSL using VS Code.
-6. Clone this repository to your home directory. The repository will be located at `~/TheMirror`.
+7. Clone this repository to your home directory. The repository will be located at `~/TheMirror`.
 ```shell
 cd
 git clone https://github.com/MirrorBoys/TheMirror.git

@@ -1,5 +1,31 @@
 <div class="weather-widget">
-    <h3>Weather Widget</h3>
-    <p>Temperature: {{ data.temperature }}°C</p>
-    <p>Condition: {{ data.condition }}</p>
+    <div class="meta">
+        <p><small>Bron: {{ data.source }} | Laatste update: {{ data.lastUpdate }}</small></p>
+    </div>
+    <div class="content">
+        <p><strong>Verwachting:</strong> {{ data.expectation }}</p>
+    </div>
+    <div class="forecast">
+        <table>
+            <thead>
+                <tr>
+                    <th>Dag</th>
+                    <th>Temp (°C)</th>
+                    <th>Regen (mm)</th>
+                    <th>Kans (%)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Show forecast for next two days. You can display 7 days at max. -->
+                {% for forecast in data.dailyForecast|slice:":2" %}
+                <tr>
+                    <td>{{ forecast.day }}</td>
+                    <td>{{ forecast.temperature.min }}-{{ forecast.temperature.max }}</td>
+                    <td>{{ forecast.precipitation.min }}-{{ forecast.precipitation.max }}</td>
+                    <td>{{ forecast.precipitation.chance }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </div>

@@ -5,7 +5,7 @@ from django.shortcuts import render
 import requests
 from datetime import datetime
 from . import spotify
-import os 
+import os
 from dotenv import load_dotenv
 
 # News widget
@@ -19,7 +19,6 @@ import xml.etree.ElementTree as ET
 
 load_dotenv()
 
-NS_KEY = os.getenv('NS_KEY')
 
 # Helper function to calculate delay
 def calculate_delay(planned, actual):
@@ -29,6 +28,7 @@ def calculate_delay(planned, actual):
     actual_time = datetime.fromisoformat(actual)
     delay_minutes = (actual_time - planned_time).total_seconds() / 60
     return f"+{int(delay_minutes)} min" if delay_minutes > 0 else "On time"
+
 
 # Helper function to format the time
 def format_time(time_str):
@@ -41,18 +41,24 @@ def format_time(time_str):
     except Exception:
         return "N/A"
 
+
+NS_KEY = os.getenv("NS_KEY")
+
+
 def fetch_reisplanner(start_station, end_station, amount_trips):
     # Build the URL dynamically using f-string (no parentheses)
-    url = f"https://gateway.apiportal.ns.nl/reisinformatie-api/api/v3/trips?" \
-          f"fromStation={start_station}&toStation={end_station}&originWalk=false&originBike=false&originCar=false&" \
-          f"destinationWalk=false&destinationBike=false&destinationCar=false&shorterChange=false&" \
-          f"travelAssistance=false&searchForAccessibleTrip=false&localTrainsOnly=false&" \
-          f"excludeHighSpeedTrains=false&excludeTrainsWithReservationRequired=false&discount=NO_DISCOUNT&" \
-          f"travelClass=2&passing=false&travelRequestType=DEFAULT"
+    url = (
+        f"https://gateway.apiportal.ns.nl/reisinformatie-api/api/v3/trips?"
+        f"fromStation={start_station}&toStation={end_station}&originWalk=false&originBike=false&originCar=false&"
+        f"destinationWalk=false&destinationBike=false&destinationCar=false&shorterChange=false&"
+        f"travelAssistance=false&searchForAccessibleTrip=false&localTrainsOnly=false&"
+        f"excludeHighSpeedTrains=false&excludeTrainsWithReservationRequired=false&discount=NO_DISCOUNT&"
+        f"travelClass=2&passing=false&travelRequestType=DEFAULT"
+    )
 
     headers = {
-        'Cache-Control': 'no-cache',
-        'Ocp-Apim-Subscription-Key': NS_KEY,
+        "Cache-Control": "no-cache",
+        "Ocp-Apim-Subscription-Key": NS_KEY,
     }
 
     try:
@@ -74,11 +80,11 @@ def fetch_reisplanner(start_station, end_station, amount_trips):
                     actual_departure = stop.get("actualDepartureDateTime")
                     planned_arrival = stop.get("plannedArrivalDateTime")
                     actual_arrival = stop.get("actualArrivalDateTime")
-                    
+
                     # Calculate delay before formatting the times
                     delay = calculate_delay(
                         planned_arrival if idx == len(stops) - 1 else planned_departure,
-                        actual_arrival if idx == len(stops) - 1 else actual_departure
+                        actual_arrival if idx == len(stops) - 1 else actual_departure,
                     )
 
                     # Format times after delay calculation
@@ -89,19 +95,21 @@ def fetch_reisplanner(start_station, end_station, amount_trips):
 
                     # Determine if this is the final station of the trip
                     is_final_station = idx == len(stops) - 1
-                    
+
                     # Add the formatted times and other data to the trips list
-                    trips.append({
-                        "station": station_name,
-                        "planned_departure": formatted_planned_departure,
-                        "actual_departure": formatted_actual_departure,
-                        "planned_arrival": formatted_planned_arrival,
-                        "actual_arrival": formatted_actual_arrival,
-                        "is_final_station": is_final_station,
-                        "delay": delay,
-                        "first_station": first_station,
-                        "last_station": last_station,
-                    })
+                    trips.append(
+                        {
+                            "station": station_name,
+                            "planned_departure": formatted_planned_departure,
+                            "actual_departure": formatted_actual_departure,
+                            "planned_arrival": formatted_planned_arrival,
+                            "actual_arrival": formatted_actual_arrival,
+                            "is_final_station": is_final_station,
+                            "delay": delay,
+                            "first_station": first_station,
+                            "last_station": last_station,
+                        }
+                    )
 
         return trips
 
@@ -117,21 +125,6 @@ def fetch_news():
         {"title": entry.title, "link": entry.link} for entry in feed.entries[:2]
     ]
     return news_data
-
-
-def time_api(request):
-    response = requests.get(
-        "https://www.timeapi.io/api/time/current/zone?timeZone=Europe%2FAmsterdam",
-        timeout=10,
-    )
-    data = response.json()
-    time_data = {
-        "time": data["time"],
-        "seconds": data["seconds"],
-        "date": data["date"],
-        "dayOfWeek": data["dayOfWeek"],
-    }
-    return time_data
 
 
 # Weather widget variables. See Teams for API key.
@@ -267,7 +260,7 @@ def convertDateToRelative(date: str):
 def index(request):
     # Example data with widget types or specific templates
     widgets = {
-        "Weather_1": {
+        "Weather": {
             "id": 1,
             "type": "weather",
             "data": fetchWeather(
@@ -277,115 +270,18 @@ def index(request):
                 weatherNumberOfDays,
             ),
         },
-        "Weather_2": {
-            "id": 2,
-            "type": "weather",
-            "data": {"temperature": 18, "condition": "Cloudy"},
-        },
-        "Weather_3": {
-            "id": 3,
-            "type": "weather",
-            "data": {"temperature": 25, "condition": "Rainy"},
-        },
-        "Weather_4": {
-            "id": 4,
-            "type": "weather",
-            "data": {"temperature": 30, "condition": "Sunny"},
-        },
-        "Weather_5": {
-            "id": 5,
-            "type": "weather",
-            "data": {"temperature": 20, "condition": "Windy"},
-        },
-        "Weather_6": {
-            "id": 6,
-            "type": "weather",
-            "data": {"temperature": 17, "condition": "Snowy"},
-        },
-        "Weather_7": {
-            "id": 7,
-            "type": "weather",
-            "data": {"temperature": 24, "condition": "Cloudy"},
-        },
-        "Weather_8": {
-            "id": 8,
-            "type": "weather",
-            "data": {"temperature": 27, "condition": "Sunny"},
-        },
-        "Weather_9": {
-            "id": 9,
-            "type": "weather",
-            "data": {"temperature": 19, "condition": "Rainy"},
-        },
-        "Weather_10": {
-            "id": 10,
-            "type": "weather",
-            "data": {"temperature": 21, "condition": "Windy"},
-        },
-        "Weather_11": {
-            "id": 11,
-            "type": "weather",
-            "data": {"temperature": 23, "condition": "Sunny"},
-        },
-        "Weather_12": {
-            "id": 12,
-            "type": "weather",
-            "data": {"temperature": 26, "condition": "Cloudy"},
-        },
-        "Weather_13": {
-            "id": 13,
-            "type": "weather",
-            "data": {"temperature": 22, "condition": "Rainy"},
-        },
-        "Weather_14": {
-            "id": 14,
-            "type": "weather",
-            "data": {"temperature": 29, "condition": "Sunny"},
-        },
-        "Weather_15": {
-            "id": 15,
-            "type": "weather",
-            "data": {"temperature": 28, "condition": "Windy"},
-        },
-        "Weather_16": {
-            "id": 16,
-            "type": "weather",
-            "data": {"temperature": 20, "condition": "Snowy"},
-        },
-        "Weather_17": {
-            "id": 17,
-            "type": "weather",
-            "data": {"temperature": 18, "condition": "Cloudy"},
-        },
-        "Weather_18": {
-            "id": 18,
-            "type": "weather",
-            "data": {"temperature": 25, "condition": "Rainy"},
-        },
-        "Weather_19": {
-            "id": 19,
-            "type": "weather",
-            "data": {"temperature": 24, "condition": "Sunny"},
-        },
         "Travel": {
-            "id": 20,
+            "id": 2,
             "type": "travel",
             # The codes for the stations can be retrieved with the NS API (https://apiportal.ns.nl/api-details#api=reisinformatie-api&operation=getStations). We've saved
             # an csv file with the station codes in Teams (Algemeen\NS_API)
-            "data": fetch_reisplanner("DID","AH",1), # vanaf station, naar station, aantal journeys die hij laat zien
+            "data": fetch_reisplanner(
+                "DID", "AH", 1
+            ),  # vanaf station, naar station, aantal journeys die hij laat zien
         },
-        "Time": {
-            "id": 21,
-            "type": "time",
-            "data": time_api(request)
-        },          
-        "News": {
-            "id": 22,
-            "type": "news",
-            "data": fetch_news()
-        },
+        "News": {"id": 4, "type": "news", "data": fetch_news()},
         "Music": {
-            "id": 23,
+            "id": 5,
             "type": "music",
             "data": "",
         },

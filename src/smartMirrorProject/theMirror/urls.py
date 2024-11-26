@@ -5,10 +5,10 @@ from . import spotify
 
 urlpatterns = [
     path("", views.index, name="index"),
-    path('login/', spotify.login, name='login'),
-    path('callback/', spotify.callback, name='callback'),
-    path('logout/', spotify.logout, name='logout'),
-    path('get-playlist/', spotify.get_playlist, name='get_playlist'),
-    path('refresh-token/', spotify.refresh_token, name='refresh_token'),
-    path('add-song/', spotify.add_song_to_queue, name='add_song'),
+    path('spotify-login/', spotify.spotify_login, name='login'),
+    path('spotify-callback/', spotify.spotify_callback, name='callback'),
+    path('spotify-logout/', spotify.spotify_logout, name='logout'),
+    path('spotify-get-playlist/', spotify.spotify_get_playlist, name='get_playlist'),
+    path('spotify-refresh-token/', spotify.spotify_refresh_token, name='refresh_token'),
+    path('spotify-add-song/', spotify.spotify_add_song_to_queue, name='add_song'),
 ]

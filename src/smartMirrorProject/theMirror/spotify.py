@@ -10,22 +10,22 @@ load_dotenv()
 
 CLIENT_ID = os.getenv('CLIENT_ID')
 CLIENT_SECRET = os.getenv('CLIENT_SECRET')
-REDIRECT_URI='http://127.0.0.1:8000/theMirror/callback'
+REDIRECT_URI='http://127.0.0.1:8000/theMirror/spotify-callback'
 AUTH_URL='https://accounts.spotify.com/authorize'
 TOKEN_URL='https://accounts.spotify.com/api/token'
 API_BASE_URL='https://api.spotify.com/v1/'
 
-def login(request):
+def spotify_login(request):
     scope = 'user-read-private user-read-email streaming'
     
     auth_url = f"{AUTH_URL}?client_id={CLIENT_ID}&response_type=code&scope={scope}&redirect_uri={REDIRECT_URI}&show_dialog=True"
     return redirect(auth_url)
 
-def logout(request):
+def spotify_logout(request):
     request.session.flush()
     return redirect('/theMirror')
 
-def callback(request):
+def spotify_callback(request):
     if 'error' in request.GET:
         return HttpResponse(request.GET['error'])
     
@@ -47,13 +47,13 @@ def callback(request):
         
         return redirect('/theMirror')
     
-def get_playlist(request):
+def spotify_get_playlist(request):
     if 'access_token' not in request.session:
         return redirect('/login')
     
     if datetime.now().timestamp() > request.session['expires_at']:
         print('Token expired. Refreshing token...')
-        refresh_token(request)
+        spotify_refresh_token(request)
     
     headers = {
         'Authorization': f"Bearer {request.session['access_token']}"
@@ -66,7 +66,7 @@ def get_playlist(request):
     
     return playlist_data
 
-def refresh_token(request):
+def spotify_refresh_token(request):
     if 'refresh_token' not in request.session:
         return redirect('/login')
     
@@ -90,12 +90,12 @@ def refresh_token(request):
     # If the token is not expired, redirect to the playlist page
     return redirect('/theMirror')
 
-def add_song_to_queue(request):
+def spotify_add_song_to_queue(request):
     if 'access_token' not in request.session:
         return JsonResponse({"error": "User not logged in"}, status=401)
 
     if datetime.now().timestamp() > request.session['expires_at']:
-        refresh_token(request)
+        spotify_refresh_token(request)
 
     song_uri = request.GET.get('track_uri')
     if not song_uri:

@@ -1,45 +1,7 @@
-<style>
-    .playlist-widget {
-        font-family: Arial, sans-serif;
-        background-color: #f9f9f9;
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        padding: 20px;
-        max-width: 400px;
-        margin: 20px auto;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    .playlist-widget h3 {
-        font-size: 1.5em;
-        margin-bottom: 10px;
-        color: #333;
-    }
-
-    .playlist-widget ul {
-        list-style-type: none;
-        padding: 0;
-    }
-
-    .playlist-widget li {
-        margin-bottom: 10px;
-    }
-
-    .playlist-widget a {
-        text-decoration: none;
-        color: #007BFF;
-        font-weight: bold;
-    }
-
-    .playlist-widget a:hover {
-        text-decoration: underline;
-    }
-</style>
-
 <div class="playlist-widget">
     <h3>Spotify</h3>
     {% if request.session.access_token %}
-    <button id="togglePlay">Toggle Play</button><br>
+    <button id="togglePlay">Toggle Play</button>
     <button id="skipTrack">Skip Track</button><br>
     <input type="text" id="track-uri" placeholder="Enter track URI">
     <button id="add-to-queue">Add to Queue</button>
@@ -54,98 +16,8 @@
 
 <script src="https://sdk.scdn.co/spotify-player.js"></script>
 <script>
-    let player;
-    // Spotify Web Playback SDK
     window.onSpotifyWebPlaybackSDKReady = () => {
         const token = '{{ request.session.access_token }}';
-        if (token) {
-            player = new Spotify.Player({
-                name: 'Web Playback SDK Quick Start Player',
-                getOAuthToken: cb => { cb(token); },
-                volume: 0.5
-            });
-
-            // Show current and next track
-            player.addListener('player_state_changed', state => {
-                if (!state) {
-                    return;
-                }
-
-                const currentTrack = state.track_window.current_track;
-                const nextTrack = state.track_window.next_tracks[0];
-
-                document.getElementById('current-track').innerText = `Now Playing: ${currentTrack.name} by ${currentTrack.artists[0].name}`;
-                document.getElementById('next-track').innerText = `Next: ${nextTrack ? nextTrack.name : 'None'} by ${nextTrack ? nextTrack.artists[0].name : 'N/A'}`;
-            });
-
-            // Ready
-            player.addListener('ready', ({ device_id }) => {
-                console.log('Ready with Device ID', device_id);
-            });
-
-            // Not Ready
-            player.addListener('not_ready', ({ device_id }) => {
-                console.log('Device ID has gone offline', device_id);
-            });
-
-            player.addListener('initialization_error', ({ message }) => {
-                console.error(message);
-            });
-
-            player.addListener('authentication_error', ({ message }) => {
-                console.error(message);
-            });
-
-            player.addListener('account_error', ({ message }) => {
-                console.error(message);
-            });
-
-            player.connect();
-
-            // Toggle play with button
-            document.getElementById('togglePlay').onclick = function () {
-                player.togglePlay();
-            };
-
-            // Toggle play with space key
-            document.addEventListener('keydown', function (event) {
-                if (event.key == ' ') {
-                    player.togglePlay();
-                }
-            });
-
-            // Skip track with button
-            document.getElementById('skipTrack').onclick = function () {
-                player.nextTrack().then(() => {
-                    console.log('Skipped to next track!');
-                });
-            };
-
-            // Skip track with arrow up key
-            document.addEventListener('keydown', function (event) {
-                if (event.key == 'ArrowUp') {
-                    player.nextTrack().then(() => {
-                        console.log('Skipped to next track!');
-                    });
-                }
-            });
-
-            // Add song to queue
-            document.getElementById('add-to-queue').onclick = function () {
-                const trackUri = document.getElementById('track-uri').value;
-                fetch(`/theMirror/add-song/?track_uri=${trackUri}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.error) {
-                            document.getElementById('queue-message').innerText = `Error: ${data.error}`;
-                        } else {
-                            document.getElementById('queue-message').innerText = data.message;
-                        }
-                    })
-                    .catch(error => {
-                        document.getElementById('queue-message').innerText = `Error: ${error}`;
-                    });
-            };
-        }
+        initializeSpotifyPlayer(token);
     };
 </script>

@@ -2,10 +2,8 @@ import feedparser
 from django.http import HttpResponse
 from django.shortcuts import render
 import requests
-<<<<<<< HEAD
-from . import spotify
-=======
 from datetime import datetime
+from . import spotify
 import os 
 from dotenv import load_dotenv
 
@@ -101,7 +99,6 @@ def fetch_reisplanner(start_station, end_station, amount_trips):
         print(f"Error fetching NS API: {e}")
         return [{"error": "Unable to fetch travel information."}]
 
->>>>>>> main
 
 
 def fetch_news():

@@ -3,7 +3,9 @@ from django.shortcuts import render
 
 # Multiple widgets
 import requests
-import os
+from datetime import datetime
+from . import spotify
+import os 
 from dotenv import load_dotenv
 
 # News widget
@@ -372,8 +374,21 @@ def index(request):
             # an csv file with the station codes in Teams (Algemeen\NS_API)
             "data": fetch_reisplanner("DID","AH",1), # vanaf station, naar station, aantal journeys die hij laat zien
         },
-        "News": {"id": 22, "type": "news", "data": fetch_news()},
-        "Time": {"type": "time", "data": time_api(request)},
+        "Time": {
+            "id": 21,
+            "type": "time",
+            "data": time_api(request)
+        },          
+        "News": {
+            "id": 22,
+            "type": "news",
+            "data": fetch_news()
+        },
+        "Music": {
+            "id": 23,
+            "type": "music",
+            "data": "",
+        },
     }
 
     context = {"widgets": widgets}

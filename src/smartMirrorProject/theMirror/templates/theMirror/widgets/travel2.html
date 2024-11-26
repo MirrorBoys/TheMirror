@@ -1,0 +1,37 @@
+{% if data %}
+<div class="travel-widget">
+    <!-- Header Above the Table -->
+    <h3>Departures</h3>
+
+    <div class="station-info">
+        <p> {{ widgets.Travel2.station }} </p>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Destination</th>
+                <th>Train Type</th>
+                <th>Planned Time</th>
+                <th>Actual Time</th>
+                <th>Delay</th>
+                <th>Track</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for departure in data %}
+            <tr>
+                <td>{{ departure.destination }}</td>
+                <td>{{ departure.trainCategory }}</td>
+                <td>{{ departure.plannedDateTime }}</td>
+                <td>{{ departure.actualDateTime }}</td>
+                <td>{{ departure.delay }}</td>
+                <td>{{ departure.plannedTrack|default:"N/A" }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<p>No departure data available.</p>
+{% endif %}

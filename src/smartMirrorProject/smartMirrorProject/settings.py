@@ -11,6 +11,11 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import environ
+
+# Enable safely storing and reading of credentials
+env = environ.Env()
+environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,7 +30,8 @@ SECRET_KEY = 'django-insecure-_6cw15ikq*gt85b-j+*+t8ywd#-4c5a7gm!w+c+p+@a(u15sp!
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+# Allow any host to host the server
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -110,7 +116,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Amsterdam'
 
 USE_I18N = True
 

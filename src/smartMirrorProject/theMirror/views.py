@@ -221,6 +221,8 @@ def index(request):
         "Travel": {
             "id": 20,
             "type": "travel",
+            # The codes for the stations can be retrieved with the NS API (https://apiportal.ns.nl/api-details#api=reisinformatie-api&operation=getStations). We've saved
+            # an csv file with the station codes in Teams (Algemeen\NS_API)
             "data": fetch_reisplanner("DID","AH",1), # vanaf station, naar station, aantal journeys die hij laat zien
         },
         "News": {

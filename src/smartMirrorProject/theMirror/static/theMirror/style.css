@@ -100,3 +100,64 @@ footer {
 .weather-widget .forecast tbody tr:nth-child(odd) {
     background-color: #f2f2f2;
 }
+/*=======================================================================*/
+/*===========================TRAVEL WIDGET CSS===========================*/
+/*=======================================================================*/
+.travel-widget {
+    max-height: 200px;
+    /* Adjust the height based on your layout */
+    overflow-y: auto;
+    /* Allow vertical scrolling */
+    font-size: 12px;
+    /* Smaller text for more content */
+    display: flex;
+    flex-direction: column;
+    /* Ensure header and table are stacked vertically */
+}
+
+.travel-widget h3 {
+    text-align: center;
+    margin-bottom: 2px;
+    /* Reduce space between header and table */
+}
+
+.travel-widget .station-info {
+    text-align: center;
+    font-size: 10px;
+    /* Smaller font for station info */
+    color: #555;
+    /* Slightly darker text color */
+    margin-bottom: 2px;
+    /* Space between station info and table */
+}
+
+.travel-widget table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 20px 0;
+    font-family: Arial, sans-serif;
+}
+
+.travel-widget th,
+.travel-widget td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.travel-widget th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+}
+
+.travel-widget tr:nth-child(even) {
+    background-color: #f9f9f9;
+    /* Alternating row color */
+}
+
+.travel-widget tr:hover {
+    background-color: #f1f1f1;
+    /* Row hover effect */
+}
+
+/*=======================================================================*/

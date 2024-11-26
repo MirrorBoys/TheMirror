@@ -54,6 +54,52 @@ footer {
     padding: 10px;
 }
 
+/* Weather Widget */
+.weather-widget {
+    width: 600px;
+    height: 200px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-sizing: border-box;
+}
+
+.weather-widget .meta {
+    font-size: 0.7em;
+    color: #888;
+    text-align: right;
+}
+
+.weather-widget .content {
+    font-size: 0.8em;
+    overflow: hidden;
+
+    /* Show max two lines of text*/
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    line-height: 1.2em;
+    max-height: 2.4em;
+}
+
+.weather-widget .forecast table {
+    width: 100%;
+    font-size: 0.8em;
+}
+
+.weather-widget .forecast th,
+.weather-widget .forecast td {
+    text-align: center;
+    padding: 3px;
+    border: 1px solid #ddd;
+}
+
+.weather-widget .forecast tbody tr:nth-child(odd) {
+    background-color: #f2f2f2;
+}
 /*=======================================================================*/
 /*===========================TRAVEL WIDGET CSS===========================*/
 /*=======================================================================*/

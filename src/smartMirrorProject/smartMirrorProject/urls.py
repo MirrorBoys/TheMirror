@@ -23,4 +23,5 @@ urlpatterns = [
     path("", include("homePage.urls")),
     path("api/weather/", include("weatherWidget.urls")),
     path("api/news/", include("newsWidget.urls")),
+    path("api/travel/", include("travelWidget.urls")),
 ]

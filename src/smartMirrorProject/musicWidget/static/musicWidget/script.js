@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Add song to queue
     document.getElementById('add-to-queue').onclick = function () {
         const trackUri = document.getElementById('track-uri').value;
-        fetch(`/theMirror/spotify-add-song/?track_uri=${trackUri}`)
+        fetch(`/musicWidget/spotify-add-song/?track_uri=${trackUri}`)
             .then(response => response.json())
             .then(data => {
                 if (data.error) {

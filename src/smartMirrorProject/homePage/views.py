@@ -7,6 +7,9 @@ API_TIMEOUT = 10
 # Weather widget settings
 WEATHER_NUMBER_OF_DAYS = 2
 
+# News widget settings
+NEWS_NUMBER_OF_ARTICLES = 2
+
 def index(request):
     """
     Renders the homepage with the specified widgets. Each widget needs these keys: 
@@ -26,6 +29,11 @@ def index(request):
             "type": "weather",
             "data": requests.get(f"http://localhost:8000/api/weather/fetch/{WEATHER_NUMBER_OF_DAYS}", timeout=API_TIMEOUT).json(),
         },
+        "News": {
+            "id": 2,
+            "type": "news",
+            "data": requests.get(f"http://localhost:8000/api/news/fetch/{NEWS_NUMBER_OF_ARTICLES}", timeout=API_TIMEOUT).json(),
+        },	
     }
 
     context = {"widgets": widgets}

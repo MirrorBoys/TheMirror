@@ -7,8 +7,7 @@ import xml.etree.ElementTree as ET
 import locale
 import requests
 
-# See Teams for API key.
-KNMI_API_KEY = ""
+KNMI_API_KEY = os.getenv("KNMI_API_KEY")
 KNMI_API_DATASET_NAME = "outlook_weather_forecast"
 KNMI_API_DATASETVERSION = "1.0"
 KNMI_API_TIMEOUT = 10

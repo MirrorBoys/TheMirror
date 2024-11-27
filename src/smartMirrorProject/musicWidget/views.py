@@ -6,11 +6,8 @@ from django.http import HttpResponse, JsonResponse
 
 # from dotenv import load_dotenv
 
-# load_dotenv()
-CLIENT_ID="2712708bc3f341cc979456477ee85275"
-CLIENT_SECRET="1620ea48d4944c87a4423b7c7d23deaa"
-# CLIENT_ID = os.getenv('CLIENT_ID')
-# CLIENT_SECRET = os.getenv('CLIENT_SECRET')
+CLIENT_ID = os.getenv('SPOTIFY_CLIENT_ID')
+CLIENT_SECRET = os.getenv('SPOTIFY_CLIENT_SECRET')
 
 REDIRECT_URI='http://127.0.0.1:8000/musicWidget/spotify-callback'
 AUTH_URL='https://accounts.spotify.com/authorize'

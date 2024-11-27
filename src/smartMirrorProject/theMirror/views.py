@@ -44,6 +44,7 @@ def format_time(time_str):
 
 NS_KEY = os.getenv("NS_KEY")
 
+
 def fetch_departures(station, destination_filter=None):
     url = f"https://gateway.apiportal.ns.nl/reisinformatie-api/api/v2/departures?station={station}"
 
@@ -55,18 +56,20 @@ def fetch_departures(station, destination_filter=None):
     try:
         response = requests.get(url, headers=headers)
         response.raise_for_status()  # Raise an error for bad status codes (e.g., 404, 401)
-        
+
         data = response.json()  # Parse the JSON response
         # print(data) # debug
-        
+
         departures = []
 
         for departure in data.get("payload", {}).get("departures", []):
             destination = departure.get("direction")
-             # If destination_filter is provided and is not a list, convert it to a list
+            # If destination_filter is provided and is not a list, convert it to a list
             if destination_filter:
                 if isinstance(destination_filter, str):
-                    destination_filter = [destination_filter]  # Convert to list if it's a single string
+                    destination_filter = [
+                        destination_filter
+                    ]  # Convert to list if it's a single string
 
                 if destination not in destination_filter:
                     continue  # Skip this departure if it doesn't match any destination in the filter
@@ -83,21 +86,21 @@ def fetch_departures(station, destination_filter=None):
 
             # Extract the desired fields for each departure
             departures.append(
-            {
-                "destination": destination,
-                "trainCategory": trainCategory,
-                "plannedDateTime":  formatted_planned_departure,
-                "actualDateTime": formatted_actual_departure,
-                "delay" : delay,
-                "plannedTrack": planned_track,
-            })
+                {
+                    "destination": destination,
+                    "trainCategory": trainCategory,
+                    "plannedDateTime": formatted_planned_departure,
+                    "actualDateTime": formatted_actual_departure,
+                    "delay": delay,
+                    "plannedTrack": planned_track,
+                }
+            )
 
         return departures  # Return a list of dictionaries with the relevant data
 
     except requests.exceptions.RequestException as e:
         print(f"Error fetching departures: {e}")
         return []
-
 
 
 def fetch_reisplanner(start_station, end_station, amount_trips):
@@ -334,11 +337,13 @@ def index(request):
                 "AH", "DID", 1
             ),  # vanaf station, naar station, aantal journeys die hij laat zien
         },
-        "Travel2": {
+        "Traveldepartures": {
             "id": 3,
-            "type": "travel2",
-            "data": fetch_departures("AH", destination_filter=["Nijmegen", "Winterswijk", "Doetinchem"]),  # Filter for multiple destinations
-            "station": "Arnhem Centraal", # API boodt geen mogelijkheid aan om deze ook aan te roepen helaas
+            "type": "traveldepartures",
+            "data": fetch_departures(
+                "AH", destination_filter=["Nijmegen", "Winterswijk", "Doetinchem"]
+            ),  # Filter for multiple destinations
+            "station": "Arnhem Centraal",  # API boodt geen mogelijkheid aan om deze ook aan te roepen helaas
         },
         "News": {"id": 4, "type": "news", "data": fetch_news()},
         "Music": {

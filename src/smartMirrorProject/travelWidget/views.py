@@ -1,9 +1,9 @@
 from datetime import datetime
+import os
 import requests
 from django.http import JsonResponse
 
-# NS_KEY = os.getenv("NS_KEY")
-NS_KEY = "1ccd5d99ee5d47668909933a5c848db4"
+NS_KEY = os.getenv("NS_KEY")
 
 def calculate_delay(planned, actual):
     """

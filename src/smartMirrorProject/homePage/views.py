@@ -45,6 +45,11 @@ def index(request):
             "type": "travel",
             "data": requests.get(f"http://localhost:8000/api/travel/fetch/{TRAVEL_BEGIN_STATION}/{TRAVEL_END_STATION}/{TRAVEL_NUMBER_OF_TRIPS}", timeout=API_TIMEOUT).json(),
         },
+        "music": {
+            "id": 4,
+            "type": "music",
+            "data": ""
+        }
     }
 
     context = {"widgets": widgets}

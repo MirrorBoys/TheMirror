@@ -1,0 +1,29 @@
+<div class="playlist-widget">
+
+    <!-- Load static files -->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'musicWidget/style.css' %}">
+    <script src="{% static 'musicWidget/script.js' %}"></script>
+
+    <h3>Spotify</h3>
+    {% if request.session.access_token %}
+    <button id="togglePlay">Toggle Play</button>
+    <button id="skipTrack">Skip Track</button><br>
+    <input type="text" id="track-uri" placeholder="Enter track URI">
+    <button id="add-to-queue">Add to Queue</button>
+    <p id="queue-message"></p>
+    <p id="current-track">Now Playing:</p>
+    <p id="next-track">Next:</p>
+    <a href="{% url 'spotify-logout' %}"><button id="logout">Logout</button></a>
+    {% else %}
+    <a href="{% url 'spotify-login' %}"><button id="login">Login to Spotify</button></a>
+    {% endif %}
+</div>
+
+<script src="https://sdk.scdn.co/spotify-player.js"></script>
+<script>
+    window.onSpotifyWebPlaybackSDKReady = () => {
+        const token = '{{ request.session.access_token }}';
+        initializeSpotifyPlayer(token);
+    };
+</script>

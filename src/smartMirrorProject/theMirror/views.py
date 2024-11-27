@@ -335,7 +335,7 @@ def index(request):
             # an csv file with the station codes in Teams (Algemeen\NS_API)
             "data": fetch_reisplanner(
                 "AH", "DID", 1
-            ),  # vanaf station, naar station, aantal journeys die hij laat zien
+            ),  # from station, to station, amount of trips
         },
         "Traveldepartures": {
             "id": 3,
@@ -343,7 +343,7 @@ def index(request):
             "data": fetch_departures(
                 "AH", destination_filter=["Nijmegen", "Winterswijk", "Doetinchem"]
             ),  # Filter for multiple destinations
-            "station": "Arnhem Centraal",  # API boodt geen mogelijkheid aan om deze ook aan te roepen helaas
+            "station": "Arnhem Centraal",  # API didn't offer an opportunity to get the name of the station the departures are from
         },
         "News": {"id": 4, "type": "news", "data": fetch_news()},
         "Music": {

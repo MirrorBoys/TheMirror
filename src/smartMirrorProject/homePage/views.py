@@ -21,6 +21,11 @@ def index(request):
         HttpResponse: The rendered homepage with the widgets context.
     """
     widgets = {
+        "Weather": {
+            "id": 1,
+            "type": "weather",
+            "data": requests.get(f"http://localhost:8000/api/weather/fetch/{WEATHER_NUMBER_OF_DAYS}", timeout=API_TIMEOUT).json(),
+        },
     }
 
     context = {"widgets": widgets}

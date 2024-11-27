@@ -1,0 +1,50 @@
+{% if data %}
+<div class="travel-widget">
+    <!-- Load static files -->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'travelWidget/style.css' %}">
+    <script src="{% static 'travelWidget/script.js' %}"></script>
+
+    <!-- Header Above the Table -->
+    <h3>Travel Information</h3>
+
+    <!-- Display First and Last Station Info -->
+    <div class="station-info">
+        {{ data.first_station }} - {{ data.last_station }}
+    </div>
+
+    {% for trip in data.trips %}
+    <h4>Trip {{ forloop.counter }}</h4>
+    <table>
+        <thead>
+            <tr>
+                <th>Station</th>
+                <th>Planned Time</th>
+                <th>Actual Time</th>
+                <th>Delay</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for station in trip.stations %}
+            <tr>
+                <td>{{ station.station }}</td>
+                {% if station.is_final_station %}
+                <!-- Final station: show arrival times -->
+                <td>{{ station.planned_arrival|default:"N/A" }}</td>
+                <td>{{ station.actual_arrival|default:"N/A" }}</td>
+                {% else %}
+                <!-- Regular stations: show departure times -->
+                <td>{{ station.planned_departure|default:"N/A" }}</td>
+                <td>{{ station.actual_departure|default:"N/A" }}</td>
+                {% endif %}
+                <td>{{ station.delay }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endfor %}
+</div>
+
+{% else %}
+<p>No travel data available.</p>
+{% endif %}

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    {% load static %}
+    <link rel="icon" type="image/x-icon" href="{% static 'homePage/images/mirror.gif' %}">
+    <link rel="stylesheet" href="{% static 'homePage/style.css' %}">
+    <script src="{% static 'homePage/script.js' %}"></script>
+    <script src="{% static 'homePage/jquery-3.5.1.js' %}"></script>
+
+    <title>TheMirror</title>
+</head>
+
+<body>
+    <header>PLACEHOLDER FOR HEADER</header>
+
+    <main>
+        {% if widgets %}
+        {% for widget, details in widgets.items %}
+        <div class="grid-item {{ details.type }}-widget">
+            <!-- Include corresponding widget template. Example: widget with type "weather" will be retrieved from weatherWidget/templates/weatherWidget/weather.html -->
+            {% include ""|add:details.type|add:"Widget/"|add:details.type|add:".html" with data=details.data %}
+        </div>
+        {% endfor %}
+        {% else %}
+        <p>No widgets are available.</p>
+        {% endif %}
+    </main>
+
+    <footer>PLACEHOLDER FOR FOOTER</footer>
+</body>
+
+</html>

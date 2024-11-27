@@ -1,0 +1,22 @@
+{% if data %}
+
+<div class="news-widget">
+
+    <!-- Load static files -->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'newsWidget/style.css' %}">
+    <script src="{% static 'newsWidget/script.js' %}"></script>
+
+    <h3>News Feed</h3>
+    <ul>
+        {% for article in data.articles %}
+        <li>
+            <a href="{{ article.link }}">{{ article.title }}</a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+{% else %}
+<p>No news available.</p>
+{% endif %}

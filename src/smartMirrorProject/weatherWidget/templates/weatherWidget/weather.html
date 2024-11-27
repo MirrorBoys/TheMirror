@@ -1,0 +1,36 @@
+<div class="weather-widget">
+
+    <!-- Load static files -->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'weatherWidget/style.css' %}">
+    <script src="{% static 'weatherWidget/script.js' %}"></script>
+
+    <div class="meta">
+        <p><small>Bron: {{ data.source }} | Laatste update: {{ data.lastUpdate }}</small></p>
+    </div>
+    <div class="content">
+        <p><strong>Verwachting:</strong> {{ data.expectation }}</p>
+    </div>
+    <div class="forecast">
+        <table>
+            <thead>
+                <tr>
+                    <th>Dag</th>
+                    <th>Temp (°C)</th>
+                    <th>Regen (mm)</th>
+                    <th>Kans (%)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for forecast in data.dailyForecast %}
+                <tr>
+                    <td>{{ forecast.day }}</td>
+                    <td>{{ forecast.temperature.min }}-{{ forecast.temperature.max }}</td>
+                    <td>{{ forecast.precipitation.min }}-{{ forecast.precipitation.max }}</td>
+                    <td>{{ forecast.precipitation.chance }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>

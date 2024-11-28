@@ -35,8 +35,16 @@ sudo nano /etc/xdg/labwc/autostart
 /usr/bin/lwrespawn /usr/bin/wf-panel-pi &
 /usr/bin/kanshi &
 /usr/bin/lxsession-xdg-autostart &
-chromium = /usr/bin/chromium-browser --start-fullscreen --start-maximized --kiosk --noerrdialogs --disable-default-apps --disable-single-click-autofill --disable-translate-new-ux --disable-translate --disable-cache --disk-cache-dir=/dev/null --disk-cache-size=1 --reduce-security-for-testing --app=http://localhost:8000/theMirror/ 
+chromium = /usr/bin/chromium-browser --start-fullscreen --start-maximized --kiosk --noerrdialogs --disable-default-apps --disable-single-click-autofill --disable-translate-new-ux --disable-translate --disable-cache --disk-cache-dir=/dev/null --disk-cache-size=1 --reduce-security-for-testing --app=http://localhost:8000/ 
 ```	
+
+## .env file
+To create a .env file with api-keys and secrets:
+1. Create the following file
+```
+sudo nano ~/TheMirror/src/smartMirrorProject/smartMirrorProject/.env
+```
+2. Put in the necessary api keys and client secrets and save the file
 
 The following links in this document can be followed to create the scripts necesarry to automatically startup the django server and to put the RPI in kioskmode. 
 - [Django](https://forums.raspberrypi.com/viewtopic.php?t=257749)

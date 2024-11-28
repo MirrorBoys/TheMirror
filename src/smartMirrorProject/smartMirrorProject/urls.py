@@ -25,4 +25,5 @@ urlpatterns = [
     path("api/weather/", include("weatherWidget.urls")),
     path("api/news/", include("newsWidget.urls")),
     path("api/travel/", include("travelWidget.urls")),
+    path("api/maps/", include("mapsWidget.urls")),
 ]

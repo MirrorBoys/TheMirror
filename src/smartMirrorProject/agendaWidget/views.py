@@ -4,9 +4,7 @@ import requests
 from datetime import datetime
 from django.http import JsonResponse
 
-# Debug API https://www.googleapis.com/calendar/v3/calendars/s4dsmartmirror@gmail.com/events?key=AIzaSyBlnu4fGIZeA3kuMZJEAMOtkh0JZSsyxRo
-
-AGENDA_KEY = os.getenv("AGENDA_KEY")
+# Debug API https://www.googleapis.com/calendar/v3/calendars/s4dsmartmirror@gmail.com/events?key=
 
 # Helper function to format the date-time
 def format_datetime(datetime_str):
@@ -26,7 +24,7 @@ def format_datetime(datetime_str):
 
     
 # Fetch Google Calendar events
-def fetch_google_calendar_events(calendar_id):
+def fetch_google_calendar_events(calendar_id, AGENDA_KEY):
     url = f"https://www.googleapis.com/calendar/v3/calendars/{calendar_id}/events"
     params = {
         "key": AGENDA_KEY,  # Replace with your actual API key
@@ -54,6 +52,7 @@ def fetch_google_calendar_events(calendar_id):
 # API endpoint for fetching events
 def fetch_agenda_events_view(request):
     calendar_id = "s4dsmartmirror@gmail.com"
-    events = fetch_google_calendar_events(calendar_id)
+    AGENDA_KEY = os.getenv("AGENDA_KEY")
+    events = fetch_google_calendar_events(calendar_id, AGENDA_KEY)
     #print(events)  # API Debugging
     return JsonResponse({"events": events})

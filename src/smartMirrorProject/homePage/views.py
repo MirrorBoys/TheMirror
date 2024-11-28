@@ -49,6 +49,11 @@ def index(request):
             "id": 4,
             "type": "music",
             "data": ""
+        },
+        "agenda": {
+            "id": 6,
+            "type": "agenda",
+            "data": requests.get("http://localhost:8000/api/agenda/fetch/", timeout=API_TIMEOUT).json()["events"],
         }
     }
 

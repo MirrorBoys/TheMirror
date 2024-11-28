@@ -12,9 +12,12 @@ NEWS_NUMBER_OF_ARTICLES = 2
 
 
 # Travel widget settings
-TRAVEL_BEGIN_STATION = "DID"
-TRAVEL_END_STATION = "AH"
-TRAVEL_NUMBER_OF_TRIPS = 2
+TRAVEL_JOURNEY_BEGIN_STATION = "DID"
+TRAVEL_JOURNEY_END_STATION = "AH"
+TRAVEL_JOURNEY_NUMBER_OF_TRIPS = 2
+TRAVEL_DEPARTURES_STATION = "AH"
+# String containing the stations to filter on, separated by a hyphen. If "", no filter is applied.
+TRAVEL_DEPARTURES_FILTER = "Nijmegen-Winterswijk-Doetinchem"
 
 def index(request):
     """
@@ -43,14 +46,20 @@ def index(request):
             "templateName": "news",
             "data": requests.get(f"http://localhost:8000/api/news/fetch/{NEWS_NUMBER_OF_ARTICLES}", timeout=API_TIMEOUT).json(),
         },
-        "travel": {
+        "travel-journeys": {
             "id": 3,
             "appName": "travelWidget",
-            "templateName": "travel",
-            "data": requests.get(f"http://localhost:8000/api/travel/fetch/{TRAVEL_BEGIN_STATION}/{TRAVEL_END_STATION}/{TRAVEL_NUMBER_OF_TRIPS}", timeout=API_TIMEOUT).json(),
+            "templateName": "travel-journeys",
+            "data": requests.get(f"http://localhost:8000/api/travel/fetch/journeys/{TRAVEL_JOURNEY_BEGIN_STATION}/{TRAVEL_JOURNEY_END_STATION}/{TRAVEL_JOURNEY_NUMBER_OF_TRIPS}", timeout=API_TIMEOUT).json(),
+        },
+        "travel-departures": {
+            "id": 4,
+            "appName": "travelWidget",
+            "templateName": "travel-departures",
+            "data": requests.get(f"http://localhost:8000/api/travel/fetch/departures/{TRAVEL_DEPARTURES_STATION}/{TRAVEL_DEPARTURES_FILTER}", timeout=API_TIMEOUT).json(),
         },
         "music": {
-            "id": 4,
+            "id": 5,
             "appName": "musicWidget",
             "templateName": "music",
             "data": ""

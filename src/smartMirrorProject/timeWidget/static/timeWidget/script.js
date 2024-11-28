@@ -1,7 +1,9 @@
 function updateClock() {
+    // Fetch the timezone from the user
     fetch('/api/time/fetch-timezone')
         .then(response => response.json())
         .then(data => {
+            // Fetch the current time from the user using the timezone fetched earlier
             const timezone = data.timezone;
             fetch(`/api/time/fetch/${timezone}`)
                 .then(response => response.json())
@@ -13,6 +15,7 @@ function updateClock() {
 }
 
 function synchronizeClock() {
+    // Show the clock immediately after the page loads
     updateClock();
     // Calculate the time remaining until the next minute starts
     const now = new Date();
@@ -24,7 +27,7 @@ function synchronizeClock() {
 
         // Set an interval to update the clock every minute
         setInterval(updateClock, 60000);
-    }, delay);
+    }, delay); // Delay the first update at first page load to the start of the next minute
 }
 
 // Start the clock synchronization when the page loads

@@ -1,17 +1,11 @@
 function updateClock() {
-    // Fetch the timezone from the user
-    fetch('/api/time/fetch-timezone')
+    let timezone = document.getElementById('current-time').getAttribute('timezone');
+    fetch(`/api/time/fetch/${timezone}`)
         .then(response => response.json())
         .then(data => {
-            // Fetch the current time from the user using the timezone fetched earlier
-            const timezone = data.timezone;
-            fetch(`/api/time/fetch/${timezone}`)
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById('current-time').textContent = data.current_time;
-                })
-                .catch(error => console.error('Error fetching current time:', error));
+            document.getElementById('current-time').textContent = data.current_time;
         })
+        .catch(error => console.error('Error fetching current time:', error));
 }
 
 function synchronizeClock() {

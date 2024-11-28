@@ -60,6 +60,11 @@ def index(request):
             "type": "time",
             "data": requests.get(f"http://localhost:8000/api/time/fetch/{TIME_ZONE}", timeout=API_TIMEOUT).json(),
         },
+        "agenda": {
+            "id": 6,
+            "type": "agenda",
+            "data": requests.get("http://localhost:8000/api/agenda/fetch/", timeout=API_TIMEOUT).json()["events"],
+        }
     }
 
     context = {"widgets": widgets}

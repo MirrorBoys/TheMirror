@@ -1,0 +1,10 @@
+<div class="time-widget">
+
+    <!-- Load static files -->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'timeWidget/style.css' %}">
+    <script src="{% static 'timeWidget/script.js' %}"></script>
+
+    <h3>Current Time</h3>
+    <p id="current-time">{{ current_time }}</p>
+</div>

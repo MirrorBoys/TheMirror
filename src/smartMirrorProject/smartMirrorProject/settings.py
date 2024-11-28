@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'newsWidget',
     'travelWidget',
     'weatherWidget',
+    'timeWidget',
 ]
 
 MIDDLEWARE = [

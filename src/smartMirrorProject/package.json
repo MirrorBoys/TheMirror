@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "ntp-client": "^0.5.3"
+  }
+}

@@ -1,5 +1,6 @@
 from django.shortcuts import render
 import requests
+import json
 
 # Settings for all widgets
 API_TIMEOUT = 10
@@ -10,6 +11,8 @@ WEATHER_NUMBER_OF_DAYS = 2
 # News widget settings
 NEWS_NUMBER_OF_ARTICLES = 2
 
+# Time widget settings
+TIME_ZONE = "CET"
 
 # Travel widget settings
 TRAVEL_BEGIN_STATION = "DID"
@@ -49,7 +52,12 @@ def index(request):
             "id": 4,
             "type": "music",
             "data": ""
-        }
+        },
+        "time": {
+            "id": 5,
+            "type": "time",
+            "data": requests.get(f"http://localhost:8000/api/time/fetch/{TIME_ZONE}", timeout=API_TIMEOUT).json(),
+        },
     }
 
     context = {"widgets": widgets}

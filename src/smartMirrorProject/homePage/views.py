@@ -20,7 +20,7 @@ def index(request):
     """
     Renders the homepage with the specified widgets. Each widget needs these keys: 
         id (int): The widget ID.
-        type (str): The type of the widget.
+        type (str): The type of the widget. This needs to be the same as the widget's template name.
         data (dict): The weather data fetched from the API.
 
     Args:

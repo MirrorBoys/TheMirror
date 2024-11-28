@@ -98,17 +98,31 @@ This paragraph gives a brief, global overview of the file structure of this proj
 
 ```shell
 .
-├── docs
-│   └── img
-│       └── # A seperate image folder for each document
 ├── .git
 │   └── # Configuration folders for Git
 ├── .github
 │   ├── ISSUE_TEMPLATE
 │   └── workflows
+├── docs
+│   └── img
+│       └── # A seperate image folder for each document
 └── src
     └── smartMirrorProject
-        └── smartMirror
+        ├── homePage
+        │   ├── static
+        │   │   └──homePage
+        │   │      └──images
+        │   └── templates
+        │       └──homePage
+        ├── smartMirrorProject    
+        ├── widgetOne
+        │   ├── static
+        │   │   └──widgetOne
+        │   │      └──images
+        │   └── templates
+        │       └──widgetOne
+        ├── widgetTwo
+        └── # A seperate folder for each app
 ```
 > [!TIP]
 > You can easily generate such a folder tree by running `tree -a -d` in your shell.
@@ -117,14 +131,17 @@ This table describes the function of each folder:
 
 | Folder |  Function|
 | ----------- | ----------- |
-| `docs` | Documentation |
-| `docs/img` | Images used in documentation |
 | `.git` | Git configuration | 
 | `.github` | GitHub configuration |
 | `.github/ISSUE_TEMPLATE` | Templates for GitHub issues |
 | `.github/workflows` | [GitHub workflows](https://docs.github.com/en/actions/writing-workflows) |
+| `docs` | Documentation |
+| `docs/img` | Images used in documentation |
 | `src` | Source code |
-| `src/smartMirrorProject` | Source code for Django files |
+| `src/smartMirrorProject` | Source code for Django project |
+| `src/smartMirrorProject/homepage` | Source code for homepage |
+| `src/smartMirrorProject/smartMirrorProject` | Django project files including settings |
+| `src/smartMirrorProject/widgetOne` | Source code for widget |
 
 ## Branch strategy
 Our project follows a simple feature branch strategy based on GitHub issues.

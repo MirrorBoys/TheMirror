@@ -20,7 +20,8 @@ def index(request):
     """
     Renders the homepage with the specified widgets. Each widget needs these keys: 
         id (int): The widget ID.
-        type (str): The type of the widget.
+        appName (str): The name of the app.
+        templateName (str): The name of the used template.
         data (dict): The weather data fetched from the API.
 
     Args:
@@ -32,22 +33,26 @@ def index(request):
     widgets = {
         "weather": {
             "id": 1,
-            "type": "weather",
+            "appName": "weatherWidget",
+            "templateName": "weather",
             "data": requests.get(f"http://localhost:8000/api/weather/fetch/{WEATHER_NUMBER_OF_DAYS}", timeout=API_TIMEOUT).json(),
         },
         "news": {
             "id": 2,
-            "type": "news",
+            "appName": "newsWidget",
+            "templateName": "news",
             "data": requests.get(f"http://localhost:8000/api/news/fetch/{NEWS_NUMBER_OF_ARTICLES}", timeout=API_TIMEOUT).json(),
         },
         "travel": {
             "id": 3,
-            "type": "travel",
+            "appName": "travelWidget",
+            "templateName": "travel",
             "data": requests.get(f"http://localhost:8000/api/travel/fetch/{TRAVEL_BEGIN_STATION}/{TRAVEL_END_STATION}/{TRAVEL_NUMBER_OF_TRIPS}", timeout=API_TIMEOUT).json(),
         },
         "music": {
             "id": 4,
-            "type": "music",
+            "appName": "musicWidget",
+            "templateName": "music",
             "data": ""
         }
     }

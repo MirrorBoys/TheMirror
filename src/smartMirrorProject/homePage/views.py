@@ -32,6 +32,8 @@ def index(request):
     Returns:
         HttpResponse: The rendered homepage with the widgets context.
     """
+    
+    request.session['timezone'] = TIME_ZONE
     widgets = {
         "weather": {
             "id": 1,

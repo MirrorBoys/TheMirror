@@ -1,11 +1,15 @@
 function updateClock() {
-    const timezone = "CET";
-    fetch(`/api/time/fetch/${timezone}`)
+    fetch('/api/time/fetch-timezone')
         .then(response => response.json())
         .then(data => {
-            document.getElementById('current-time').textContent = data.current_time;
+            const timezone = data.timezone;
+            fetch(`/api/time/fetch/${timezone}`)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('current-time').textContent = data.current_time;
+                })
+                .catch(error => console.error('Error fetching current time:', error));
         })
-        .catch(error => console.error('Error fetching current time:', error));
 }
 
 function synchronizeClock() {

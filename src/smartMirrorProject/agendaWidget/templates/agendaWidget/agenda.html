@@ -1,0 +1,35 @@
+<div class="agenda-widget">
+    <!-- Load static files -->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'agendaWidget/style.css' %}">
+    <script src="{% static 'agendaWidget/script.js' %}"></script>
+
+    <!-- Header Above the Table -->
+    <h3>Agenda</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Event</th>
+                    <th>Start Time</th>
+                    <th>End Time</th>
+                    <th>Location</th>
+                </tr>
+            </thead>
+    
+            <tbody>
+                {% for event in widgets.agenda.data %}
+                    <tr>
+                        <tr>
+                            <td>{{ event.summary }}</td>
+                            <td>{{ event.start.dateTime }}</td>
+                            <td>{{ event.end.dateTime }}</td>
+                            <td>{{ event.location|default:"N/A" }}</td>
+                        </tr>                        
+                    </tr>
+                {% endfor %}
+            </tbody>
+    
+        </table>
+    </div>
+    
+</div>

@@ -7,10 +7,10 @@ This project uses Django apps to organise code. This includes both front- and ba
 > Ensure that you are following these steps in your Python environment.
 
 ## Name the app
-Try to use a generic name such as `mailWidget` instead of `gmailWidget`. This makes it easier to switch API providers without having to rename a lot of files and references. Save this app in a variable so we can use it in the next steps. `appType` will be used to name the app's template file.
+Try to use a generic name such as `mailWidget` instead of `gmailWidget`. This makes it easier to switch API providers without having to rename a lot of files and references. Save this app in a variable so we can use it in the next steps. `templateName` will be used to name the app's template file.
 ```shell
 appName="<name of your app>"
-appType="<type of your app>"
+templateName="<type of your app>"
 ```
 >[!NOTE]
 > This variable is only created for your current shell. It will be deleted if you exit your shell.
@@ -63,7 +63,7 @@ touch ~/TheMirror/src/smartMirrorProject/$appName/static/$appName/style.css
 We create the folders and files which will store the templates.
 ```shell
 mkdir -p ~/TheMirror/src/smartMirrorProject/$appName/templates/$appName/
-touch ~/TheMirror/src/smartMirrorProject/$appName/templates/$appName/$appType.html
+touch ~/TheMirror/src/smartMirrorProject/$appName/templates/$appName/$templateName.html
 ```
 
 ### Configuring URLs

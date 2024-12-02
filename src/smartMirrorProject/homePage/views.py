@@ -66,7 +66,8 @@ def index(request):
         },
         "agenda": {
             "id": 6,
-            "type": "agenda",
+            "appName": "agendaWidget",
+            "templateName": "agenda",
             "data": requests.get("http://localhost:8000/api/agenda/fetch/", timeout=API_TIMEOUT).json()["events"],
         }
     }

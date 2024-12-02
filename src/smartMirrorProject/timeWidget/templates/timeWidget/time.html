@@ -1,14 +1,14 @@
+{% load static %}
 {% if data %}
 
 <div class="time-widget">
 
     <!-- Load static files -->
-    {% load static %}
     <link rel="stylesheet" href="{% static 'timeWidget/style.css' %}">
     <script src="{% static 'timeWidget/script.js' %}"></script>
 
     <h3>Current Time</h3>
-    <p id="current-time" timezone="{{ data.timezone }}">{{ data.current_time }}</p>
+    <p id="current-time">{{ data.current_time }}</p>
 </div>
 {% else %}
 <p>No time available</p>

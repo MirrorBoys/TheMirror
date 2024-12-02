@@ -1,6 +1,7 @@
 from django.shortcuts import render
 import requests
 import json
+import urllib.parse
 
 # Settings for all widgets
 API_TIMEOUT = 10
@@ -37,6 +38,7 @@ def index(request):
         HttpResponse: The rendered homepage with the widgets context.
     """
     # store the timezone in the session, so it can be accessed by the time widget app
+    request.session["timezone"] = TIME_ZONE
     widgets = {
         "weather": {
             "id": 1,

@@ -7,9 +7,9 @@ from django.http import JsonResponse
 
 def createMapsData(request, apiKey, origin, destination, mode):
     mapsData = {
-        apiKey: {apiKey},
-        origin: {origin},
-        destination: {destination},
-        mode: {mode},
+        "apiKey": {apiKey},
+        "origin": {origin},
+        "destination": {destination},
+        "mode": {mode},
     }
     return JsonResponse(mapsData)

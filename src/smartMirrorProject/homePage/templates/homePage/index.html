@@ -21,8 +21,9 @@
         {% if widgets %}
         {% for widget, details in widgets.items %}
         <div class="grid-item {{ details.type }}-widget">
-            <!-- Include corresponding widget template. Example: widget with type "weather" will be retrieved from weatherWidget/templates/weatherWidget/weather.html -->
-            {% include ""|add:details.type|add:"Widget/"|add:details.type|add:".html" with data=details.data %}
+            <!-- This line includes a template dynamically based on the values of `details.appName` and `details.templateName`.
+                Example: If `details.appName` is "app" and `details.templateName` is "template", the included file would be "app/template.html". -->
+            {% include ""|add:details.appName|add:"/"|add:details.templateName|add:".html" with data=details.data %}
         </div>
         {% endfor %}
         {% else %}

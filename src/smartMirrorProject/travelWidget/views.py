@@ -138,3 +138,79 @@ def fetch_trip(request, start_station, end_station, amount_trips):
     except Exception as e:
         print(f"Error fetching NS API: {e}")
         return JsonResponse({"error": "Unable to fetch travel information."})
+
+def fetch_departures(request, station, destination_filter=None):
+    """
+    Fetches train departure information from the NS API for a given station and optionally filters by destination.
+    Args:
+        request: The HTTP request object.
+        station (str): The station code for which to fetch departure information.
+        destination_filter (str, optional): A string of destination names to filter the departures. Defaults to None.
+    Returns:
+        JsonResponse: A JSON response containing a list of departures with the following fields:
+            - destination (str): The destination of the train.
+            - trainCategory (str): The category of the train.
+            - plannedDateTime (str): The planned departure time, formatted.
+            - actualDateTime (str): The actual departure time, formatted.
+            - delay (str): The delay in departure time.
+            - plannedTrack (str): The planned track for the departure.
+    """
+    # The destination_filter is converted from a string to a list
+    if destination_filter is not None:
+        destination_filter = destination_filter.split("-")
+
+    url = f"https://gateway.apiportal.ns.nl/reisinformatie-api/api/v2/departures?station={station}"
+
+    headers = {
+        "Cache-Control": "no-cache",
+        "Ocp-Apim-Subscription-Key": NS_KEY,
+    }
+
+    try:
+        response = requests.get(url, headers=headers)
+        response.raise_for_status()  # Raise an error for bad status codes (e.g., 404, 401)
+
+        data = response.json()  # Parse the JSON response
+        # print(data) # debug
+
+        departures = []
+
+        for departure in data.get("payload", {}).get("departures", []):
+            destination = departure.get("direction")
+            # If destination_filter is provided and is not a list, convert it to a list
+            if destination_filter:
+                if isinstance(destination_filter, str):
+                    destination_filter = [
+                        destination_filter
+                    ]  # Convert to list if it's a single string
+
+                if destination not in destination_filter:
+                    continue  # Skip this departure if it doesn't match any destination in the filter
+
+            trainCategory = departure.get("trainCategory")
+            planned_departure = departure.get("plannedDateTime")
+            actual_departure = departure.get("actualDateTime")
+            planned_track = departure.get("plannedTrack")
+
+            delay = calculate_delay(planned_departure, actual_departure)
+
+            formatted_planned_departure = format_time(planned_departure)
+            formatted_actual_departure = format_time(actual_departure)
+
+            # Extract the desired fields for each departure
+            departures.append(
+                {
+                    "destination": destination,
+                    "trainCategory": trainCategory,
+                    "plannedDateTime": formatted_planned_departure,
+                    "actualDateTime": formatted_actual_departure,
+                    "delay": delay,
+                    "plannedTrack": planned_track,
+                }
+            )
+
+        return JsonResponse({"station": station, "departures": departures})  # Include station at the top level
+
+    except requests.exceptions.RequestException as e:
+        print(f"Error fetching departures: {e}")
+        return JsonResponse({"station": station, "departures": []})

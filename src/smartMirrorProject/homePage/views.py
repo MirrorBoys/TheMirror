@@ -71,7 +71,8 @@ def index(request):
         },
         "time": {
             "id": 5,
-            "type": "time",
+            "appName": "timeWidget",
+            "templateName": "time",	
             "data": requests.get(f"http://localhost:8000/api/time/fetch/{TIME_ZONE}", timeout=API_TIMEOUT).json(),
         },
         "agenda": {

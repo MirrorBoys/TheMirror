@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     "travelWidget",
     "weatherWidget",
     "agendaWidget",
+    "radarWidget",
 ]
 
 MIDDLEWARE = [

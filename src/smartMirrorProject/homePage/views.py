@@ -69,6 +69,12 @@ def index(request):
             "appName": "agendaWidget",
             "templateName": "agenda",
             "data": requests.get("http://localhost:8000/api/agenda/fetch/", timeout=API_TIMEOUT).json()["events"],
+        },
+        "weatherradar": {
+            "id": 7,
+            "appName": "radarWidget",
+            "templateName": "weather-radar",
+            "data": "",
         }
     }
 

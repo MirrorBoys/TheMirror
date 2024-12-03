@@ -1,9 +1,11 @@
 let timezone; // The timezone of the user sent by function fetchSessionData()
+// console.log('Timezone:', timezone);
 
 function updateClock() {
     // let timezone = document.getElementById('timezone').getAttribute('timezone');
-    // console.log('Timezone:', timezone);
-    fetch(`/api/time/fetch/${timezone}`)	
+    // decoded_timezone = timezone.replace("/", "-");
+    // console.log('Timezone:', decoded_timezone);
+    fetch(`/api/time/fetch/${timezone}`)
         .then(response => response.json())
         .then(data => {
             document.getElementById('current-time').textContent = data.current_time;
@@ -22,15 +24,18 @@ function fetchSessionData() {
 }
 
 function synchronizeClock() {
-    const now = new Date(); // Get the current time
-    const delay = ((60 - now.getSeconds()) * 1000) - now.getMilliseconds(); // Calculate the delay to the start of the next minute
-    setTimeout(function() {
-        updateClock(); // Update the clock
-        setInterval(updateClock, 60000); // Update the clock every 60 seconds
-    }, delay); // Delay the first update at first page load to the start of the next minute
+    // Calculate the time remaining until the next minute starts
+    const now = new Date();
+    const delay = ((60 - now.getSeconds()) * 1000) - now.getMilliseconds();
+    // Set a timeout to update the clock at the start of the next minute
+    setTimeout(() => {
+        updateClock();
+        // Set an interval to update the clock every minute
+        setInterval(updateClock, 60000);
+    }, delay);
 }
 
-window.onload = function() {
-    synchronizeClock(); // Synchronize the clock to the start of the next minute
-    fetchSessionData(); // Fetch the timezone of the user
-}
+document.addEventListener('DOMContentLoaded', (event) => {
+    synchronizeClock();
+    fetchSessionData();
+});

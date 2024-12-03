@@ -1,5 +1,5 @@
 .radar-widget {
-    max-height: 200px;
+    max-height: 256px;
     /* Adjust the height based on your layout */
     overflow-y: auto;
     /* Allow vertical scrolling */

@@ -32,6 +32,7 @@ spotify:
   SPOTIFY_CLIENT_SECRET:
 
 weather:
+  SHOW: true
   #The api key to get the weather data from the KNMI, currently only the KNMI is supported
   KNMI_API_KEY:
   #The number of days that will be showed in the foreceast, default is 2, which will show the weather of today and tomorrow

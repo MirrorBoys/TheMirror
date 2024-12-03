@@ -8,7 +8,7 @@ config_file_path = os.path.join(os.path.dirname(__file__), "..", "config.yml")
 with open(config_file_path, "r") as file:
     config = yaml.safe_load(file)
 
-
+print(config)
 # Settings for all widgets
 API_TIMEOUT = config["general_settings"]["API_TIMEOUT"]
 
@@ -27,6 +27,24 @@ TRAVEL_JOURNEY_NUMBER_OF_TRIPS = config["travel"]["TRAVEL_JOURNEY_NUMBER_OF_TRIP
 TRAVEL_DEPARTURES_STATION = config["travel"]["TRAVEL_DEPARTURES_STATION"]
 # String containing the stations to filter on, separated by a hyphen. If "", no filter is applied.
 TRAVEL_DEPARTURES_FILTER = config["travel"]["TRAVEL_DEPARTURES_FILTER"]
+
+
+def createWidget(config, api_links):
+
+    top_level_keys = list(config.keys())
+
+    for key in top_level_keys:
+        if config[key]["visible"]:
+            widget = {
+                key: {
+                    "id": 1,
+                    "appName": key + "Widget",
+                    "templateName": key,
+                    "data": api_links[key],
+                }
+            }
+
+        return widget
 
 
 def index(request):

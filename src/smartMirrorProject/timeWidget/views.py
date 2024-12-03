@@ -13,6 +13,5 @@ def current_time(request, timezone):
 def fetch_session_timezone(request):
     timezone = request.session.get("timezone")
     encoded_timezone = timezone.replace("/", "-")
-    print(encoded_timezone)
     return JsonResponse({"timezone": encoded_timezone})
 

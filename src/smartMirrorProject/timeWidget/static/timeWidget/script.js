@@ -1,10 +1,6 @@
 let timezone; // The timezone of the user sent by function fetchSessionData()
-// console.log('Timezone:', timezone);
 
 function updateClock() {
-    // let timezone = document.getElementById('timezone').getAttribute('timezone');
-    // decoded_timezone = timezone.replace("/", "-");
-    // console.log('Timezone:', decoded_timezone);
     fetch(`/api/time/fetch/${timezone}`)
         .then(response => response.json())
         .then(data => {

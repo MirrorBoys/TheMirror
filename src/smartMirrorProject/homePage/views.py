@@ -1,7 +1,5 @@
 from django.shortcuts import render
 import requests
-import json
-import urllib.parse
 
 # Settings for all widgets
 API_TIMEOUT = 10

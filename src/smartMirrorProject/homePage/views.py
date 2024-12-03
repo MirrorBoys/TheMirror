@@ -11,7 +11,7 @@ WEATHER_NUMBER_OF_DAYS = 2
 NEWS_NUMBER_OF_ARTICLES = 2
 
 # Time widget settings
-TIMEZONE = "Europe/Amsterdam"
+TIMEZONE = "Europe/Amsterdam" # use TZ identifier (e.g. Europe/Amsterdam) or TZ database name (e.g. CET)
 ENCODED_TIMEZONE = TIMEZONE.replace("/", "-")
 
 # Travel widget settings

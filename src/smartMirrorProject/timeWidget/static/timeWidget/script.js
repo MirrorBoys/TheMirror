@@ -21,16 +21,13 @@ function fetchSessionData() {
         .catch(error => console.error('Error fetching session timezone:', error));
 }
 
-// Makes sure that the clock starts at 0 seconds at a next minute and updates every 60 seconds
-function calibrateClock() {
-    updateClock();
-    setInterval(updateClock, 60000);
-}
-
 function synchronizeClock() {
     const now = new Date(); // Get the current time
     const delay = ((60 - now.getSeconds()) * 1000) - now.getMilliseconds(); // Calculate the delay to the start of the next minute
-    setTimeout(calibrateClock, delay); // Delay the first update at first page load to the start of the next minute
+    setTimeout(function() {
+        updateClock(); // Update the clock
+        setInterval(updateClock, 60000); // Update the clock every 60 seconds
+    }, delay); // Delay the first update at first page load to the start of the next minute
 }
 
 window.onload = function() {

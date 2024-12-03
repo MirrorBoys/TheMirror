@@ -69,6 +69,12 @@ def index(request):
             "appName": "agendaWidget",
             "templateName": "agenda",
             "data": requests.get("http://localhost:8000/api/agenda/fetch/", timeout=API_TIMEOUT).json()["events"],
+        },
+        "mail": {
+            "id": 8,
+            "appName": "mailWidget",
+            "templateName": "mail",
+            "data": ""
         }
     }
 

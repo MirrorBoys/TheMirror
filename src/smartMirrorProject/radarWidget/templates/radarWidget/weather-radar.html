@@ -1,1 +1,8 @@
-<iframe src="https://gadgets.buienradar.nl/gadget/zoommap/?lat=51.98&lng=5.91111&overname=2&zoom=8&naam=Arnhem&size=2&voor=1" scrolling=no width=256 height=256 frameborder=no></iframe>
+<div class="radar-Widget">
+    <!-- Load static files -->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'radarWidget/style.css' %}">
+    <script src="{% static 'radarWidget/script.js' %}"></script>
+
+    <iframe src="https://gadgets.buienradar.nl/gadget/zoommap/?lat=51.98&lng=5.91111&overname=2&zoom=8&naam=Arnhem&size=2&voor=1" scrolling=no width=256 height=256 frameborder=no></iframe>    
+</div>

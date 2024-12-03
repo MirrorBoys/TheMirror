@@ -1,8 +1,17 @@
 <div class="radar-Widget">
-    <!-- Load static files -->
     {% load static %}
     <link rel="stylesheet" href="{% static 'radarWidget/style.css' %}">
     <script src="{% static 'radarWidget/script.js' %}"></script>
 
-    <iframe src="https://gadgets.buienradar.nl/gadget/zoommap/?lat=51.98&lng=5.91111&overname=2&zoom=8&naam=Arnhem&size=2&voor=1" scrolling=no width=256 height=256 frameborder=no></iframe>    
+    {% if widgets.weatherradar.data.latitude and widgets.weatherradar.data.longitude %}
+        <iframe 
+            src="https://gadgets.buienradar.nl/gadget/zoommap/?lat={{ widgets.weatherradar.data.latitude }}&lng={{ widgets.weatherradar.data.longitude }}&overname=2&zoom=8&naam={{ widgets.weatherradar.data.placename }}&size=2&voor=1" 
+            scrolling="no" 
+            width="256" 
+            height="256" 
+            frameborder="no">
+        </iframe>
+    {% else %}
+        <p>Coordinates not found</p>
+    {% endif %}
 </div>

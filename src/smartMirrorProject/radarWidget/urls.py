@@ -4,8 +4,7 @@ from . import views
 
 urlpatterns = [
     # Example URL pattern.
-    path("fetch/", views.fetch_weather_radar, name="fetch-weather-radar"),
-
+    path("fetch-coordinates/<str:placename>/", views.fetch_coordinates, name="fetch_coordinates"),
 
     # Breakdown of the route:
     # - fetch: indicates that the URL is used to fetch data.

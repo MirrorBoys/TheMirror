@@ -21,7 +21,7 @@ TRAVEL_DEPARTURES_FILTER = "Nijmegen-Winterswijk-Doetinchem"
 
 # Notes widget settings
 NOTE_DATA1 = {
-    "title": "Sample Note Title",
+    "title": "test1",
     "type": "ul",
     "subType": "li",
     "content": [
@@ -30,11 +30,11 @@ NOTE_DATA1 = {
     ]
 }
 NOTE_DATA2 = {
-    "title": "Sample Note Title",
+    "title": "test23456789",
     "type": "p",
     "subType": "",
     "content": [
-        "poep",
+        "omg lol haha xD",
         "It can have multiple lines, paragraphs, bulletpoints etc."
     ]
 }

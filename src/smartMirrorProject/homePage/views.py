@@ -20,13 +20,13 @@ TRAVEL_DEPARTURES_STATION = "AH"
 TRAVEL_DEPARTURES_FILTER = "Nijmegen-Winterswijk-Doetinchem"
 
 # Notes widget settings
-TITLE = "Sample Note Title"
+NOTE_TITLE = "Sample Note Title"
 # html tag (e.g. "ul" or "ol")
-TYPE = "ul"
+NOTE_TYPE = "ul"
 # html tag (optional, e.g. "li" which is needed in combination with "ul" or "ol"), leave empty ("") if not needed
-SUB_TYPE = "li"
+NOTE_SUB_TYPE = "li"
 # Add your content here. Each line will be rendered as a separate paragraph.
-CONTENT = [
+NOTE_CONTENT = [
     "test test test test test test test test test test test test test test test test test test test test test",
     "It can have multiple lines, paragraphs, bulletpoints etc."
 ]
@@ -87,10 +87,10 @@ def index(request):
             "appName": "noteWidget",
             "templateName": "notes",
             "data": {
-                "title": TITLE,
-                "type": TYPE,
-                "subType": SUB_TYPE,
-                "content": CONTENT
+                "title": NOTE_TITLE,
+                "type": NOTE_TYPE,
+                "subType": NOTE_SUB_TYPE,
+                "content": NOTE_CONTENT
             }
         }
     }

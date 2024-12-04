@@ -9,9 +9,3 @@ def current_time(request, timezone):
     current_time = now.strftime("%d-%m-%Y %H:%M")
     return JsonResponse({"current_time": current_time, "timezone": str(tz)})
 
-# Function to get timezone from the session (defined in views.py in homePage app) to the time widget
-def fetch_session_timezone(request):
-    timezone = request.session.get("timezone")
-    encoded_timezone = timezone.replace("/", "-")
-    return JsonResponse({"timezone": encoded_timezone})
-

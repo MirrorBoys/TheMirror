@@ -37,7 +37,6 @@ def index(request):
         HttpResponse: The rendered homepage with the widgets context.
     """
     # store the timezone in the session, so it can be accessed by the time widget app
-    request.session["timezone"] = TIMEZONE
     widgets = {
         "weather": {
             "id": 1,

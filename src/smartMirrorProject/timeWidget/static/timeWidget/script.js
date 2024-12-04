@@ -1,22 +1,17 @@
-let timezone; // The timezone of the user sent by function fetchSessionData()
-
 function updateClock() {
-    fetch(`/api/time/fetch/${timezone}`)
-        .then(response => response.json())
-        .then(data => {
+    let timezone = document.getElementById('timezone').getAttribute('timezone');
+    let decoded_timezone = timezone.replace("/", "-");
+    $.ajax({
+        url: `/api/time/fetch/${decoded_timezone}`,
+        method: 'GET',
+        dataType: 'json',
+        success: function(data) {
             document.getElementById('current-time').textContent = data.current_time;
-        })
-        .catch(error => console.error('Error fetching current time:', error));
-}
-
-//Fetches timezone once at the start of the page
-function fetchSessionData() {
-    fetch('/api/session/fetch-session-timezone/')
-        .then(response => response.json())
-        .then(data => {
-            timezone = data.timezone;
-        })
-        .catch(error => console.error('Error fetching session timezone:', error));
+        },
+        error: function(error) {
+            console.error('Error fetching current time:', error);
+        }
+    });
 }
 
 function synchronizeClock() {
@@ -33,5 +28,4 @@ function synchronizeClock() {
 
 document.addEventListener('DOMContentLoaded', (event) => {
     synchronizeClock();
-    fetchSessionData();
 });

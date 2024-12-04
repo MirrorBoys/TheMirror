@@ -6,7 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     {% load static %}
-    <link rel="icon" type="image/x-icon" href="{% static 'homePage/images/mirror.gif' %}">
+    <!-- Global static files -->
+    <link rel="icon" type="image/x-icon" href="{% static 'images/mirror.gif' %}">
+    <link rel="stylesheet" href="{% static 'global_style.css' %}">
+    <script src="{% static 'global_script.js' %}"></script>
+
+    <!-- Static files specifically for this widget -->
     <link rel="stylesheet" href="{% static 'homePage/style.css' %}">
     <script src="{% static 'homePage/script.js' %}"></script>
     <script src="{% static 'homePage/jquery-3.5.1.js' %}"></script>

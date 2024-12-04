@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     "travelWidget",
     "weatherWidget",
     "agendaWidget",
+    "radarWidget",
 ]
 
 MIDDLEWARE = [
@@ -128,6 +129,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = "static/"
+
+STATICFILES_DIRS = [
+    "globalStatic",
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field

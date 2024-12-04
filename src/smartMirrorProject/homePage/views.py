@@ -20,11 +20,13 @@ NEWS_NUMBER_OF_ARTICLES = config["news"]["NEWS_NUMBER_OF_ARTICLES"]
 
 
 # Travel widget settings
+
 TRAVEL_JOURNEY_BEGIN_STATION = config["travel"]["TRAVEL_JOURNEY_BEGIN_STATION"]
 TRAVEL_JOURNEY_END_STATION = config["travel"]["TRAVEL_JOURNEY_END_STATION"]
 TRAVEL_JOURNEY_NUMBER_OF_TRIPS = config["travel"]["TRAVEL_JOURNEY_NUMBER_OF_TRIPS"]
 TRAVEL_DEPARTURES_STATION = config["travel"]["TRAVEL_DEPARTURES_STATION"]
 TRAVEL_DEPARTURES_FILTER = config["travel"]["TRAVEL_DEPARTURES_FILTER"]
+RADAR_CITY = "Arnhem"
 
 
 def index(request):
@@ -88,10 +90,15 @@ def index(request):
             "id": 6,
             "appName": "agendaWidget",
             "templateName": "agenda",
-            "data": requests.get(
-                "http://localhost:8000/api/agenda/fetch/", timeout=API_TIMEOUT
-            ).json()["events"],
+
+            "data": requests.get("http://localhost:8000/api/agenda/fetch/", timeout=API_TIMEOUT).json()["events"],
         },
+        "radar": {
+            "id": 7,
+            "appName": "radarWidget",
+            "templateName": "radar",
+            "data": requests.get(f"http://localhost:8000/api/radar/fetch/coordinates/{RADAR_CITY}", timeout=API_TIMEOUT).json(),
+        }
     }
 
     context = {"widgets": widgets}

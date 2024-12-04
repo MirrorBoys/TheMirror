@@ -1,0 +1,17 @@
+<div class="radar-Widget">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'radarWidget/style.css' %}">
+    <script src="{% static 'radarWidget/script.js' %}"></script>
+
+    {% if widgets.radar.data.latitude and widgets.radar.data.longitude %}
+        <iframe 
+            src="https://gadgets.buienradar.nl/gadget/zoommap/?lat={{ widgets.radar.data.latitude }}&lng={{ widgets.radar.data.longitude }}&overname=2&zoom=8&naam={{ widgets.radar.data.placename }}&size=2&voor=1" 
+            scrolling="no" 
+            width="256" 
+            height="256" 
+            frameborder="no">
+        </iframe>
+    {% else %}
+        <p>Coordinates not found</p>
+    {% endif %}
+</div>

@@ -18,6 +18,7 @@ TRAVEL_JOURNEY_NUMBER_OF_TRIPS = 2
 TRAVEL_DEPARTURES_STATION = "AH"
 # String containing the stations to filter on, separated by a hyphen. If "", no filter is applied.
 TRAVEL_DEPARTURES_FILTER = "Nijmegen-Winterswijk-Doetinchem"
+RADAR_CITY = "Arnhem"
 
 # Notes widget settings
 NOTE_DATA1 = {
@@ -92,6 +93,12 @@ def index(request):
             "templateName": "agenda",
             "data": requests.get("http://localhost:8000/api/agenda/fetch/", timeout=API_TIMEOUT).json()["events"],
         },
+        "radar": {
+            "id": 7,
+            "appName": "radarWidget",
+            "templateName": "radar",
+            "data": requests.get(f"http://localhost:8000/api/radar/fetch/coordinates/{RADAR_CITY}", timeout=API_TIMEOUT).json(),
+        },
         "notes1": {
             "id": 8,
             "appName": "noteWidget",
@@ -103,7 +110,7 @@ def index(request):
             "appName": "noteWidget",
             "templateName": "notes",
             "data": NOTE_DATA2,
-        }
+        },
     }
 
     context = {"widgets": widgets}

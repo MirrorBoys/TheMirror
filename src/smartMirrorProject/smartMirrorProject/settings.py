@@ -112,6 +112,13 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+#LOGIN_URL: The URL where requests are redirected for login.
+LOGIN_URL = "/login"
+#LOGIN_REDIRECT_URL: The URL where requests are redirected after login.
+LOGIN_REDIRECT_URL = "/"
+#LOGOUT_REDIRECT_URL: The URL where requests are redirected after logout.
+LOGOUT_REDIRECT_URL = "/login"
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/

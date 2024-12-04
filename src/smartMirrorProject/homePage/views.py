@@ -20,16 +20,26 @@ TRAVEL_DEPARTURES_STATION = "AH"
 TRAVEL_DEPARTURES_FILTER = "Nijmegen-Winterswijk-Doetinchem"
 
 # Notes widget settings
-NOTE_TITLE = "Sample Note Title"
-# html tag (e.g. "ul" or "ol")
-NOTE_TYPE = "ul"
-# html tag (optional, e.g. "li" which is needed in combination with "ul" or "ol"), leave empty ("") if not needed
-NOTE_SUB_TYPE = "li"
-# Add your content here. Each line will be rendered as a separate paragraph.
-NOTE_CONTENT = [
-    "test test test test test test test test test test test test test test test test test test test test test",
-    "It can have multiple lines, paragraphs, bulletpoints etc."
-]
+NOTE_DATA1 = {
+    "title": "Sample Note Title",
+    "type": "ul",
+    "subType": "li",
+    "content": [
+        "test test test test test test test test test test test test test test test test test test test test test",
+        "It can have multiple lines, paragraphs, bulletpoints etc."
+    ]
+}
+NOTE_DATA2 = {
+    "title": "Sample Note Title",
+    "type": "p",
+    "subType": "",
+    "content": [
+        "poep",
+        "It can have multiple lines, paragraphs, bulletpoints etc."
+    ]
+}
+
+
 
 def index(request):
     """
@@ -82,16 +92,17 @@ def index(request):
             "templateName": "agenda",
             "data": requests.get("http://localhost:8000/api/agenda/fetch/", timeout=API_TIMEOUT).json()["events"],
         },
-        "notes": {
+        "notes1": {
             "id": 8,
             "appName": "noteWidget",
             "templateName": "notes",
-            "data": {
-                "title": NOTE_TITLE,
-                "type": NOTE_TYPE,
-                "subType": NOTE_SUB_TYPE,
-                "content": NOTE_CONTENT
-            }
+            "data": NOTE_DATA1,
+        },
+        "notes2": {
+            "id": 9,
+            "appName": "noteWidget",
+            "templateName": "notes",
+            "data": NOTE_DATA2,
         }
     }
 

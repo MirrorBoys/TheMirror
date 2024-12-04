@@ -19,6 +19,18 @@ TRAVEL_DEPARTURES_STATION = "AH"
 # String containing the stations to filter on, separated by a hyphen. If "", no filter is applied.
 TRAVEL_DEPARTURES_FILTER = "Nijmegen-Winterswijk-Doetinchem"
 
+# Notes widget settings
+TITLE = "Sample Note Title"
+# html tag (e.g. "ul" or "ol")
+TYPE = "ul"
+# html tag (optional, e.g. "li" which is needed in combination with "ul" or "ol"), leave empty ("") if not needed
+SUB_TYPE = "li"
+# Add your content here. Each line will be rendered as a separate paragraph.
+CONTENT = [
+    "test test test test test test test test test test test test test test test test test test test test test",
+    "It can have multiple lines, paragraphs, bulletpoints etc."
+]
+
 def index(request):
     """
     Renders the homepage with the specified widgets. Each widget needs these keys: 
@@ -69,6 +81,17 @@ def index(request):
             "appName": "agendaWidget",
             "templateName": "agenda",
             "data": requests.get("http://localhost:8000/api/agenda/fetch/", timeout=API_TIMEOUT).json()["events"],
+        },
+        "notes": {
+            "id": 8,
+            "appName": "noteWidget",
+            "templateName": "notes",
+            "data": {
+                "title": TITLE,
+                "type": TYPE,
+                "subType": SUB_TYPE,
+                "content": CONTENT
+            }
         }
     }
 

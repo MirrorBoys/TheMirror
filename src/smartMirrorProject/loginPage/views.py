@@ -1,5 +1,6 @@
-from django.http import HttpResponse
+from django.shortcuts import render
 
 
 def index(request):
-    return HttpResponse("This is a test.")
+    context = {"widgets": None}
+    return render(request, "loginPage/index.html", context)

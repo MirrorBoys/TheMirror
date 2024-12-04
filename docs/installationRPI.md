@@ -112,6 +112,7 @@ Look for the line:
 nl_NL.UTF-8 UTF-8
 ```
 If it is commented out, remove the # to uncomment. 
+
 2. After editing the locale.gen file, regenerate the locales:
 ```shell
 sudo locale-gen

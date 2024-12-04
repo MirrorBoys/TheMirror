@@ -26,6 +26,4 @@ function synchronizeClock() {
     }, delay);
 }
 
-document.addEventListener('DOMContentLoaded', (event) => {
-    synchronizeClock();
-});
+synchronizeClock();

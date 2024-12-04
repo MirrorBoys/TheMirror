@@ -1,0 +1,34 @@
+<div class="mail-widget">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'mailWidget/style.css' %}">
+    <script src="{% static 'mailWidget/script.js' %}"></script>
+
+    <h3>Inbox</h3>
+    <button id="fetch-emails-button">Fetch Emails</button>
+
+    <ul id="email-list">
+        <!-- Emails will be populated here -->
+    </ul>
+
+    <script>
+        document.getElementById('fetch-emails-button').addEventListener('click', async () => {
+            const response = await fetch("{% url 'fetch-mail' %}");
+            if (response.ok) {
+                const data = await response.json();
+                const emailList = document.getElementById('email-list');
+                emailList.innerHTML = ''; // Clear existing content
+                if (data.emails) {
+                    data.emails.forEach(email => {
+                        const li = document.createElement('li');
+                        li.textContent = email;
+                        emailList.appendChild(li);
+                    });
+                } else {
+                    emailList.innerHTML = '<li>No emails found or error fetching emails.</li>';
+                }
+            } else {
+                alert('Failed to fetch emails. Please try again.');
+            }
+        });
+    </script>
+</div>

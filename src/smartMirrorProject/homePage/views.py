@@ -74,8 +74,8 @@ def index(request):
             "id": 8,
             "appName": "mailWidget",
             "templateName": "mail",
-            "data": ""
-        }
+            "data": ""             #requests.get("http://localhost:8000/api/mail/fetch/", timeout=API_TIMEOUT).json().get("emails", []),
+        },
     }
 
     context = {"widgets": widgets}

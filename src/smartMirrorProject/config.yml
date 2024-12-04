@@ -8,12 +8,12 @@ agenda:
   AGENDA_KEY:
 
 news:
-  VISIBLE: True
+  VISIBLE: False
   #The amount of articles that will be showed
   NEWS_NUMBER_OF_ARTICLES: 2
 
 travel_journeys:
-  VISIBLE: True
+  VISIBLE: False
   #The api key to get information from the NS, currentyl only the NS is supported
   NS_KEY:
 
@@ -26,7 +26,7 @@ travel_journeys:
   TRAVEL_JOURNEY_NUMBER_OF_TRIPS: 2
 
 travel_departures:
-  VISIBLE: True
+  VISIBLE: False
   #The api key to get information from the NS, currentyl only the NS is supported
   NS_KEY:
 
@@ -35,13 +35,13 @@ travel_departures:
   # String containing the stations to filter on, separated by a hyphen. If "", no filter is applied.
   TRAVEL_DEPARTURES_FILTER: "Nijmegen-Winterswijk-Doetinchem"
 
-spotify:
-  VISIBLE: True
+music:
+  VISIBLE: False
   SPOTIFY_CLIENT_ID:
   SPOTIFY_CLIENT_SECRET:
 
 weather:
-  VISIBLE: True
+  VISIBLE: False
   #The api key to get the weather data from the KNMI, currently only the KNMI is supported
   KNMI_API_KEY:
   #The number of days that will be showed in the foreceast, default is 2, which will show the weather of today and tomorrow

@@ -47,37 +47,48 @@ def createWidget(config, api_links, api_timeout):
     currentId = 1
 
     for key in top_level_keys[1:]:
-        if config[key]["VISIBLE"] and key != "spotify":
-
-            api_string = (
-                f"requests.get("
-                f"'{api_links[key]}', "
-                f"timeout={api_timeout}"
-                f").json()"
-            )
+        if config[key]["VISIBLE"] and key != "music" and key != "agenda":
+            if key == "travel_journeys" or "travel_departures":
+                appName = key.split("_")[0] + "Widget"
+            else:
+                appName = key + "Widget"
 
             widget[key] = {
                 "id": currentId,
-                "appName": key + "Widget",
+                "appName": appName,
                 "templateName": key,
-                "data": api_string,
+                "data": "",
+                "apiCall": lambda link=api_links[key]: requests.get(
+                    link, timeout=api_timeout
+                ).json(),
             }
 
             currentId += 1
-        elif config[key]["VISIBLE"] and key == "spotify":
+
+        elif config[key]["VISIBLE"] and key == "agenda":
             widget[key] = {
                 "id": currentId,
                 "appName": key + "Widget",
                 "templateName": key,
                 "data": "",
+                "apiCall": lambda link=api_links[key]: requests.get(
+                    link, timeout=api_timeout
+                ).json()["events"],
+            }
+            currentId += 1
+
+        elif config[key]["VISIBLE"] and key == "music":
+            widget[key] = {
+                "id": currentId,
+                "appName": key + "Widget",
+                "templateName": key,
+                "data": "",
+                "apiCall": "",
             }
             currentId += 1
 
     print(widget)
     return widget
-
-
-widgets = createWidget(CONFIG, INTERNAL_API_LINKS, API_TIMEOUT)
 
 
 def index(request):
@@ -146,6 +157,11 @@ def index(request):
     #         ).json()["events"],
     #     },
     # }
+
+    widgets = createWidget(CONFIG, INTERNAL_API_LINKS, API_TIMEOUT)
+
+    for widget in widgets.values():
+        widget["data"] = widget["apiCall"]()
 
     context = {"widgets": widgets}
     return render(request, "homePage/index.html", context)

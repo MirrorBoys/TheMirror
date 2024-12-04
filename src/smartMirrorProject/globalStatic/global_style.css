@@ -1,0 +1,38 @@
+/* Reset margin and padding of all elements to compensate for differences in browsers. */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    padding: 10px;
+}
+
+header {
+    /* Debugging */
+    border-style: dotted;
+    background-color: lightskyblue;
+
+    height: 5%;
+    padding: 10px;
+}
+
+main {
+    /* Debugging */
+    border-style: dotted;
+    background-color: aquamarine;
+
+    height: 90%;
+    padding: 10px;
+}
+
+footer {
+    /* Debugging */
+    border-style: dotted;
+    background-color: lemonchiffon;
+
+    height: 5%;
+    padding: 10px;
+}

@@ -23,9 +23,7 @@ NEWS_NUMBER_OF_ARTICLES = config["news"]["NEWS_NUMBER_OF_ARTICLES"]
 TRAVEL_JOURNEY_BEGIN_STATION = config["travel"]["TRAVEL_JOURNEY_BEGIN_STATION"]
 TRAVEL_JOURNEY_END_STATION = config["travel"]["TRAVEL_JOURNEY_END_STATION"]
 TRAVEL_JOURNEY_NUMBER_OF_TRIPS = config["travel"]["TRAVEL_JOURNEY_NUMBER_OF_TRIPS"]
-
 TRAVEL_DEPARTURES_STATION = config["travel"]["TRAVEL_DEPARTURES_STATION"]
-# String containing the stations to filter on, separated by a hyphen. If "", no filter is applied.
 TRAVEL_DEPARTURES_FILTER = config["travel"]["TRAVEL_DEPARTURES_FILTER"]
 
 

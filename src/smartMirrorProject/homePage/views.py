@@ -44,6 +44,7 @@ def createWidget(config, api_links, api_timeout):
 
     top_level_keys = list(config.keys())
     widget = {}
+    currentId = 1
 
     for key in top_level_keys[1:]:
         if config[key]["VISIBLE"] and key != "spotify":
@@ -56,20 +57,24 @@ def createWidget(config, api_links, api_timeout):
             )
 
             widget[key] = {
-                "id": 1,
+                "id": currentId,
                 "appName": key + "Widget",
                 "templateName": key,
                 "data": api_string,
             }
+
+            currentId += 1
         elif config[key]["VISIBLE"] and key == "spotify":
             widget[key] = {
-                "id": 1,
+                "id": currentId,
                 "appName": key + "Widget",
                 "templateName": key,
                 "data": "",
             }
+            currentId += 1
 
-        return widget
+    print(widget)
+    return widget
 
 
 widgets = createWidget(CONFIG, INTERNAL_API_LINKS, API_TIMEOUT)

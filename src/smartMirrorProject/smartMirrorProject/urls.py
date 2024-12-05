@@ -22,6 +22,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("homePage.urls")),
     path("api/note/", include("noteWidget.urls")),
+    path("api/time/", include("timeWidget.urls")),
     path("musicWidget/", include("musicWidget.urls")),
     path("api/weather/", include("weatherWidget.urls")),
     path("api/news/", include("newsWidget.urls")),

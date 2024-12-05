@@ -10,6 +10,9 @@ WEATHER_NUMBER_OF_DAYS = 2
 # News widget settings
 NEWS_NUMBER_OF_ARTICLES = 2
 
+# Time widget settings
+TIMEZONE = "Europe/Amsterdam" # use TZ identifier (e.g. Europe/Amsterdam) or TZ database name (e.g. CET)
+ENCODED_TIMEZONE = TIMEZONE.replace("/", "-")
 
 # Travel widget settings
 TRAVEL_JOURNEY_BEGIN_STATION = "DID"
@@ -86,6 +89,12 @@ def index(request):
             "appName": "musicWidget",
             "templateName": "music",
             "data": ""
+        },
+        "time": {
+            "id": 5,
+            "appName": "timeWidget",
+            "templateName": "time",	
+            "data": requests.get(f"http://localhost:8000/api/time/fetch/{ENCODED_TIMEZONE}", timeout=API_TIMEOUT).json(),
         },
         "agenda": {
             "id": 6,

@@ -69,7 +69,7 @@ def index(request):
             "id": 6,
             "appName": "agendaWidget",
             "templateName": "agenda",
-            "data": requests.get("http://localhost:8000/api/agenda/fetch/", timeout=API_TIMEOUT).json()["events"],
+            "data": requests.get("http://localhost:8000/api/agenda/fetch/", timeout=API_TIMEOUT).json(),
         },
         "radar": {
             "id": 7,

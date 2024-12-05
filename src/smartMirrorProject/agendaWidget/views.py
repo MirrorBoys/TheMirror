@@ -55,4 +55,4 @@ def fetch_agenda_events_view(request):
     AGENDA_KEY = os.getenv("AGENDA_KEY")
     events = fetch_google_calendar_events(calendar_id, AGENDA_KEY)
     #print(events)  # API Debugging
-    return JsonResponse({"events": events})
+    return JsonResponse(events, safe=False)

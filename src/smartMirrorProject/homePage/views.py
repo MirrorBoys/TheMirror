@@ -48,7 +48,7 @@ def createWidget(config, api_links, api_timeout):
 
     for key in top_level_keys[1:]:
         if config[key]["VISIBLE"] and key != "music":
-            if key == "travel_journeys" or "travel_departures":
+            if "_" in key:
                 appName = key.split("_")[0] + "Widget"
             else:
                 appName = key + "Widget"
@@ -75,7 +75,6 @@ def createWidget(config, api_links, api_timeout):
             }
             currentId += 1
 
-    print(widget)
     return widget
 
 
@@ -93,58 +92,6 @@ def index(request):
     Returns:
         HttpResponse: The rendered homepage with the widgets context.
     """
-    # widgets = {
-    #     "weather": {
-    #         "id": 1,
-    #         "appName": "weatherWidget",
-    #         "templateName": "weather",
-    #         "data": requests.get(
-    #             f"http://localhost:8000/api/weather/fetch/{WEATHER_NUMBER_OF_DAYS}",
-    #             timeout=API_TIMEOUT,
-    #         ).json(),
-    #     },
-    #     "news": {
-    #         "id": 2,
-    #         "appName": "newsWidget",
-    #         "templateName": "news",
-    #         "data": requests.get(
-    #             f"http://localhost:8000/api/news/fetch/{NEWS_NUMBER_OF_ARTICLES}",
-    #             timeout=API_TIMEOUT,
-    #         ).json(),
-    #     },
-    #     "travel_journeys": {
-    #         "id": 3,
-    #         "appName": "travelWidget",
-    #         "templateName": "travel_journeys",
-    #         "data": requests.get(
-    #             f"http://localhost:8000/api/travel/fetch/journeys/{TRAVEL_JOURNEY_BEGIN_STATION}/{TRAVEL_JOURNEY_END_STATION}/{TRAVEL_JOURNEY_NUMBER_OF_TRIPS}",
-    #             timeout=API_TIMEOUT,
-    #         ).json(),
-    #     },
-    #     "travel_departures": {
-    #         "id": 4,
-    #         "appName": "travelWidget",
-    #         "templateName": "travel_departures",
-    #         "data": requests.get(
-    #             f"http://localhost:8000/api/travel/fetch/departures/{TRAVEL_DEPARTURES_STATION}/{TRAVEL_DEPARTURES_FILTER}",
-    #             timeout=API_TIMEOUT,
-    #         ).json(),
-    #     },
-    #     "music": {
-    #         "id": 5,
-    #         "appName": "musicWidget",
-    #         "templateName": "music",
-    #         "data": "",
-    #     },
-    #     "agenda": {
-    #         "id": 6,
-    #         "appName": "agendaWidget",
-    #         "templateName": "agenda",
-    #         "data": requests.get(
-    #             "http://localhost:8000/api/agenda/fetch/", timeout=API_TIMEOUT
-    #         ).json()["events"],
-    #     },
-    # }
 
     widgets = createWidget(CONFIG, INTERNAL_API_LINKS, API_TIMEOUT)
 

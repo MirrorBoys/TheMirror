@@ -13,7 +13,7 @@ news:
   NEWS_NUMBER_OF_ARTICLES: 2
 
 travel_journeys:
-  VISIBLE: False
+  VISIBLE: True
   #The api key to get information from the NS, currentyl only the NS is supported
   NS_KEY:
 
@@ -26,7 +26,7 @@ travel_journeys:
   TRAVEL_JOURNEY_NUMBER_OF_TRIPS: 2
 
 travel_departures:
-  VISIBLE: False
+  VISIBLE: True
   #The api key to get information from the NS, currentyl only the NS is supported
   NS_KEY:
 
@@ -41,7 +41,7 @@ music:
   SPOTIFY_CLIENT_SECRET:
 
 weather:
-  VISIBLE: False
+  VISIBLE: True
   #The api key to get the weather data from the KNMI, currently only the KNMI is supported
   KNMI_API_KEY:
   #The number of days that will be showed in the foreceast, default is 2, which will show the weather of today and tomorrow

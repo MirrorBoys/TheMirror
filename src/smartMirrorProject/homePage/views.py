@@ -33,6 +33,7 @@ TRAVEL_DEPARTURES_STATION = CONFIG["travel_departures"]["TRAVEL_DEPARTURES_STATI
 # String containing the stations to filter on, separated by a hyphen. If "", no filter is applied.
 TRAVEL_DEPARTURES_FILTER = CONFIG["travel_departures"]["TRAVEL_DEPARTURES_FILTER"]
 
+RADAR_CITY = "Arnhem"
 
 INTERNAL_API_LINKS = {
     "agenda": "http://localhost:8000/api/agenda/fetch/",
@@ -79,9 +80,6 @@ def createWidget(config, api_links, api_timeout):
             currentId += 1
 
     return widget
-
-
-RADAR_CITY = "Arnhem"
 
 
 def index(request):

@@ -35,7 +35,7 @@ NOTE_DATA2 = {
     "type": "p",
     "subType": "",
     "content": [
-        "omg lol haha xD",
+        "hoi",
         "It can have multiple lines, paragraphs, bulletpoints etc."
     ]
 }

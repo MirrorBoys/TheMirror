@@ -1,0 +1,13 @@
+.time-widget {
+    text-align: center;
+}
+
+.time {
+    font-size: 5em;
+    margin: 0;
+}
+
+.date {
+    font-size: 2em;
+    margin: 0;
+}

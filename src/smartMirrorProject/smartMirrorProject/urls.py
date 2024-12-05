@@ -21,9 +21,12 @@ from django.urls import path, include
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("homePage.urls")),
+    path("api/time/", include("timeWidget.urls")),
     path("musicWidget/", include("musicWidget.urls")),
     path("api/weather/", include("weatherWidget.urls")),
     path("api/news/", include("newsWidget.urls")),
     path("api/travel/", include("travelWidget.urls")),
     path("api/agenda/", include("agendaWidget.urls")),
+    path("api/radar/", include("radarWidget.urls")),
+
 ]

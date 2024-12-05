@@ -18,6 +18,9 @@ WEATHER_NUMBER_OF_DAYS = CONFIG["weather"]["WEATHER_NUMBER_OF_DAYS"]
 # News widget settings
 NEWS_NUMBER_OF_ARTICLES = CONFIG["news"]["NEWS_NUMBER_OF_ARTICLES"]
 
+# Time widget settings
+TIMEZONE = "Europe/Amsterdam"  # use TZ identifier (e.g. Europe/Amsterdam) or TZ database name (e.g. CET)
+ENCODED_TIMEZONE = TIMEZONE.replace("/", "-")
 
 # Travel widget settings
 TRAVEL_JOURNEY_BEGIN_STATION = CONFIG["travel_journeys"]["TRAVEL_JOURNEY_BEGIN_STATION"]
@@ -76,6 +79,9 @@ def createWidget(config, api_links, api_timeout):
             currentId += 1
 
     return widget
+
+
+RADAR_CITY = "Arnhem"
 
 
 def index(request):

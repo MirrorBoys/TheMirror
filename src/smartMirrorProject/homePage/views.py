@@ -23,6 +23,28 @@ TRAVEL_DEPARTURES_STATION = "AH"
 TRAVEL_DEPARTURES_FILTER = "Nijmegen-Winterswijk-Doetinchem"
 RADAR_CITY = "Arnhem"
 
+# Notes widget settings
+NOTE_DATA1 = {
+    "title": "test1",
+    "type": "ul",
+    "subType": "li",
+    "content": [
+        "test test test test test test test test test test test test test test test test test test test test test",
+        "It can have multiple lines, paragraphs, bulletpoints etc."
+    ]
+}
+NOTE_DATA2 = {
+    "title": "test23456789",
+    "type": "p",
+    "subType": "",
+    "content": [
+        "hoi",
+        "It can have multiple lines, paragraphs, bulletpoints etc."
+    ]
+}
+
+
+
 def index(request):
     """
     Renders the homepage with the specified widgets. Each widget needs these keys: 
@@ -85,7 +107,19 @@ def index(request):
             "appName": "radarWidget",
             "templateName": "radar",
             "data": requests.get(f"http://localhost:8000/api/radar/fetch/coordinates/{RADAR_CITY}", timeout=API_TIMEOUT).json(),
-        }
+        },
+        "notes1": {
+            "id": 8,
+            "appName": "noteWidget",
+            "templateName": "notes",
+            "data": NOTE_DATA1,
+        },
+        "notes2": {
+            "id": 9,
+            "appName": "noteWidget",
+            "templateName": "notes",
+            "data": NOTE_DATA2,
+        },
     }
 
     context = {"widgets": widgets}

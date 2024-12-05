@@ -5,10 +5,10 @@ import requests
 API_TIMEOUT = 10
 
 # Weather widget settings
-WEATHER_NUMBER_OF_DAYS = 2
+WEATHER_NUMBER_OF_DAYS = 7
 
 # News widget settings
-NEWS_NUMBER_OF_ARTICLES = 2
+NEWS_NUMBER_OF_ARTICLES = 4
 
 # Time widget settings
 TIMEZONE = "Europe/Amsterdam" # use TZ identifier (e.g. Europe/Amsterdam) or TZ database name (e.g. CET)

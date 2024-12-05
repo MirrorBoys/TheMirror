@@ -1,14 +1,17 @@
-<div class="radar-Widget">
+<div class="radar-widget">
     {% load static %}
     <link rel="stylesheet" href="{% static 'radarWidget/style.css' %}">
     <script src="{% static 'radarWidget/script.js' %}"></script>
 
+    <h3>Weather Radar</h3>
+    <p> {{ widgets.radar.data.placename }}</p>
+
     {% if widgets.radar.data.latitude and widgets.radar.data.longitude %}
         <iframe 
-            src="https://gadgets.buienradar.nl/gadget/zoommap/?lat={{ widgets.radar.data.latitude }}&lng={{ widgets.radar.data.longitude }}&overname=2&zoom=8&naam={{ widgets.radar.data.placename }}&size=2&voor=1" 
+            src="https://gadgets.buienradar.nl/gadget/zoommap/?lat={{ widgets.radar.data.latitude }}&lng={{ widgets.radar.data.longitude }}&overname=2&zoom=8&naam={{ widgets.radar.data.placename }}&size=2b&voor=1" 
             scrolling="no" 
-            width="256" 
-            height="256" 
+            width="330" 
+            height="330" 
             frameborder="no">
         </iframe>
     {% else %}

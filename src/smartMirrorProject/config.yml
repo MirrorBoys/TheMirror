@@ -8,7 +8,7 @@ agenda:
   AGENDA_KEY:
 
 news:
-  VISIBLE: False
+  VISIBLE: True
   #The amount of articles that will be showed
   NEWS_NUMBER_OF_ARTICLES: 2
 
@@ -36,7 +36,7 @@ travel_departures:
   TRAVEL_DEPARTURES_FILTER: "Nijmegen-Winterswijk-Doetinchem"
 
 music:
-  VISIBLE: False
+  VISIBLE: True
   SPOTIFY_CLIENT_ID:
   SPOTIFY_CLIENT_SECRET:
 

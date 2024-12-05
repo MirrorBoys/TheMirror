@@ -33,10 +33,10 @@ TRAVEL_DEPARTURES_FILTER = CONFIG["travel_departures"]["TRAVEL_DEPARTURES_FILTER
 
 INTERNAL_API_LINKS = {
     "agenda": "http://localhost:8000/api/agenda/fetch/",
-    "news": "http://localhost:8000/api/news/fetch/{NEWS_NUMBER_OF_ARTICLES}",
-    "travel_journeys": "http://localhost:8000/api/travel/fetch/journeys/{TRAVEL_JOURNEY_BEGIN_STATION}/{TRAVEL_JOURNEY_END_STATION}/{TRAVEL_JOURNEY_NUMBER_OF_TRIPS}",
-    "travel_departures": "http://localhost:8000/api/travel/fetch/departures/{TRAVEL_DEPARTURES_STATION}/{TRAVEL_DEPARTURES_FILTER}",
-    "weather": "http://localhost:8000/api/weather/fetch/{WEATHER_NUMBER_OF_DAYS}",
+    "news": f"http://localhost:8000/api/news/fetch/{NEWS_NUMBER_OF_ARTICLES}",
+    "travel_journeys": f"http://localhost:8000/api/travel/fetch/journeys/{TRAVEL_JOURNEY_BEGIN_STATION}/{TRAVEL_JOURNEY_END_STATION}/{TRAVEL_JOURNEY_NUMBER_OF_TRIPS}",
+    "travel_departures": f"http://localhost:8000/api/travel/fetch/departures/{TRAVEL_DEPARTURES_STATION}/{TRAVEL_DEPARTURES_FILTER}",
+    "weather": f"http://localhost:8000/api/weather/fetch/{WEATHER_NUMBER_OF_DAYS}",
 }
 
 
@@ -47,7 +47,7 @@ def createWidget(config, api_links, api_timeout):
     currentId = 1
 
     for key in top_level_keys[1:]:
-        if config[key]["VISIBLE"] and key != "music" and key != "agenda":
+        if config[key]["VISIBLE"] and key != "music":
             if key == "travel_journeys" or "travel_departures":
                 appName = key.split("_")[0] + "Widget"
             else:
@@ -65,25 +65,13 @@ def createWidget(config, api_links, api_timeout):
 
             currentId += 1
 
-        elif config[key]["VISIBLE"] and key == "agenda":
-            widget[key] = {
-                "id": currentId,
-                "appName": key + "Widget",
-                "templateName": key,
-                "data": "",
-                "apiCall": lambda link=api_links[key]: requests.get(
-                    link, timeout=api_timeout
-                ).json()["events"],
-            }
-            currentId += 1
-
         elif config[key]["VISIBLE"] and key == "music":
             widget[key] = {
                 "id": currentId,
                 "appName": key + "Widget",
                 "templateName": key,
-                "data": "",
-                "apiCall": "",
+                # "data": "",
+                # "apiCall": "",
             }
             currentId += 1
 
@@ -161,7 +149,8 @@ def index(request):
     widgets = createWidget(CONFIG, INTERNAL_API_LINKS, API_TIMEOUT)
 
     for widget in widgets.values():
-        widget["data"] = widget["apiCall"]()
+        if widget["templateName"] != "music":
+            widget["data"] = widget["apiCall"]()
 
     context = {"widgets": widgets}
     return render(request, "homePage/index.html", context)

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    {% load static %}
+    <!-- Global static files -->
+    <link rel="icon" type="image/x-icon" href="{% static 'images/mirror.gif' %}">
+    <link rel="stylesheet" href="{% static 'global_style.css' %}">
+    <script src="{% static 'global_script.js' %}"></script>
+
+    <!-- Static files specifically for this widget -->
+    <link rel="stylesheet" href="{% static 'loginPage/style.css' %}">
+    <script src="{% static 'loginPage/script.js' %}"></script>
+
+    <title>TheMirror</title>
+</head>
+
+<body>
+    <header>PLACEHOLDER FOR HEADER</header>
+
+    <main>
+        <div class="login-container">
+            <form method="post" action="">
+                <h2>Login</h2>
+                <div class="form-group">
+                    <label for="username">Gebruikersnaam</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Wachtwoord</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit">Inloggen</button>
+            </form>
+        </div>
+    </main>
+
+    <footer>PLACEHOLDER FOR FOOTER</footer>
+</body>
+
+</html>

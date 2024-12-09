@@ -11,15 +11,13 @@ body {
     padding: 10px;
 }
 
-/* Debugging
 header {
-    border-style: dotted;
-    background-color: lightskyblue;
-
-    height: 5%;
-    padding: 10px;
+    color:#ecf0f1;
+    height: 3%;
+    padding: 5px;
+    text-align: center;
 }
-*/
+
 main {
     /* Debugging */
     background-color: rgb(22, 22, 22);
@@ -52,6 +50,7 @@ main {
     color: #ecf0f1;
 }
 
+
 footer {
 
     border-style: dotted;
@@ -60,4 +59,3 @@ footer {
     height: 5%;
     padding: 10px;
 }
-*/

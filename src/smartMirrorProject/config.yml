@@ -16,7 +16,6 @@ travel_journeys:
   VISIBLE: True
   #The api key to get information from the NS, currentyl only the NS is supported
   NS_KEY:
-
   #The begin station and end station for displayed traject.
   #When the name of a city is filled in it will automatically use the central station in that city.
   #stations in cities other than the central station follow the following syntax: "City Stationname", example "Arhnem Presikhaaf"
@@ -29,7 +28,6 @@ travel_departures:
   VISIBLE: True
   #The api key to get information from the NS, currentyl only the NS is supported
   NS_KEY:
-
   #The depature station needs to be given by the code that is assigned by rijdendetreinen, to check wich code you need download the file on https://www.rijdendetreinen.nl/en/open-data/stations
   TRAVEL_DEPARTURES_STATION: "AH"
   # String containing the stations to filter on, separated by a hyphen. If "", no filter is applied.

@@ -3,26 +3,26 @@ import requests
 import os
 import yaml
 
+config_file_path = os.path.join(os.path.dirname(__file__), "..", "config.yml")
+with open(config_file_path, "r") as file:
+    config = yaml.safe_load(file)
 
-CONFIG_FILE_PATH = os.path.join(os.path.dirname(__file__), "..", "config.yml")
-
-with open(CONFIG_FILE_PATH, "r") as file:
-    CONFIG = yaml.safe_load(file)
 
 # Settings for all widgets
-API_TIMEOUT = CONFIG["general_settings"]["API_TIMEOUT"]
+API_TIMEOUT = config["general_settings"]["API_TIMEOUT"]
 
 # Weather widget settings
-WEATHER_NUMBER_OF_DAYS = CONFIG["weather"]["WEATHER_NUMBER_OF_DAYS"]
+WEATHER_NUMBER_OF_DAYS = config["weather"]["WEATHER_NUMBER_OF_DAYS"]
 
 # News widget settings
-NEWS_NUMBER_OF_ARTICLES = CONFIG["news"]["NEWS_NUMBER_OF_ARTICLES"]
+NEWS_NUMBER_OF_ARTICLES = config["news"]["NEWS_NUMBER_OF_ARTICLES"]
 
 # Time widget settings
 TIMEZONE = "Europe/Amsterdam"  # use TZ identifier (e.g. Europe/Amsterdam) or TZ database name (e.g. CET)
 ENCODED_TIMEZONE = TIMEZONE.replace("/", "-")
 
 # Travel widget settings
+
 TRAVEL_JOURNEY_BEGIN_STATION = CONFIG["travel_journeys"]["TRAVEL_JOURNEY_BEGIN_STATION"]
 TRAVEL_JOURNEY_END_STATION = CONFIG["travel_journeys"]["TRAVEL_JOURNEY_END_STATION"]
 TRAVEL_JOURNEY_NUMBER_OF_TRIPS = CONFIG["travel_journeys"][
@@ -102,6 +102,14 @@ def index(request):
     for widget in widgets.values():
         if widget["templateName"] != "music":
             widget["data"] = widget["apiCall"]()
+
+        "radar": {
+            "id": 7,
+            "appName": "radarWidget",
+            "templateName": "radar",
+            "data": requests.get(f"http://localhost:8000/api/radar/fetch/coordinates/{RADAR_CITY}", timeout=API_TIMEOUT).json(),
+        }
+    }
 
     context = {"widgets": widgets}
     return render(request, "homePage/index.html", context)

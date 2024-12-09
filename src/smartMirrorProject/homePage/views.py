@@ -1,31 +1,40 @@
 from django.shortcuts import render
 import requests
+import os
+import yaml
+
+
+config_file_path = os.path.join(os.path.dirname(__file__), "..", "config.yml")
+with open(config_file_path, "r") as file:
+    config = yaml.safe_load(file)
+
 
 # Settings for all widgets
-API_TIMEOUT = 10
+API_TIMEOUT = config["general_settings"]["API_TIMEOUT"]
 
 # Weather widget settings
-WEATHER_NUMBER_OF_DAYS = 7
+WEATHER_NUMBER_OF_DAYS = config["weather"]["WEATHER_NUMBER_OF_DAYS"]
 
 # News widget settings
-NEWS_NUMBER_OF_ARTICLES = 4
+NEWS_NUMBER_OF_ARTICLES = config["news"]["NEWS_NUMBER_OF_ARTICLES"]
 
 # Time widget settings
 TIMEZONE = "Europe/Amsterdam" # use TZ identifier (e.g. Europe/Amsterdam) or TZ database name (e.g. CET)
 ENCODED_TIMEZONE = TIMEZONE.replace("/", "-")
 
 # Travel widget settings
-TRAVEL_JOURNEY_BEGIN_STATION = "DID"
-TRAVEL_JOURNEY_END_STATION = "AH"
-TRAVEL_JOURNEY_NUMBER_OF_TRIPS = 2
-TRAVEL_DEPARTURES_STATION = "AH"
-# String containing the stations to filter on, separated by a hyphen. If "", no filter is applied.
-TRAVEL_DEPARTURES_FILTER = "Nijmegen-Winterswijk-Doetinchem"
+
+TRAVEL_JOURNEY_BEGIN_STATION = config["travel"]["TRAVEL_JOURNEY_BEGIN_STATION"]
+TRAVEL_JOURNEY_END_STATION = config["travel"]["TRAVEL_JOURNEY_END_STATION"]
+TRAVEL_JOURNEY_NUMBER_OF_TRIPS = config["travel"]["TRAVEL_JOURNEY_NUMBER_OF_TRIPS"]
+TRAVEL_DEPARTURES_STATION = config["travel"]["TRAVEL_DEPARTURES_STATION"]
+TRAVEL_DEPARTURES_FILTER = config["travel"]["TRAVEL_DEPARTURES_FILTER"]
 RADAR_CITY = "Arnhem"
+
 
 def index(request):
     """
-    Renders the homepage with the specified widgets. Each widget needs these keys: 
+    Renders the homepage with the specified widgets. Each widget needs these keys:
         id (int): The widget ID.
         appName (str): The name of the app.
         templateName (str): The name of the used template.
@@ -42,31 +51,43 @@ def index(request):
             "id": 1,
             "appName": "weatherWidget",
             "templateName": "weather",
-            "data": requests.get(f"http://localhost:8000/api/weather/fetch/{WEATHER_NUMBER_OF_DAYS}", timeout=API_TIMEOUT).json(),
+            "data": requests.get(
+                f"http://localhost:8000/api/weather/fetch/{WEATHER_NUMBER_OF_DAYS}",
+                timeout=API_TIMEOUT,
+            ).json(),
         },
         "news": {
             "id": 2,
             "appName": "newsWidget",
             "templateName": "news",
-            "data": requests.get(f"http://localhost:8000/api/news/fetch/{NEWS_NUMBER_OF_ARTICLES}", timeout=API_TIMEOUT).json(),
+            "data": requests.get(
+                f"http://localhost:8000/api/news/fetch/{NEWS_NUMBER_OF_ARTICLES}",
+                timeout=API_TIMEOUT,
+            ).json(),
         },
         "travel-journeys": {
             "id": 3,
             "appName": "travelWidget",
             "templateName": "travel-journeys",
-            "data": requests.get(f"http://localhost:8000/api/travel/fetch/journeys/{TRAVEL_JOURNEY_BEGIN_STATION}/{TRAVEL_JOURNEY_END_STATION}/{TRAVEL_JOURNEY_NUMBER_OF_TRIPS}", timeout=API_TIMEOUT).json(),
+            "data": requests.get(
+                f"http://localhost:8000/api/travel/fetch/journeys/{TRAVEL_JOURNEY_BEGIN_STATION}/{TRAVEL_JOURNEY_END_STATION}/{TRAVEL_JOURNEY_NUMBER_OF_TRIPS}",
+                timeout=API_TIMEOUT,
+            ).json(),
         },
         "travel-departures": {
             "id": 4,
             "appName": "travelWidget",
             "templateName": "travel-departures",
-            "data": requests.get(f"http://localhost:8000/api/travel/fetch/departures/{TRAVEL_DEPARTURES_STATION}/{TRAVEL_DEPARTURES_FILTER}", timeout=API_TIMEOUT).json(),
+            "data": requests.get(
+                f"http://localhost:8000/api/travel/fetch/departures/{TRAVEL_DEPARTURES_STATION}/{TRAVEL_DEPARTURES_FILTER}",
+                timeout=API_TIMEOUT,
+            ).json(),
         },
         "music": {
             "id": 5,
             "appName": "musicWidget",
             "templateName": "music",
-            "data": ""
+            "data": "",
         },
         "time": {
             "id": 5,
@@ -78,6 +99,7 @@ def index(request):
             "id": 6,
             "appName": "agendaWidget",
             "templateName": "agenda",
+
             "data": requests.get("http://localhost:8000/api/agenda/fetch/", timeout=API_TIMEOUT).json()["events"],
         },
         "radar": {
@@ -89,4 +111,4 @@ def index(request):
     }
 
     context = {"widgets": widgets}
-    return render(request, 'homePage/index.html', context)
+    return render(request, "homePage/index.html", context)

@@ -29,6 +29,29 @@ main {
 }
 
 /* Debugging 
+=======
+/* Styling for displaying regular, error and success messages */
+.messages {
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.messages p {
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.messages .error {
+    background-color: #e74c3c;
+    color: #ecf0f1;
+}
+
+.messages .success {
+    background-color: #2ecc71;
+    color: #ecf0f1;
+}
+
 footer {
 
     border-style: dotted;

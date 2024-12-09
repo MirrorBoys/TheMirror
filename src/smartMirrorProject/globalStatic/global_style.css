@@ -7,27 +7,27 @@
 
 body {
     height: 100vh;
+    background-color: rgb(22, 22, 22);
     padding: 10px;
 }
 
 header {
-    /* Debugging */
-    border-style: dotted;
-    background-color: lightskyblue;
-
-    height: 5%;
-    padding: 10px;
+    color:#ecf0f1;
+    height: 3%;
+    padding: 5px;
+    text-align: center;
 }
 
 main {
     /* Debugging */
-    border-style: dotted;
-    background-color: aquamarine;
+    background-color: rgb(22, 22, 22);
 
-    height: 90%;
+    height: 100%;
     padding: 10px;
 }
 
+/* Debugging 
+=======
 /* Styling for displaying regular, error and success messages */
 .messages {
     margin-bottom: 15px;
@@ -50,8 +50,9 @@ main {
     color: #ecf0f1;
 }
 
+
 footer {
-    /* Debugging */
+
     border-style: dotted;
     background-color: lemonchiffon;
 

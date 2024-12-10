@@ -100,6 +100,37 @@ sudo raspi-config
 sudo reboot now
 ```
 
+## Add languages to your Raspberry Pi
+For the KNMI API to be able to work, it's important the right locale languages are installed in your Raspberry Pi. 
+
+1. Open the locale.gen file and ensure that nl_NL.UTF-8 is uncommented:
+```shell
+sudo nano /etc/locale.gen
+```
+Look for the line:
+```shell
+nl_NL.UTF-8 UTF-8
+```
+If it is commented out, remove the # to uncomment. 
+
+2. After editing the locale.gen file, regenerate the locales:
+```shell
+sudo locale-gen
+```
+3. Update the system's default locale to nl_NL.UTF-8
+```shell
+sudo update-locale LANG=nl_NL.UTF-8
+```
+4. Verify the locale by checking which locales are currently active:
+```shell
+locale -a
+```
+5. Reboot your Raspberry Pi to ensure the changes have taken full effect:
+```shell
+sudo reboot
+```
+
+
 ## All done 
 
 With this the RPI should be ready to be used. If you want to run the mirror you can use the following commands to start the web server: 

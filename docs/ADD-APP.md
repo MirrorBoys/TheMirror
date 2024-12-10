@@ -2,7 +2,8 @@
 This project uses Django apps to organise code. This includes both front- and backend code. An app is created for each type of widget. This paragraph describes how one creates such an app and configure it.
 
 >[!IMPORTANT]
-> Before following these steps, ensure that your Django-server is installed and configured. You can find the instructions for this in the (development setup docs)[https://github.com/MirrorBoys/TheMirror/blob/main/docs/DEVELOPMENT.md#development-setup].
+> Before following these steps, ensure that your Django-server is installed and configured. You can find the instructions for this in the [development setup docs](https://github.com/MirrorBoys/TheMirror/blob/main/docs/DEVELOPMENT.md#development-setup).
+
 >[!IMPORTANT]
 > Ensure that you are following these steps in your Python environment.
 
@@ -75,7 +76,7 @@ We create and update the files to configure correct routing. This route depends 
 ```shell
 sudo nano ~/TheMirror/src/smartMirrorProject/smartMirrorProject/urls.py
 ```
-```shell
+```python
 ...
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -94,8 +95,11 @@ urlpatterns = [
 ````shell
 sudo nano ~/TheMirror/src/smartMirrorProject/$appName/urls.py
 ````
-```shell
+```python
 ...
+from django.urls import path
+from . import views
+
 urlpatterns = [
     # Example URL pattern.
     path("fetch/<str:start_station>/<str:end_station>/<int:amount_trips>", views.fetch_trip, name="apiTravelFetch"),

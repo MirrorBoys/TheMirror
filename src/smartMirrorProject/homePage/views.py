@@ -44,42 +44,66 @@ INTERNAL_API_LINKS = {
 }
 
 
-def createWidget(config, api_links, api_timeout):
+def createWidgetsObject(config, api_links, api_timeout):
+    """
+    Creates a dictionary of widget objects based on the provided configuration.
 
-    top_level_keys = list(config.keys())
-    widget = {}
-    currentId = 1
+    Args:
+        config (dict): A dictionary containing widget configurations.
+        api_links (dict): A dictionary containing API links for each widget.
+        api_timeout (int): The timeout value (in seconds) for API requests.
 
-    for key in top_level_keys[1:]:
-        if config[key]["VISIBLE"] and key != "music":
-            if "_" in key:
-                appName = key.split("_")[0] + "Widget"
-            else:
-                appName = key + "Widget"
+    Returns:
+        dict: A dictionary where each key is a widget that contains a dictionary with
+              widget settings.
+    """
+    available_widgets = list(config.keys())
+    widgetObject = {}
 
-            widget[key] = {
-                "id": currentId,
-                "appName": appName,
-                "templateName": key,
+    # Skip first index because this contains the general_settings
+    for index, widget in enumerate(available_widgets[1:]):
+        if not config[widget]["VISIBLE"]:
+            continue
+
+        app_name = generate_app_name(widget)
+
+        # Custom approach to music widget is needed because it does not use an internal API
+        if widget == "music":
+            widgetObject[widget] = {
+                "id": index,
+                "appName": app_name,
+                "templateName": widget,
+            }
+        else:
+            widgetObject[widget] = {
+                "id": index,
+                "appName": app_name,
+                "templateName": widget,
                 "data": "",
-                "apiCall": lambda link=api_links[key]: requests.get(
+                "apiCall": lambda link=api_links[widget]: requests.get(
                     link, timeout=api_timeout
                 ).json(),
             }
 
-            currentId += 1
+    return widgetObject
 
-        elif config[key]["VISIBLE"] and key == "music":
-            widget[key] = {
-                "id": currentId,
-                "appName": key + "Widget",
-                "templateName": key,
-                # "data": "",
-                # "apiCall": "",
-            }
-            currentId += 1
 
-    return widget
+def generate_app_name(widget_name: str):
+    """
+    Generates an application name based on the provided widget name.
+
+    Args:
+        widget_name (str): The name of the widget.
+
+    Returns:
+        str: The generated application name.
+    """
+    app_name = widget_name + "Widget"
+
+    if "_" in widget_name:
+        app_name = widget_name.split("_")[0] + "Widget"
+
+    return app_name
 
 
 def index(request):
@@ -97,11 +121,13 @@ def index(request):
         HttpResponse: The rendered homepage with the widgets context.
     """
 
-    widgets = createWidget(CONFIG, INTERNAL_API_LINKS, API_TIMEOUT)
+    widgets = createWidgetsObject(CONFIG, INTERNAL_API_LINKS, API_TIMEOUT)
 
     for widget in widgets.values():
-        if widget["templateName"] != "music":
-            widget["data"] = widget["apiCall"]()
+        if widget["appName"] == "musicWidget":
+            continue
+
+        widget["data"] = widget["apiCall"]()
 
         # "radar": {
         #     "id": 7,

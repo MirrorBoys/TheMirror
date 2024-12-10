@@ -6,7 +6,6 @@
     <!-- Load static files -->
     <link rel="stylesheet" href="{% static 'noteWidget/style.css' %}">
     <script src="{% static 'noteWidget/script.js' %}"></script>
-    <div>
     {% for note in data %}
         <div class="notes-widget">
             <div>              
@@ -30,7 +29,6 @@
             </div>
         </div>
     {% endfor %}
-    </div>
 {% else %}
 <p>No data available</p>
 {% endif %}

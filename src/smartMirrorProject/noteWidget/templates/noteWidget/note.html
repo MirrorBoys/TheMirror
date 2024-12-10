@@ -1,0 +1,34 @@
+{% load static %}
+{% if data %}
+
+<div class="notes-widget">
+
+    <!-- Load static files -->
+    <link rel="stylesheet" href="{% static 'noteWidget/style.css' %}">
+    <script src="{% static 'noteWidget/script.js' %}"></script>
+    {% for note in data %}
+        <div class="notes-widget">
+            <div>              
+                <h4>{{ note.title }}</h4>
+                <!-- Checks if there is a subType defined -->
+                {% if note.subType %}
+                    <{{ note.type }}>
+                        <!-- Checks for paragraphs by looping through the data.content list -->
+                        {% for paragraph in note.content %}
+                            <{{ note.subType }}>{{ paragraph }}</{{ note.subType }}>
+                        {% endfor %}
+                    </{{ note.type }}>
+                {% else %}
+                    <{{ note.type }}>
+                        <!-- Checks for paragraphs by looping through the data.content list -->
+                        {% for paragraph in note.content %}
+                            <p>{{ paragraph }}</p>
+                        {% endfor %}
+                    </{{ note.type }}>
+                {% endif %}
+            </div>
+        </div>
+    {% endfor %}
+{% else %}
+<p>No data available</p>
+{% endif %}

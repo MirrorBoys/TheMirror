@@ -6,30 +6,30 @@
 
     <!-- Header Above the Table -->
     <h3>Agenda</h3>
-        <table>
-            <thead>
+    <table>
+        <thead>
+            <tr>
+                <th>Event</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Location</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for event in widgets.agenda.data %}
                 <tr>
-                    <th>Event</th>
-                    <th>Start Time</th>
-                    <th>End Time</th>
-                    <th>Location</th>
-                </tr>
-            </thead>
-    
-            <tbody>
-                {% for event in widgets.agenda.data %}
                     <tr>
-                        <tr>
-                            <td>{{ event.summary }}</td>
-                            <td>{{ event.start.dateTime }}</td>
-                            <td>{{ event.end.dateTime }}</td>
-                            <td>{{ event.location|default:"N/A" }}</td>
-                        </tr>                        
-                    </tr>
-                {% endfor %}
-            </tbody>
-    
-        </table>
+                        <td>{{ event.summary }}</td>
+                        <td>{{ event.start.dateTime }}</td>
+                        <td>{{ event.end.dateTime }}</td>
+                        <td>{{ event.location|default:"N/A" }}</td>
+                    </tr>                        
+                </tr>
+            {% endfor %}
+        </tbody>
+
+    </table>
     </div>
     
 </div>

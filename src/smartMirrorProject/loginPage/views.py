@@ -3,8 +3,7 @@ from django.contrib.auth import logout
 
 
 def index(request):
-    context = {"widgets": None}
-    return render(request, "loginPage/index.html", context)
+    return render(request, "loginPage/index.html")
 
 
 def userLogout(request):

@@ -7,7 +7,6 @@ CONFIG_FILE_PATH = os.path.join(os.path.dirname(__file__), "..", "config.yml")
 with open(CONFIG_FILE_PATH, "r") as file:
     CONFIG = yaml.safe_load(file)
 
-
 # Settings for all widgets
 API_TIMEOUT = CONFIG["general_settings"]["API_TIMEOUT"]
 
@@ -18,21 +17,22 @@ WEATHER_NUMBER_OF_DAYS = CONFIG["weather"]["WEATHER_NUMBER_OF_DAYS"]
 NEWS_NUMBER_OF_ARTICLES = CONFIG["news"]["NEWS_NUMBER_OF_ARTICLES"]
 
 # Time widget settings
-TIMEZONE = "Europe/Amsterdam"  # use TZ identifier (e.g. Europe/Amsterdam) or TZ database name (e.g. CET)
-ENCODED_TIMEZONE = TIMEZONE.replace("/", "-")
+# Use TZ identifier (e.g. Europe/Amsterdam) or TZ database name (e.g. CET)
+TIME_TIMEZONE = "Europe/Amsterdam"
+TIME_ENCODED_TIMEZONE = TIME_TIMEZONE.replace("/", "-")
 
-# Travel widget settings
-
+# Travel journeys widget settings
 TRAVEL_JOURNEY_BEGIN_STATION = CONFIG["travel_journeys"]["TRAVEL_JOURNEY_BEGIN_STATION"]
 TRAVEL_JOURNEY_END_STATION = CONFIG["travel_journeys"]["TRAVEL_JOURNEY_END_STATION"]
 TRAVEL_JOURNEY_NUMBER_OF_TRIPS = CONFIG["travel_journeys"][
     "TRAVEL_JOURNEY_NUMBER_OF_TRIPS"
 ]
 
+# Travel departures widget settings
 TRAVEL_DEPARTURES_STATION = CONFIG["travel_departures"]["TRAVEL_DEPARTURES_STATION"]
-# String containing the stations to filter on, separated by a hyphen. If "", no filter is applied.
 TRAVEL_DEPARTURES_FILTER = CONFIG["travel_departures"]["TRAVEL_DEPARTURES_FILTER"]
 
+# Radar widget settings
 RADAR_CITY = "Arnhem"
 
 INTERNAL_API_LINKS = {

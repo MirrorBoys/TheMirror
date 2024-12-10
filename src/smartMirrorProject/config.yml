@@ -44,3 +44,7 @@ weather:
   KNMI_API_KEY:
   #The number of days that will be showed in the foreceast, default is 2, which will show the weather of today and tomorrow
   WEATHER_NUMBER_OF_DAYS: 5
+
+radar:
+  VISIBLE: True
+  RADAR_CITY: "Arnhem"

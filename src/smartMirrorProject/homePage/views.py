@@ -33,7 +33,7 @@ TRAVEL_DEPARTURES_STATION = CONFIG["travel_departures"]["TRAVEL_DEPARTURES_STATI
 TRAVEL_DEPARTURES_FILTER = CONFIG["travel_departures"]["TRAVEL_DEPARTURES_FILTER"]
 
 # Radar widget settings
-RADAR_CITY = "Arnhem"
+RADAR_CITY = CONFIG["radar"]["RADAR_CITY"]
 
 INTERNAL_API_LINKS = {
     "agenda": "http://localhost:8000/api/agenda/fetch/",
@@ -41,6 +41,7 @@ INTERNAL_API_LINKS = {
     "travel_journeys": f"http://localhost:8000/api/travel/fetch/journeys/{TRAVEL_JOURNEY_BEGIN_STATION}/{TRAVEL_JOURNEY_END_STATION}/{TRAVEL_JOURNEY_NUMBER_OF_TRIPS}",
     "travel_departures": f"http://localhost:8000/api/travel/fetch/departures/{TRAVEL_DEPARTURES_STATION}/{TRAVEL_DEPARTURES_FILTER}",
     "weather": f"http://localhost:8000/api/weather/fetch/{WEATHER_NUMBER_OF_DAYS}",
+    "radar": f"http://localhost:8000/api/radar/fetch/coordinates/{RADAR_CITY}",
 }
 
 
@@ -123,18 +124,13 @@ def index(request):
 
     widgets = createWidgetsObject(CONFIG, INTERNAL_API_LINKS, API_TIMEOUT)
 
+    # Using the internal API's, generate data for each widget.
+    # Skip generation of data for music widget since it does not use internal generated data
     for widget in widgets.values():
         if widget["appName"] == "musicWidget":
             continue
 
         widget["data"] = widget["apiCall"]()
-
-        # "radar": {
-        #     "id": 7,
-        #     "appName": "radarWidget",
-        #     "templateName": "radar",
-        #     "data": requests.get(f"http://localhost:8000/api/radar/fetch/coordinates/{RADAR_CITY}", timeout=API_TIMEOUT).json(),
-        # }
 
     context = {"widgets": widgets}
     return render(request, "homePage/index.html", context)

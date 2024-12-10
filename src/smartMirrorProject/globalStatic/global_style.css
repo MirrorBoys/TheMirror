@@ -31,9 +31,7 @@ header {
 }
 
 main {
-    /* Debugging */
     background-color: var(--black-color);
-
     height: 100%;
     padding: 10px;
 }
@@ -56,7 +54,7 @@ main {
     margin-bottom: 10px;
     font-family: Arial, sans-serif;
     color: var(--white-color); /* White text color */
-    background-color: var(--darkgray-color);; /* Dark table background */
+    background-color: var(--darkgray-color); /* Dark table background */
     border-radius: 8px; /* Rounded corners for the table */
     overflow: hidden; /* Ensure rounded corners show properly */
 }
@@ -126,8 +124,8 @@ main {
 [class$="-widget"] a:hover {
     text-decoration: underline;
 }
-/* Debugging 
-=======
+
+
 /* Styling for displaying regular, error and success messages */
 .messages {
     margin-bottom: 15px;

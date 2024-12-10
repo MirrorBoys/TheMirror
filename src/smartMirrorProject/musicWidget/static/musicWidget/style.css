@@ -11,35 +11,6 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Subtle shadow for a modern look */
 }
 
-/* Title Styling */
-.playlist-widget h3 {
-    font-size: 1.5em;
-    margin-bottom: 10px;
-    color: #f1c40f; /* Gold color for the title */
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    text-align: center; /* Center the title */
-}
-
-/* Button Styling */
-.playlist-widget button {
-    background-color: #f1c40f; /* Gold button color */
-    color: #1e1e1e; /* Dark text on the button */
-    border: none;
-    padding: 10px 20px;
-    border-radius: 4px;
-    font-size: 1em;
-    font-weight: bold;
-    cursor: pointer;
-    margin: 5px 0;
-    transition: background-color 0.3s ease-in-out;
-}
-
-/* Hover Effect for Buttons */
-.playlist-widget button:hover {
-    background-color: #d4ac0d; /* Slightly darker gold on hover */
-}
-
 /* Input Field Styling */
 .playlist-widget input[type="text"] {
     background-color: #34495e; /* Dark background for input */
@@ -56,19 +27,4 @@
     font-size: 1.1em;
     color: #b3b3b3; /* Light grey for track info */
     margin-top: 10px;
-}
-
-/* Links Styling */
-.playlist-widget a {
-    text-decoration: none;
-    color: #f1c40f; /* Gold color for links */
-    font-weight: bold;
-}
-
-.playlist-widget a:hover {
-    text-decoration: underline;
-}
-
-.playlist-widget:hover {
-    background-color: #292929; /* Slightly brighter background color */
 }

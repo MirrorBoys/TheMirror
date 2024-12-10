@@ -16,16 +16,6 @@
     gap: 5px; /* Add space between title and iframe */
 }
 
-/* Title Styling */
-.radar-widget h3 {
-    font-size: 1.5em;
-    margin-bottom: 0px;
-    color: #f1c40f; /* Gold color for the title */
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    text-align: center; /* Center the title */
-}
-
 /* Iframe Styling */
 .radar-widget iframe {
     border: 0;
@@ -41,8 +31,4 @@
     text-align: center;
     margin-top: 10px;
     font-size: 1em;
-}
-
-.radar-widget:hover {
-    background-color: #292929; /* Slightly brighter background color */
 }

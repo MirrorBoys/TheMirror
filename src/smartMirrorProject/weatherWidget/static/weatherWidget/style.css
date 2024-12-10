@@ -15,16 +15,6 @@
     overflow-y: auto;
 }
 
-/* Title Styling */
-.weather-widget h3 {
-    font-size: 1.5em;
-    margin-bottom: 10px;
-    color: #f1c40f; /* Gold color for the title */
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    text-align: center; /* Center the title */
-}
-
 /* Meta Information Styling */
 .weather-widget .meta {
     font-size: 0.7em;
@@ -51,41 +41,9 @@
     color: #f1c40f; /* Gold color for strong text */
 }
 
-/* Forecast Table Styling */
-.weather-widget .forecast table {
-    width: 100%;
-    font-size: 0.9em;
-    border-collapse: collapse;
-}
-
-.weather-widget .forecast th,
-.weather-widget .forecast td {
-    text-align: center;
-    padding: 8px;
-    border: 1px solid #ddd;
-}
-
-/* Alternating Row Colors */
-.weather-widget .forecast tbody tr:nth-child(odd) {
-    background-color: #2c3e50; /* Darker background for odd rows */
-}
-
-.weather-widget .forecast tbody tr:nth-child(even) {
-    background-color: #34495e; /* Slightly lighter background for even rows */
-}
-
-/* Hover Effect for Table Rows */
-.weather-widget .forecast tbody tr:hover {
-    background-color: #16a085; /* Hover effect to change row color */
-}
-
 /* Style for the No Data or No Information Case */
 .weather-widget p {
     color: #b3b3b3; /* Light grey for paragraphs */
     margin-top: 10px;
     text-align: center;
-}
-
-.weather-widget:hover {
-    background-color: #292929; /* Slightly brighter background color */
 }

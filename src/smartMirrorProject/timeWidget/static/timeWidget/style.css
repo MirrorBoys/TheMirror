@@ -11,16 +11,6 @@
     max-height: 480px;
 }
 
-.time-widget h3 {
-    font-size: 1.5em;
-    margin-bottom: 10px; /* Add space between the title and time */
-    color: #f1c40f; /* Gold accent color for the title */
-    text-transform: uppercase; /* Make the title all caps */
-    letter-spacing: 2px; /* Add letter spacing for a modern look */
-    /* text-shadow: 0 0 2px rgba(255, 255, 255, 0.8);  Glow effect */
-    /* animation: glow 2s infinite alternate;  Apply the subtle glow animation */
-}
-
 #current-time {
     font-size: 3em;
     font-weight: bold;
@@ -33,21 +23,4 @@
     font-style: italic;
     color: #b3b3b3; /* Lighter grey for the timezone */
     margin-top: 5px;
-}
-
-/* Optional: Add a glow animation */
-@keyframes glow {
-    0% {
-        text-shadow: 0 0 1px #f1c40f, 0 0 2px #f1c40f;
-    }
-    50% {
-        text-shadow: 0 0 2px #f1c40f, 0 0 4px #f1c40f;
-    }
-    100% {
-        text-shadow: 0 0 1px #f1c40f, 0 0 2px #f1c40f;
-    }
-}
-
-.time-widget:hover {
-    background-color: #292929; /* Slightly brighter background color */
 }

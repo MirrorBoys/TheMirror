@@ -32,24 +32,26 @@ TRAVEL_DEPARTURES_FILTER = config["travel"]["TRAVEL_DEPARTURES_FILTER"]
 RADAR_CITY = "Arnhem"
 
 # Notes widget settings
-NOTE_DATA1 = {
-    "title": "test1",
-    "type": "ul",
-    "subType": "li",
-    "content": [
-        "test test test test test test test test test test test test test test test test test test test test test",
-        "It can have multiple lines, paragraphs, bulletpoints etc."
-    ]
-}
-NOTE_DATA2 = {
-    "title": "test23456789",
-    "type": "p",
-    "subType": "",
-    "content": [
-        "hoi",
-        "It can have multiple lines, paragraphs, bulletpoints etc."
-    ]
-}
+NOTES = [
+    {
+        "title": "test1",
+        "type": "ul",
+        "subType": "li",
+        "content": [
+            "test test test test test test test test test test test test test test test test test test test test test",
+            "It can have multiple lines, paragraphs, bulletpoints etc."
+        ]
+    },
+    {
+        "title": "test23456789",
+        "type": "p",
+        "subType": "",
+        "content": [
+            "hoi",
+            "It can have multiple lines, paragraphs, bulletpoints etc."
+        ]
+    }
+]
 
 
 def index(request):
@@ -128,17 +130,11 @@ def index(request):
             "templateName": "radar",
             "data": requests.get(f"http://localhost:8000/api/radar/fetch/coordinates/{RADAR_CITY}", timeout=API_TIMEOUT).json(),
         },
-        "notes1": {
+        "notes": {
             "id": 8,
             "appName": "noteWidget",
             "templateName": "notes",
-            "data": NOTE_DATA1,
-        },
-        "notes2": {
-            "id": 9,
-            "appName": "noteWidget",
-            "templateName": "notes",
-            "data": NOTE_DATA2,
+            "data": requests.get(f"http://localhost:8000/api/note/fetch/", timeout=API_TIMEOUT).json(),
         },
     }
 

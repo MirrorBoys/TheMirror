@@ -103,13 +103,12 @@ def index(request):
         if widget["templateName"] != "music":
             widget["data"] = widget["apiCall"]()
 
-        "radar": {
-            "id": 7,
-            "appName": "radarWidget",
-            "templateName": "radar",
-            "data": requests.get(f"http://localhost:8000/api/radar/fetch/coordinates/{RADAR_CITY}", timeout=API_TIMEOUT).json(),
-        }
-    }
+        # "radar": {
+        #     "id": 7,
+        #     "appName": "radarWidget",
+        #     "templateName": "radar",
+        #     "data": requests.get(f"http://localhost:8000/api/radar/fetch/coordinates/{RADAR_CITY}", timeout=API_TIMEOUT).json(),
+        # }
 
     context = {"widgets": widgets}
     return render(request, "homePage/index.html", context)

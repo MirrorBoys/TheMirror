@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django_extensions",
     "loginPage",
     "homePage",
     "musicWidget",
@@ -112,11 +113,11 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-#LOGIN_URL: The URL where requests are redirected for login.
+# LOGIN_URL: The URL where requests are redirected for login.
 LOGIN_URL = "/login"
-#LOGIN_REDIRECT_URL: The URL where requests are redirected after login.
+# LOGIN_REDIRECT_URL: The URL where requests are redirected after login.
 LOGIN_REDIRECT_URL = "/"
-#LOGOUT_REDIRECT_URL: The URL where requests are redirected after logout.
+# LOGOUT_REDIRECT_URL: The URL where requests are redirected after logout.
 LOGOUT_REDIRECT_URL = "/login"
 
 

@@ -20,7 +20,14 @@
 </head>
 
 <body>
-    <header>PLACEHOLDER FOR HEADER</header>
+
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{% url 'logout' %}" class="logout-button">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
 
     <main>
         {% if widgets %}

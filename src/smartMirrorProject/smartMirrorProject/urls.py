@@ -24,6 +24,7 @@ urlpatterns = [
     path(
         "login/", LoginView.as_view(template_name="loginPage/index.html"), name="login"
     ),
+    path("logout/", include("loginPage.urls")),
     path("admin/", admin.site.urls),
     path("musicWidget/", include("musicWidget.urls")),
     path("api/weather/", include("weatherWidget.urls")),

@@ -2,7 +2,7 @@ main {
     /* Grid */
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
+    gap: 5px;
     overflow: auto;
 }
 
@@ -14,4 +14,11 @@ main {
     justify-content: center;
     align-items: center;
     height: 500px;
+}
+
+/* Media Query for Vertical Screens */
+@media (max-width: 1080px) {
+    main {
+        grid-template-columns: repeat(2, 1fr); /* Switch to 2 columns for narrow screens */
+    }
 }

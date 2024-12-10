@@ -44,8 +44,10 @@ INTERNAL_API_LINKS = {
     "time": f"http://localhost:8000/api/time/fetch/{TIME_ENCODED_TIMEZONE}",
 }
 
+AVAILABLE_INDEX = [0, 1, 2, 3, 4, 5, 6, 7]
 
-def createWidgetsObject(config, api_links, api_timeout):
+
+def createWidgetsObject(config, api_links, api_timeout, indexList):
     """
     Creates a dictionary of widget objects based on the provided configuration.
 
@@ -62,7 +64,7 @@ def createWidgetsObject(config, api_links, api_timeout):
     widgetObject = {}
 
     # Skip first index because this contains the general_settings
-    for index, widget in enumerate(available_widgets[1:]):
+    for widget in available_widgets[1:]:
         if not config[widget]["VISIBLE"]:
             continue
 
@@ -107,6 +109,29 @@ def generate_app_name(widget_name: str):
     return app_name
 
 
+def generateId(config):
+
+    used_places = set()
+    available_widgets = list(config.keys())
+
+    for widget in available_widgets[1:]:
+        if "PLACE" in widget and config[widget]["PLACE"] is not None:
+            used_places.add(config[widget]["PLACE"])
+
+    current_place = 0
+    placesDict = {}
+
+    for widget in available_widgets[1:]:
+        if config[widget]["PLACE"] is None:
+            while current_place in used_places:
+                current_place += 1
+            placesDict[widget] = current_place
+            used_places.add(current_place)
+        else:
+            placesDict[widget] = config[widget]["PLACE"]
+    return placesDict
+
+
 def index(request):
     """
     Renders the homepage with the specified widgets. Each widget needs these keys:
@@ -121,8 +146,10 @@ def index(request):
     Returns:
         HttpResponse: The rendered homepage with the widgets context.
     """
-
-    widgets = createWidgetsObject(CONFIG, INTERNAL_API_LINKS, API_TIMEOUT)
+    generateId(CONFIG)
+    widgets = createWidgetsObject(
+        CONFIG, INTERNAL_API_LINKS, API_TIMEOUT, AVAILABLE_INDEX
+    )
 
     # Using the internal API's, generate data for each widget.
     # Skip generation of data for music widget since it does not use internal generated data

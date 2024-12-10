@@ -17,8 +17,7 @@ WEATHER_NUMBER_OF_DAYS = CONFIG["weather"]["WEATHER_NUMBER_OF_DAYS"]
 NEWS_NUMBER_OF_ARTICLES = CONFIG["news"]["NEWS_NUMBER_OF_ARTICLES"]
 
 # Time widget settings
-# Use TZ identifier (e.g. Europe/Amsterdam) or TZ database name (e.g. CET)
-TIME_TIMEZONE = "Europe/Amsterdam"
+TIME_TIMEZONE = CONFIG["time"]["TIMEZONE"]
 TIME_ENCODED_TIMEZONE = TIME_TIMEZONE.replace("/", "-")
 
 # Travel journeys widget settings
@@ -42,6 +41,7 @@ INTERNAL_API_LINKS = {
     "travel_departures": f"http://localhost:8000/api/travel/fetch/departures/{TRAVEL_DEPARTURES_STATION}/{TRAVEL_DEPARTURES_FILTER}",
     "weather": f"http://localhost:8000/api/weather/fetch/{WEATHER_NUMBER_OF_DAYS}",
     "radar": f"http://localhost:8000/api/radar/fetch/coordinates/{RADAR_CITY}",
+    "time": f"http://localhost:8000/api/time/fetch/{TIME_ENCODED_TIMEZONE}",
 }
 
 

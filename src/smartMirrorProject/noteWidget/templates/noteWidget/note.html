@@ -6,9 +6,10 @@
     <!-- Load static files -->
     <link rel="stylesheet" href="{% static 'noteWidget/style.css' %}">
     <script src="{% static 'noteWidget/script.js' %}"></script>
+    <h3>Notes</h3>
     {% for note in data %}
         <div class="notes-widget">
-            <div>              
+            <div class="notes-item">              
                 <h4>{{ note.title }}</h4>
                 <!-- Checks if there is a subType defined -->
                 {% if note.subType %}
@@ -19,12 +20,10 @@
                         {% endfor %}
                     </{{ note.type }}>
                 {% else %}
-                    <{{ note.type }}>
                         <!-- Checks for paragraphs by looping through the data.content list -->
                         {% for paragraph in note.content %}
-                            <p>{{ paragraph }}</p>
+                            <{{ note.type }}>{{ paragraph }}</{{ note.type }}>
                         {% endfor %}
-                    </{{ note.type }}>
                 {% endif %}
             </div>
         </div>

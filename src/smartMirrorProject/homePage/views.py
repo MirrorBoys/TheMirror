@@ -134,7 +134,6 @@ def generatePlacesWidgets(config):
                 current_place += 1
             placesDict[widget] = current_place
             used_places.add(current_place)
-            print(used_places)
         else:
             placesDict[widget] = config[widget]["PLACE"]
     return placesDict

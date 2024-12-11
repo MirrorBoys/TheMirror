@@ -133,7 +133,7 @@ USE_TZ = True
 STATIC_URL = "static/"
 
 STATICFILES_DIRS = [
-    "globalStatic",
+    BASE_DIR / "globalStatic",
 ]
 
 # Default primary key field type

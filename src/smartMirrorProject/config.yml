@@ -53,7 +53,7 @@ weather:
 
 radar:
   VISIBLE: True
-  PLACE:
+  PLACE: 1
   RADAR_CITY: "Arnhem"
 
 time:

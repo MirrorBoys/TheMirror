@@ -1,15 +1,6 @@
 .travel-widget {
-    font-family: Arial, sans-serif;
-    max-height: 480px; /* Adjust the height based on your layout */
     width: 450px;
-    overflow-y: auto; /* Allow vertical scrolling */
     font-size: 12px; /* Smaller text for more content */
-    display: flex;
-    flex-direction: column; /* Ensure header and table are stacked vertically */
-    background-color: #1e1e1e; /* Widget background to blend with a dark theme */
-    padding: 10px;
-    border-radius: 8px; /* Rounded corners for the widget */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Subtle shadow for depth */
 }
 
 .travel-widget h4 {

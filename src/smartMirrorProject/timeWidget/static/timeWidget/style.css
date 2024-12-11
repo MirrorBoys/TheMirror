@@ -1,14 +1,7 @@
 .time-widget {
-    font-family: Arial, sans-serif;
     text-align: center;
-    background-color: #1e1e1e; /* Match the dark theme of other widgets */
-    padding: 20px;
-    border-radius: 8px; /* Rounded corners for the widget */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Subtle shadow for depth */
     color: #ffffff; /* White text for visibility */
     margin: 0 auto; /* Center the widget */
-    max-width: 400px; /* Optional: Limit the widget width */
-    max-height: 480px;
 }
 
 #current-time {

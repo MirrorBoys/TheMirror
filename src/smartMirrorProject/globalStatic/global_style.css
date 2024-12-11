@@ -7,6 +7,7 @@
 
 :root {
     --black-color: #141414;
+    --darkergray-color: #1e1e1e;
     --darkgray-color: #2b2b2b;
     --gray-color: #3c3c3c;
     --lightgray-color: #555;
@@ -34,6 +35,19 @@ main {
     background-color: var(--black-color);
     height: 97%;
     padding: 10px;
+}
+
+[class$="-widget"] {
+    font-family: Arial, sans-serif;
+    background-color: var(--darkergray-color); /* Dark background to match other widgets */
+    border-radius: 8px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column; /* Ensure header and table are stacked vertically */
+    overflow-y: auto; /* Allow vertical scrolling */
+    max-width: 480px;
+    max-height: 480px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Subtle shadow for modern look */
 }
 
 [class$="-widget"] h3 {

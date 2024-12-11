@@ -1,14 +1,7 @@
 /* Playlist Widget Styling */
 .playlist-widget {
-    font-family: Arial, sans-serif;
-    background-color: #1e1e1e; /* Dark background to match other widgets */
     color: #ffffff; /* White text for consistency */
-    border-radius: 8px;
-    padding: 20px;
-    max-width: 480px; /* Optional: Limit the widget width */
-    max-height: 480px;
     margin: 20px auto;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Subtle shadow for a modern look */
 }
 
 /* Input Field Styling */

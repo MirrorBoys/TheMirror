@@ -86,7 +86,6 @@ def createWidgetsObject(config, api_links, api_timeout):
                     link, timeout=api_timeout
                 ).json(),
             }
-    print(widgetObject)
     return widgetObject
 
 
@@ -123,10 +122,10 @@ def generatePlacesWidgets(config):
     available_widgets = list(config.keys())
 
     for widget in available_widgets[1:]:
-        if "PLACE" in widget and config[widget]["PLACE"] is not None:
+        if config[widget]["PLACE"] is not None:
             used_places.add(config[widget]["PLACE"])
 
-    current_place = 0
+    current_place = 1
     placesDict = {}
 
     for widget in available_widgets[1:]:
@@ -135,6 +134,7 @@ def generatePlacesWidgets(config):
                 current_place += 1
             placesDict[widget] = current_place
             used_places.add(current_place)
+            print(used_places)
         else:
             placesDict[widget] = config[widget]["PLACE"]
     return placesDict

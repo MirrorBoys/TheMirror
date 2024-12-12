@@ -1,13 +1,19 @@
 .time-widget {
     text-align: center;
+    color: #ffffff; /* White text for visibility */
+    margin: 0 auto; /* Center the widget */
 }
 
-.time {
-    font-size: 5em;
-    margin: 0;
+#current-time {
+    font-size: 3em;
+    font-weight: bold;
+    margin: 10px 0; /* Space around the time */
+    color: #ffffff; /* White text for time */
 }
 
-.date {
-    font-size: 2em;
-    margin: 0;
+#timezone {
+    font-size: 1em;
+    font-style: italic;
+    color: #b3b3b3; /* Lighter grey for the timezone */
+    margin-top: 5px;
 }

@@ -5,28 +5,140 @@
     box-sizing: border-box;
 }
 
+:root {
+    --black-color: #141414;
+    --darkergray-color: #1e1e1e;
+    --darkgray-color: #2b2b2b;
+    --gray-color: #3c3c3c;
+    --lightgray-color: #555;
+    --white-color: #ffffff;
+    --yellow-color: #f1c40f;
+    --darkyellow-color: #d4ac0d;
+    --orange-color: #e74c3c;
+    --lightgreen-color: #2ecc71;
+}
+
 body {
     height: 100vh;
+    background-color: var(--black-color);
     padding: 10px;
 }
 
 header {
-    /* Debugging */
-    border-style: dotted;
-    background-color: lightskyblue;
-
-    height: 5%;
-    padding: 10px;
+    color: var(--white-color);
+    height: 3%;
+    padding: 5px;
+    text-align: center;
 }
 
 main {
-    /* Debugging */
-    border-style: dotted;
-    background-color: aquamarine;
-
-    height: 90%;
+    background-color: var(--black-color);
+    height: 97%;
     padding: 10px;
 }
+
+[class$="-widget"] {
+    font-family: Arial, sans-serif;
+    background-color: var(--darkergray-color); /* Dark background to match other widgets */
+    border-radius: 8px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column; /* Ensure header and table are stacked vertically */
+    overflow-y: auto; /* Allow vertical scrolling */
+    max-width: 480px;
+    max-height: 480px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Subtle shadow for modern look */
+}
+
+[class$="-widget"] h3 {
+    font-family: Arial, sans-serif;
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    color: var(--yellow-color); /* Gold color for title */
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-align: center; /* Center the title */
+}
+
+[class$="-widget"] table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 0 auto;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    font-family: Arial, sans-serif;
+    color: var(--white-color); /* White text color */
+    background-color: var(--darkgray-color); /* Dark table background */
+    border-radius: 8px; /* Rounded corners for the table */
+    overflow: hidden; /* Ensure rounded corners show properly */
+}
+
+[class$="-widget"] th,
+[class$="-widget"] td {
+    border: 1px solid var(--gray-color); /* Darker border for a subtle separation */
+    padding: 10px;
+    text-align: left;
+}
+
+[class$="-widget"] th {
+    background-color: var(--black-color); /* Slightly darker background for headers */
+    font-weight: bold;
+    color: var(--white-color); /* White text for headers */
+}
+
+[class$="-widget"] tr:nth-child(even) {
+    background-color: var(--gray-color); /* Light grey background for even rows */
+}
+
+[class$="-widget"] tr:nth-child(odd) {
+    background-color: var(--darkgray-color); /* Dark grey background for odd rows */
+}
+
+[class$="-widget"] tr:hover {
+    background-color: var(--lightgray-color); /* Brighter background for hover effect */
+    color: var(--white-color); /* Ensure text stays visible on hover */
+    cursor: pointer; /* Pointer cursor for interactivity */
+}
+
+/* Optional: Add a smooth transition for hover effect */
+[class$="-widget"] tr {
+    transition: background-color 0.3s, color 0.3s;
+}
+
+[class$="-widget"]:hover {
+    background-color: var(--darkgray-color); /* Slightly brighter background color */
+}
+
+[class$="-widget"] button {
+    background-color: var(--yellow-color); /* Gold button color */
+    color: var(--black-color); /* Dark text on the button */
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 5px 0;
+    transition: background-color 0.3s ease-in-out;
+}
+
+/* Hover Effect for Buttons */
+[class$="-widget"] button:hover {
+    background-color: var(--darkyellow-color); /* Slightly darker gold on hover */
+}
+
+/* Links Styling */
+[class$="-widget"] a {
+    text-decoration: none;
+    color: var(--yellow-color); /* Gold color for links */
+    font-weight: bold;
+}
+
+
+[class$="-widget"] a:hover {
+    text-decoration: underline;
+}
+
 
 /* Styling for displaying regular, error and success messages */
 .messages {
@@ -41,20 +153,21 @@ main {
 }
 
 .messages .error {
-    background-color: #e74c3c;
-    color: #ecf0f1;
+    background-color: var(--orange-color);
+    color: var(--white-color);
 }
 
 .messages .success {
-    background-color: #2ecc71;
-    color: #ecf0f1;
+    background-color: var(--lightgreen-color);
+    color: var(--white-color);
 }
 
-footer {
-    /* Debugging */
+
+/* footer {
+
     border-style: dotted;
     background-color: lemonchiffon;
 
     height: 5%;
     padding: 10px;
-}
+} */

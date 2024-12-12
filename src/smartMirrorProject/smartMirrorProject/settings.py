@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     "agendaWidget",
     "timeWidget",
     "radarWidget",
+    "utilities.gestureUtility"
 ]
 
 MIDDLEWARE = [

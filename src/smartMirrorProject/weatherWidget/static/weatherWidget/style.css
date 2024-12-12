@@ -1,45 +1,39 @@
+/* Weather Widget Styling */
 .weather-widget {
-    width: 600px;
-    height: 200px;
-    border-radius: 5px;
-    background-color: #f9f9f9;
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    color: #ffffff; /* White text for consistency */
     box-sizing: border-box;
+    justify-content: space-between;
 }
 
+/* Meta Information Styling */
 .weather-widget .meta {
     font-size: 0.7em;
-    color: #888;
+    color: #b3b3b3; /* Light grey for meta information */
     text-align: right;
+    margin-bottom: 10px;
 }
 
+/* Content Styling */
 .weather-widget .content {
-    font-size: 0.8em;
-    overflow: hidden;
-
-    /* Show max two lines of text*/
+    font-size: 0.9em;
+    margin-bottom: 15px;
+    
+    /* Show max two lines of text
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     line-height: 1.2em;
     max-height: 2.4em;
+    */
 }
 
-.weather-widget .forecast table {
-    width: 100%;
-    font-size: 0.8em;
+.weather-widget .content strong {
+    color: #f1c40f; /* Gold color for strong text */
 }
 
-.weather-widget .forecast th,
-.weather-widget .forecast td {
+/* Style for the No Data or No Information Case */
+.weather-widget p {
+    color: #b3b3b3; /* Light grey for paragraphs */
+    margin-top: 10px;
     text-align: center;
-    padding: 3px;
-    border: 1px solid #ddd;
-}
-
-.weather-widget .forecast tbody tr:nth-child(odd) {
-    background-color: #f2f2f2;
 }

@@ -1,11 +1,25 @@
+/* Radar Widget Styling */
 .radar-widget {
-    max-height: 256px;
-    /* Adjust the height based on your layout */
-    overflow-y: auto;
-    /* Allow vertical scrolling */
-    font-size: 12px;
-    /* Smaller text for more content */
-    display: flex;
-    flex-direction: column;
-    /* Ensure header and table are stacked vertically */
+    color: #ffffff; /* White text for consistency */
+    width: 370px;
+    height: 450px; /* Fix the height of the widget to match the iframe size */
+    box-sizing: border-box;
+    gap: 5px; /* Add space between title and iframe */
+}
+
+/* Iframe Styling */
+.radar-widget iframe {
+    border: 0;
+    width: 100%;
+    height: 100%; /* Let the iframe take up the entire remaining space */
+    border-radius: 8px; /* Match the widget's rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow around the iframe */
+}
+
+/* No Coordinates Styling */
+.radar-widget p {
+    color: #b3b3b3; /* Light grey for no coordinates message */
+    text-align: center;
+    margin-top: 10px;
+    font-size: 1em;
 }

@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 import environ
+import os
 
 # Enable safely storing and reading of credentials
 env = environ.Env()
@@ -141,7 +142,7 @@ USE_TZ = True
 STATIC_URL = "static/"
 
 STATICFILES_DIRS = [
-    "globalStatic",
+    os.path.join(BASE_DIR, "globalStatic"),
 ]
 
 # Default primary key field type

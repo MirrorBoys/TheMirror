@@ -22,9 +22,9 @@ def execute_command(command, capture_output=True):
 commands = [
     "python3 -m pip install --upgrade pip",
     "pip install -r ~/TheMirror/src/smartMirrorProject/requirements.txt --no-cache-dir",
-    "python3 manage.py migrate",
-    "python3 manage.py runscript create_test_user",
-    "python3 manage.py runserver 0.0.0.0:8000",
+    "python3 ~/TheMirror/src/smartMirrorProject/manage.py migrate",
+    "python3 ~/TheMirror/src/smartMirrorProject/manage.py runscript create_test_user",
+    "python3 ~/TheMirror/src/smartMirrorProject/manage.py runserver 0.0.0.0:8000",
 ]
 
 for command in commands:

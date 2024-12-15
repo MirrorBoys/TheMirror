@@ -13,8 +13,8 @@ async function retrieveNfcData() {
     return null;
 }
 function enterNfcData(tagId, tagData) {
-    document.getElementById('usernameTextbox').value = tagId;
-    document.getElementById('passwordTextbox').value = tagData;
+    document.getElementById('nfc_tag_id').value = tagId;
+    document.getElementById('nfc_tag_data').value = tagData;
 }
 function login() {
     document.getElementById('loginButton').click();

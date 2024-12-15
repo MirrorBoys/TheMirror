@@ -3,8 +3,6 @@ from django.http import JsonResponse
 
 from mfrc522 import SimpleMFRC522
 
-reader = SimpleMFRC522()
-
 
 def fetchNfcTag(request):
     """
@@ -17,11 +15,13 @@ def fetchNfcTag(request):
     tagId = None
     tagData = None
     try:
+        reader = SimpleMFRC522()
         tagId, tagData = reader.read()
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=500)
     finally:
-        GPIO.cleanup()
+        if GPIO.getmode() is not None:
+            GPIO.cleanup()
     tagData = formatNfcData(tagData)
     return JsonResponse({"tagId": tagId, "tagData": tagData})
 
@@ -36,12 +36,14 @@ def writeNfcTag(request, data):
         error message if an exception occurs.
     """
     try:
+        reader = SimpleMFRC522()
         reader.write(data)
         tagId = reader.read_id()
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=500)
     finally:
-        GPIO.cleanup()
+        if GPIO.getmode() is not None:
+            GPIO.cleanup()
     return JsonResponse({"tagId": tagId, "writtenData": data})
 
 

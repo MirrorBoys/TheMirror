@@ -117,6 +117,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTH_USER_MODEL = "loginPage.User"
+
 # LOGIN_URL: The URL where requests are redirected for login.
 LOGIN_URL = "/login"
 # LOGIN_REDIRECT_URL: The URL where requests are redirected after login.

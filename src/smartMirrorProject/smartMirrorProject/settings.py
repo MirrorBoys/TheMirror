@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     "travelWidget",
     "weatherWidget",
     "agendaWidget",
+    "noteWidget",
     "timeWidget",
     "radarWidget",
     "utilities.gestureUtility"

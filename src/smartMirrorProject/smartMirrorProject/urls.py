@@ -33,5 +33,5 @@ urlpatterns = [
     path("api/travel/", include("travelWidget.urls")),
     path("api/agenda/", include("agendaWidget.urls")),
     path("api/radar/", include("radarWidget.urls")),
-
+    path("api/nfc/", include("utilities.nfcUtility.urls")),
 ]

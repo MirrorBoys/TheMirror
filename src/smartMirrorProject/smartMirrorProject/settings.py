@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     "agendaWidget",
     "timeWidget",
     "radarWidget",
+    "utilities.nfcUtility",
 ]
 
 MIDDLEWARE = [

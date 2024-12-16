@@ -61,3 +61,7 @@ time:
   PLACE:
   # Use TZ identifier (e.g. Europe/Amsterdam) or TZ database name (e.g. CET)
   TIMEZONE: "Europe/Amsterdam"
+
+note:
+  VISIBLE: True
+

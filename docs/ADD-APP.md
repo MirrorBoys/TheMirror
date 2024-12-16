@@ -151,3 +151,6 @@ Now that the app is created and configured, we can start writing the code for th
 | `..<app name>/static/<app name>/script.js` | JavaScript for your app |
 | `..<app name>/templates/<app name>/<app type>.html` | Template for your app |
 | `..<app name>/views.py` | Function(s) that generate the data that will be passed on to the template |
+
+>[!CRIPTICAL]
+> If you need the user to be logged in before visiting a page, you can add the `@login_required` decorator to the view function in the `views.py` file.

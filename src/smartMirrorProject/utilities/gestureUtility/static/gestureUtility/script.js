@@ -49,3 +49,34 @@ document.addEventListener('keydown', function(event) {
         }
     }
 });
+
+// Select grid items with arrow keys and focus on the selected widget
+document.addEventListener('DOMContentLoaded', function() {
+    let currentIndex = 0;
+    const gridItems = document.querySelectorAll('.grid-item');
+
+    function updateSelection() {
+        gridItems.forEach((item, index) => {
+            item.classList.toggle('selected', index == currentIndex);
+            if (index == currentIndex) {
+                item.style.border = '2px solid var(--yellow-color)';
+                item.focus();
+            } else {
+                item.style.border = 'none';
+            }
+        });
+        gridItems[currentIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    document.addEventListener('keydown', function(event) {
+        if (event.key == 'ArrowRight') {
+            currentIndex = (currentIndex + 1) % gridItems.length;
+            updateSelection();
+        } else if (event.key == 'ArrowLeft') {
+            currentIndex = (currentIndex - 1 + gridItems.length) % gridItems.length;
+            updateSelection();
+        }
+    });
+
+    updateSelection();
+});

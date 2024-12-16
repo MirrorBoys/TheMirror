@@ -3,10 +3,25 @@ import requests
 import os
 import yaml
 
-CONFIG_FILE_PATH = os.path.join(os.path.dirname(__file__), "..", "config.yml")
-with open(CONFIG_FILE_PATH, "r") as file:
-    CONFIG = yaml.safe_load(file)
 
+def getUser(request):
+    if request.user.is_authenticated:
+        userName = request.user.name
+        return userName
+
+
+USER_NAME = getUser(requests)
+
+
+def getConfigFile(username):
+    configFileName = username + "_config.yml"
+    filePath = os.path.join(os.path.dirname(__file__), "..", configFileName)
+    with open(filePath, "r") as file:
+        config = yaml.safe_load(file)
+    return config
+
+
+CONFIG = getConfigFile(USER_NAME)
 # Settings for all widgets
 API_TIMEOUT = CONFIG["general_settings"]["API_TIMEOUT"]
 

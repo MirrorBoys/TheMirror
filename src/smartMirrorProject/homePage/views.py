@@ -1,7 +1,8 @@
-from django.shortcuts import render
 import requests
 import os
 import yaml
+from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 
 CONFIG_FILE_PATH = os.path.join(os.path.dirname(__file__), "..", "config.yml")
 with open(CONFIG_FILE_PATH, "r") as file:
@@ -108,6 +109,8 @@ def generate_app_name(widget_name: str):
     return app_name
 
 
+
+@login_required
 def index(request):
     """
     Renders the homepage with the specified widgets. Each widget needs these keys:

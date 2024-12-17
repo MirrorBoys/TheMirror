@@ -17,4 +17,11 @@ python3 manage.py runserver 0.0.0.0:8000 &
 
 # Run the gesture utility script
 lxterminal -e "bash -c 'source ~/.virtualEnvs/theMirrorEnv/bin/activate; python3 ~/TheMirror/src/smartMirrorProject/utilities/gestureUtility/testscript.py; echo \"Press any key to close\"; read'"
+
+# Sleep for a moment to ensure the terminal is open
+sleep 2
+
+# Minimize the terminal using wmctrl
+wmctrl -r "lxterminal" -b add,hidden
+
 exit 0

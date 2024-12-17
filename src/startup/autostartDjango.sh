@@ -16,14 +16,13 @@ pip3 install -r ~/TheMirror/src/smartMirrorProject/requirements.txt --no-cache-d
 python3 manage.py runserver 0.0.0.0:8000 &
 
 # Run the gesture utility script
-lxterminal -e "bash -c 'source ~/.virtualEnvs/theMirrorEnv/bin/activate; python3 ~/TheMirror/src/smartMirrorProject/utilities/gestureUtility/testscript.py; echo \"Press any key to close\"; read'" &
+lxterminal -e "bash -c 'source ~/.virtualEnvs/theMirrorEnv/bin/activate; python3 ~/TheMirror/src/smartMirrorProject/utilities/gestureUtility/testscript.py; echo \"Press any key to close\"; read'"
 
 # Sleep for a moment to ensure the terminal is open
-sleep 10
+sleep 30
 
 # Make sure Chromium stays on top
 wmctrl -a "localhost"
 wmctrl -a "TheMirror"
-
 
 exit 0

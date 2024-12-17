@@ -15,10 +15,8 @@ pip3 install -r ~/TheMirror/src/smartMirrorProject/requirements.txt --no-cache-d
 # Start the Django server
 python3 manage.py runserver 0.0.0.0:8000 &
 
-echo "Autostart script ran at $(date)" >> ~/autostart_debug.log
-
 # Run the gesture utility script
-python3 ~/TheMirror/src/smartMirrorProject/utilities/gestureUtility/testscript.py > ~/gestureUtility.log 2>&1 &
+python3 ~/TheMirror/src/smartMirrorProject/utilities/gestureUtility/testscript.py > ~/gestureUtility.log 2>&1
 
 
 exit 0

@@ -1,5 +1,5 @@
 #!/bin/bash
-
+export DISPLAY=:0
 # Navigate to the main project directory and update the repository
 cd ~/TheMirror
 git checkout 126-req-43-de-spiegel-bevat-een-camera-voor-bediening-via-gebaren
@@ -16,6 +16,5 @@ pip3 install -r ~/TheMirror/src/smartMirrorProject/requirements.txt --no-cache-d
 python3 manage.py runserver 0.0.0.0:8000 &
 
 # Run the gesture utility script
-lxterminal -e "bash -c 'source ~/.virtualEnvs/theMirrorEnv/bin/activate; python3 ~/TheMirror/src/smartMirrorProject/utilities/gestureUtility/testscript.py; exec bash'"
-
+lxterminal -e "bash -c 'source ~/.virtualEnvs/theMirrorEnv/bin/activate; python3 ~/TheMirror/src/smartMirrorProject/utilities/gestureUtility/testscript.py; echo \"Press any key to close\"; read'"
 exit 0

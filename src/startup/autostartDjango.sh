@@ -19,9 +19,14 @@ python3 manage.py runserver 0.0.0.0:8000 &
 lxterminal -e "bash -c 'source ~/.virtualEnvs/theMirrorEnv/bin/activate; python3 ~/TheMirror/src/smartMirrorProject/utilities/gestureUtility/testscript.py; echo \"Press any key to close\"; read'" &
 
 # Sleep for a moment to ensure the terminal is open
-sleep 2
+sleep 20
 
-# Minimize the terminal using wmctrl
-wmctrl -r "testscript.py; echo \"Press any key to close\"; read'" -b add,hidden
+# Start Chromium in kiosk mode
+/usr/bin/chromium-browser --start-fullscreen --start-maximized --kiosk --noerrdialogs --disable-default-apps --disable-single-click-autofill --disable-translate-new-ux --disable-translate --disable-cache --disk-cache-dir=/dev/null --disk-cache-size=1 --reduce-security-for-testing --app=http://localhost:8000/ &
+
+# Make sure Chromium stays on top
+wmctrl -r "localhost" -b add,above
+wmctrl -r "TheMirror" -b add,above
+
 
 exit 0

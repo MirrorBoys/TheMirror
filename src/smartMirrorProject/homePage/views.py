@@ -4,7 +4,6 @@ import yaml
 from django.http import HttpRequest
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from threadlocals.threadlocals import get_current_request
 
 
 def getUserName():
@@ -13,8 +12,6 @@ def getUserName():
         return request.user.username
     return ""
 
-if __name__=='__main__':
-    
 
 USER_NAME = getUserName()
 
@@ -26,12 +23,7 @@ def getConfigFile(username):
         config = yaml.safe_load(file)
     return config
 
-try:
-    CONFIG = getConfigFile(USER_NAME)
-except:
-    CONFIG = {
 
-    }
 # Settings for all widgets
 API_TIMEOUT = CONFIG["general_settings"]["API_TIMEOUT"]
 

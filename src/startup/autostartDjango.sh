@@ -16,6 +16,7 @@ pip3 install -r ~/TheMirror/src/smartMirrorProject/requirements.txt --no-cache-d
 python3 manage.py runserver 0.0.0.0:8000 &
 
 # Run the gesture utility script
-python3 ~/TheMirror/src/smartMirrorProject/utilities/gestureUtility/testscript.py &
+python3 ~/TheMirror/src/smartMirrorProject/utilities/gestureUtility/testscript.py > ~/gestureUtility.log 2>&1 &
+
 
 exit 0

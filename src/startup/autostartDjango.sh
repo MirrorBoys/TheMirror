@@ -16,7 +16,6 @@ pip3 install -r ~/TheMirror/src/smartMirrorProject/requirements.txt --no-cache-d
 python3 manage.py runserver 0.0.0.0:8000 &
 
 # Run the gesture utility script
-lxterminal -e "python3 ~/TheMirror/src/smartMirrorProject/utilities/gestureUtility/testscript.py"
-
+lxterminal -e "bash -c 'source ~/.virtualEnvs/theMirrorEnv/bin/activate; python3 ~/TheMirror/src/smartMirrorProject/utilities/gestureUtility/testscript.py; exec bash'"
 
 exit 0

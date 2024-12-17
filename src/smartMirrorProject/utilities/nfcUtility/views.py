@@ -3,6 +3,19 @@ import json
 
 
 def checkIfPi(request=None):
+    """
+    Check if the current device is a Raspberry Pi.
+
+    This function attempts to read the device model from the file
+    "/proc/device-tree/model".
+
+    Args:
+        request: Optional; the HTTP request object (default is None).
+
+    Returns:
+        JsonResponse: A JSON response with a key "is_raspberry_pi"
+        set to True if the device is a Raspberry Pi, otherwise False.
+    """
     try:
         with open("/proc/device-tree/model", "r") as model_file:
             model = model_file.read().strip().lower()
@@ -12,10 +25,9 @@ def checkIfPi(request=None):
         return JsonResponse({"is_raspberry_pi": False})
 
 
+# Only import NFC related packages if app is ran on a Raspberry Pi
 response = checkIfPi()
 isPi = json.loads(response.content)["is_raspberry_pi"]
-print(isPi)
-
 if isPi:
     import RPi.GPIO as GPIO
     from mfrc522 import SimpleMFRC522

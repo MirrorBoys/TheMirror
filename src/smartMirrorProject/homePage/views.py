@@ -1,17 +1,22 @@
-import requests
+import requests as test
 import os
 import yaml
+from django.http import HttpRequest
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
+from threadlocals.threadlocals import get_current_request
 
 
-def getUser(request):
-    if request.user.is_authenticated:
-        userName = request.user.name
-        return userName
+def getUserName():
+    request = get_current_request()
+    if request and request.user.is_authenticated:
+        return request.user.username
+    return ""
 
+if __name__=='__main__':
+    
 
-USER_NAME = getUser(requests)
+USER_NAME = getUserName()
 
 
 def getConfigFile(username):
@@ -21,8 +26,12 @@ def getConfigFile(username):
         config = yaml.safe_load(file)
     return config
 
+try:
+    CONFIG = getConfigFile(USER_NAME)
+except:
+    CONFIG = {
 
-CONFIG = getConfigFile(USER_NAME)
+    }
 # Settings for all widgets
 API_TIMEOUT = CONFIG["general_settings"]["API_TIMEOUT"]
 
@@ -98,7 +107,7 @@ def createWidgetsObject(config, api_links, api_timeout):
                 "appName": app_name,
                 "templateName": widget,
                 "data": "",
-                "apiCall": lambda link=api_links[widget]: requests.get(
+                "apiCall": lambda link=api_links[widget]: test.get(
                     link, timeout=api_timeout
                 ).json(),
             }
@@ -124,7 +133,6 @@ def generate_app_name(widget_name: str):
     return app_name
 
 
-
 @login_required
 def index(request):
     """
@@ -140,7 +148,6 @@ def index(request):
     Returns:
         HttpResponse: The rendered homepage with the widgets context.
     """
-
     widgets = createWidgetsObject(CONFIG, INTERNAL_API_LINKS, API_TIMEOUT)
 
     # Using the internal API's, generate data for each widget.

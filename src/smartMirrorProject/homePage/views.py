@@ -38,6 +38,7 @@ RADAR_CITY = CONFIG["radar"]["RADAR_CITY"]
 INTERNAL_API_LINKS = {
     "agenda": "http://localhost:8000/api/agenda/fetch/",
     "news": f"http://localhost:8000/api/news/fetch/{NEWS_NUMBER_OF_ARTICLES}",
+    "note": "http://localhost:8000/api/note/fetch/",
     "travel_journeys": f"http://localhost:8000/api/travel/fetch/journeys/{TRAVEL_JOURNEY_BEGIN_STATION}/{TRAVEL_JOURNEY_END_STATION}/{TRAVEL_JOURNEY_NUMBER_OF_TRIPS}",
     "travel_departures": f"http://localhost:8000/api/travel/fetch/departures/{TRAVEL_DEPARTURES_STATION}/{TRAVEL_DEPARTURES_FILTER}",
     "weather": f"http://localhost:8000/api/weather/fetch/{WEATHER_NUMBER_OF_DAYS}",

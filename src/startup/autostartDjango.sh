@@ -19,12 +19,12 @@ python3 manage.py runserver 0.0.0.0:8000 &
 lxterminal -e "bash -c 'source ~/.virtualEnvs/theMirrorEnv/bin/activate; python3 ~/TheMirror/src/smartMirrorProject/utilities/gestureUtility/testscript.py; echo \"Press any key to close\"; read'" &
 
 # Sleep for a moment to ensure the terminal is open
-sleep 30
+#sleep 30
 
 # Make sure Chromium stays on top
 #wmctrl -a "localhost"
 #wmctrl -a "TheMirror"
-wmctrl -r "Frame" -b add,hidden
-wmctrl -r "testscript.py" -b add,hidden 
+#wmctrl -r "Frame" -b add,hidden
+#wmctrl -r "testscript.py" -b add,hidden 
 #wmctrl of xdotool zien beide geen windows of tabs van chromium, hierdoor is het niet gelukt om een tab naar voren of achter te brengen
 exit 0

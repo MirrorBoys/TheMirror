@@ -27,4 +27,21 @@ async function loginWithNfc() {
     }
 }
 // Call the function to login with NFC when the page loads
-window.onload = loginWithNfc;
+async function isRunningOnRaspberryPi() {
+    try {
+        const response = await fetch('/api/nfc/isPi/');
+        const data = await response.json();
+        console.log(data)
+        return data.is_raspberry_pi
+    } catch (error) {
+        console.error('Error checking system info:', error);
+        return false;
+    }
+}
+
+window.onload = async function () {
+    const isRaspberryPi = await isRunningOnRaspberryPi();
+    if (isRaspberryPi) {
+        loginWithNfc();
+    }
+};

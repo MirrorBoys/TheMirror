@@ -20,8 +20,7 @@ def fetchNfcTag(request):
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=500)
     finally:
-        if GPIO.getmode() is not None:
-            GPIO.cleanup()
+        GPIO.cleanup()
     tagData = formatNfcData(tagData)
     return JsonResponse({"tagId": tagId, "tagData": tagData})
 
@@ -42,8 +41,7 @@ def writeNfcTag(request, data):
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=500)
     finally:
-        if GPIO.getmode() is not None:
-            GPIO.cleanup()
+        GPIO.cleanup()
     return JsonResponse({"tagId": tagId, "writtenData": data})
 
 
@@ -57,3 +55,13 @@ def formatNfcData(data: str):
         str: The formatted NFC data with leading and trailing whitespace removed.
     """
     return data.strip()
+
+
+def checkIfPi(request):
+    try:
+        with open("/proc/device-tree/model", "r") as model_file:
+            model = model_file.read().strip().lower()
+            if "raspberry pi" in model:
+                return JsonResponse({"is_raspberry_pi": True})
+    except FileNotFoundError:
+        return JsonResponse({"is_raspberry_pi": False})

@@ -1,7 +1,11 @@
+# This script will create a regular Django user and a Django superuser. These users are for testing purposes.
 from loginPage.models import User
 
 
 def run():
+    """
+    Creates test users for the smart mirror project if they do not already exist.
+    """
     if not User.objects.filter(username="testuser").exists():
         User.objects.create_user(
             username="testuser",

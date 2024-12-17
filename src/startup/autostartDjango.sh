@@ -22,6 +22,6 @@ lxterminal -e "bash -c 'source ~/.virtualEnvs/theMirrorEnv/bin/activate; python3
 sleep 2
 
 # Minimize the terminal using wmctrl
-wmctrl -r "testscript.py" -b add,hidden
+wmctrl -r "testscript.py; echo \"Press any key to close\"; read'" -b add,hidden
 
 exit 0

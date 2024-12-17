@@ -1,7 +1,24 @@
-import RPi.GPIO as GPIO
 from django.http import JsonResponse
+import json
 
-from mfrc522 import SimpleMFRC522
+
+def checkIfPi(request=None):
+    try:
+        with open("/proc/device-tree/model", "r") as model_file:
+            model = model_file.read().strip().lower()
+            if "raspberry pi" in model:
+                return JsonResponse({"is_raspberry_pi": True})
+    except FileNotFoundError:
+        return JsonResponse({"is_raspberry_pi": False})
+
+
+response = checkIfPi()
+isPi = json.loads(response.content)["is_raspberry_pi"]
+print(isPi)
+
+if isPi:
+    import RPi.GPIO as GPIO
+    from mfrc522 import SimpleMFRC522
 
 
 def fetchNfcTag(request):
@@ -55,13 +72,3 @@ def formatNfcData(data: str):
         str: The formatted NFC data with leading and trailing whitespace removed.
     """
     return data.strip()
-
-
-def checkIfPi(request):
-    try:
-        with open("/proc/device-tree/model", "r") as model_file:
-            model = model_file.read().strip().lower()
-            if "raspberry pi" in model:
-                return JsonResponse({"is_raspberry_pi": True})
-    except FileNotFoundError:
-        return JsonResponse({"is_raspberry_pi": False})

@@ -6,14 +6,10 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 
 
-def getUserName():
-    request = get_current_request()
+def getUserName(request):
     if request and request.user.is_authenticated:
         return request.user.username
     return ""
-
-
-USER_NAME = getUserName()
 
 
 def getConfigFile(username):
@@ -24,43 +20,28 @@ def getConfigFile(username):
     return config
 
 
-# Settings for all widgets
-API_TIMEOUT = CONFIG["general_settings"]["API_TIMEOUT"]
+def getApiTimout(config):
+    # Settings for all widgets
+    API_TIMEOUT = config["general_settings"]["API_TIMEOUT"]
+    return API_TIMEOUT
 
-# Weather widget settings
-WEATHER_NUMBER_OF_DAYS = CONFIG["weather"]["WEATHER_NUMBER_OF_DAYS"]
 
-# News widget settings
-NEWS_NUMBER_OF_ARTICLES = CONFIG["news"]["NEWS_NUMBER_OF_ARTICLES"]
+def createApiLinks(config):
 
-# Time widget settings
-TIME_TIMEZONE = CONFIG["time"]["TIMEZONE"]
-TIME_ENCODED_TIMEZONE = TIME_TIMEZONE.replace("/", "-")
+    TIME_TIMEZONE = config["time"]["TIMEZONE"]
+    TIME_ENCODED_TIMEZONE = TIME_TIMEZONE.replace("/", "-")
 
-# Travel journeys widget settings
-TRAVEL_JOURNEY_BEGIN_STATION = CONFIG["travel_journeys"]["TRAVEL_JOURNEY_BEGIN_STATION"]
-TRAVEL_JOURNEY_END_STATION = CONFIG["travel_journeys"]["TRAVEL_JOURNEY_END_STATION"]
-TRAVEL_JOURNEY_NUMBER_OF_TRIPS = CONFIG["travel_journeys"][
-    "TRAVEL_JOURNEY_NUMBER_OF_TRIPS"
-]
-
-# Travel departures widget settings
-TRAVEL_DEPARTURES_STATION = CONFIG["travel_departures"]["TRAVEL_DEPARTURES_STATION"]
-TRAVEL_DEPARTURES_FILTER = CONFIG["travel_departures"]["TRAVEL_DEPARTURES_FILTER"]
-
-# Radar widget settings
-RADAR_CITY = CONFIG["radar"]["RADAR_CITY"]
-
-INTERNAL_API_LINKS = {
-    "agenda": "http://localhost:8000/api/agenda/fetch/",
-    "news": f"http://localhost:8000/api/news/fetch/{NEWS_NUMBER_OF_ARTICLES}",
-    "note": "http://localhost:8000/api/note/fetch/",
-    "travel_journeys": f"http://localhost:8000/api/travel/fetch/journeys/{TRAVEL_JOURNEY_BEGIN_STATION}/{TRAVEL_JOURNEY_END_STATION}/{TRAVEL_JOURNEY_NUMBER_OF_TRIPS}",
-    "travel_departures": f"http://localhost:8000/api/travel/fetch/departures/{TRAVEL_DEPARTURES_STATION}/{TRAVEL_DEPARTURES_FILTER}",
-    "weather": f"http://localhost:8000/api/weather/fetch/{WEATHER_NUMBER_OF_DAYS}",
-    "radar": f"http://localhost:8000/api/radar/fetch/coordinates/{RADAR_CITY}",
-    "time": f"http://localhost:8000/api/time/fetch/{TIME_ENCODED_TIMEZONE}",
-}
+    API_LINKS = {
+        "agenda": "http://localhost:8000/api/agenda/fetch/",
+        "news": f"http://localhost:8000/api/news/fetch/{config["news"]["NEWS_NUMBER_OF_ARTICLES"]}",
+        "note": "http://localhost:8000/api/note/fetch/",
+        "travel_journeys": f"http://localhost:8000/api/travel/fetch/journeys/{config["travel_journeys"]["TRAVEL_JOURNEY_BEGIN_STATION"]}/{config["travel_journeys"]["TRAVEL_JOURNEY_END_STATION"]}/{config["travel_journeys"]["TRAVEL_JOURNEY_NUMBER_OF_TRIPS"]}",
+        "travel_departures": f"http://localhost:8000/api/travel/fetch/departures/{config["travel_departures"]["TRAVEL_DEPARTURES_STATION"]}/{config["travel_departures"]["TRAVEL_DEPARTURES_FILTER"]}",
+        "weather": f"http://localhost:8000/api/weather/fetch/{config["weather"]["WEATHER_NUMBER_OF_DAYS"]}",
+        "radar": f"http://localhost:8000/api/radar/fetch/coordinates/{config["radar"]["RADAR_CITY"]}",
+        "time": f"http://localhost:8000/api/time/fetch/{TIME_ENCODED_TIMEZONE}",
+    }
+    return API_LINKS
 
 
 def createWidgetsObject(config, api_links, api_timeout):
@@ -140,7 +121,15 @@ def index(request):
     Returns:
         HttpResponse: The rendered homepage with the widgets context.
     """
-    widgets = createWidgetsObject(CONFIG, INTERNAL_API_LINKS, API_TIMEOUT)
+    username = getUserName(request)
+
+    config = getConfigFile(username)
+
+    internalApiLinks = createApiLinks(config)
+
+    apiTimout = getApiTimout(config)
+
+    widgets = createWidgetsObject(config, internalApiLinks, apiTimout)
 
     # Using the internal API's, generate data for each widget.
     # Skip generation of data for music widget since it does not use internal generated data

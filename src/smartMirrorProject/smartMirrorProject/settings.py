@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 import environ
+import os
 
 # Enable safely storing and reading of credentials
 env = environ.Env()
@@ -43,6 +44,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django_extensions",
     "loginPage",
     "homePage",
     "musicWidget",
@@ -116,6 +118,13 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# LOGIN_URL: The URL where requests are redirected for login.
+LOGIN_URL = "/login"
+# LOGIN_REDIRECT_URL: The URL where requests are redirected after login.
+LOGIN_REDIRECT_URL = "/"
+# LOGOUT_REDIRECT_URL: The URL where requests are redirected after logout.
+LOGOUT_REDIRECT_URL = "/login"
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
@@ -135,7 +144,7 @@ USE_TZ = True
 STATIC_URL = "static/"
 
 STATICFILES_DIRS = [
-    "globalStatic",
+    os.path.join(BASE_DIR, "globalStatic"),
 ]
 
 # Default primary key field type

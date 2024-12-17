@@ -25,6 +25,7 @@ commands = [
     "python3 ~/TheMirror/src/smartMirrorProject/manage.py migrate",
     "python3 ~/TheMirror/src/smartMirrorProject/manage.py runscript create_test_user",
     "python3 ~/TheMirror/src/smartMirrorProject/manage.py runserver 0.0.0.0:8000",
+    "python3 ~/TheMirror/src/smartMirrorProject/utilities/gestureUtility/testscript.py",
 ]
 
 for command in commands:

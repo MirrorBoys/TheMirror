@@ -7,12 +7,24 @@ from django.contrib.auth.decorators import login_required
 
 
 def getUserName(request):
+    """
+    Retrieves the username of the currently logged in user.
+    """
     if request and request.user.is_authenticated:
         return request.user.username
     return ""
 
 
 def getConfigFile(username):
+    """
+    Retrieves the config file based on the username
+
+    Args:
+        Username (str)
+
+    Returns:
+        (dict): A dictionary containing widget configurations.
+    """
     configFileName = username + "_config.yml"
     filePath = os.path.join(os.path.dirname(__file__), "..", configFileName)
     with open(filePath, "r") as file:
@@ -21,12 +33,28 @@ def getConfigFile(username):
 
 
 def getApiTimout(config):
+    """
+    Gets the Api timeout from the config file.
+
+    Args:
+        config (dict): A dictionary containing widget configurations.
+
+    """
     # Settings for all widgets
     API_TIMEOUT = config["general_settings"]["API_TIMEOUT"]
     return API_TIMEOUT
 
 
 def createApiLinks(config):
+    """
+    Creates a dictionary of the different internal api links with the provided configuration.
+
+    Args:
+        config (dict): A dictionary containing widget configurations.
+
+    Returns:
+        dict: A dictionary where each key is a widget and contains the internal api link.
+    """
 
     TIME_TIMEZONE = config["time"]["TIMEZONE"]
     TIME_ENCODED_TIMEZONE = TIME_TIMEZONE.replace("/", "-")

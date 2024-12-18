@@ -1,4 +1,4 @@
-import requests as test
+import requests
 import os
 import yaml
 from django.http import HttpRequest
@@ -108,7 +108,7 @@ def createWidgetsObject(config, api_links, api_timeout):
                 "appName": app_name,
                 "templateName": widget,
                 "data": "",
-                "apiCall": lambda link=api_links[widget]: test.get(
+                "apiCall": lambda link=api_links[widget]: requests.get(
                     link, timeout=api_timeout
                 ).json(),
             }

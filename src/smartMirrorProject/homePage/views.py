@@ -119,25 +119,28 @@ def generatePlacesWidgets(config):
     Returns:
         dict: A dictionary where each key is the place a widget will be placed
     """
-
+    # Get all places that are specified in the config file
     used_places = set()
     available_widgets = list(config.keys())
 
     for widget in available_widgets[1:] and config[widget]["PLACE"] is not None:
         used_places.add(config[widget]["PLACE"])
 
+    # Generate dictonary with the places of the different widgets, if no place was give the first available place is given
     current_place = 1
-    placesDict = {}
+    places_dict = {}
 
     for widget in available_widgets[1:]:
         if config[widget]["PLACE"] is None:
             while current_place in used_places:
+                # this makes it so that current_place will be incremented untill a place is found that is not in use
                 current_place += 1
-            placesDict[widget] = current_place
+            places_dict[widget] = current_place
             used_places.add(current_place)
         else:
-            placesDict[widget] = config[widget]["PLACE"]
-    return placesDict
+            # if a place is specified get that space and put it in the dictonary
+            places_dict[widget] = config[widget]["PLACE"]
+    return places_dict
 
 
 @login_required

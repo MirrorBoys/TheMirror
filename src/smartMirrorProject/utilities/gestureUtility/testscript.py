@@ -94,10 +94,10 @@ with handsModule.Hands(static_image_mode=False, min_detection_confidence=0.7, mi
                         is_pinky_up = pinky_tip_y < pinky_mcp_y and pinky_tip_y < pinky_dip_y
 
                         is_index_pointing_left = (
-                            index_tip_x < index_dip_x and index_dip_x < index_pip_x and
+                            index_tip_x > index_dip_x and index_dip_x > index_pip_x and
                             
-                            index_tip_x < middle_tip_x and index_tip_x < middle_dip_x and index_dip_x < middle_tip_x and index_dip_x < middle_dip_x and
-                            index_tip_x < ring_tip_x and index_tip_x < ring_dip_x and index_dip_x < ring_tip_x and index_dip_x < ring_dip_x
+                            index_tip_x > middle_tip_x and index_tip_x > middle_dip_x and index_dip_x > middle_tip_x and index_dip_x > middle_dip_x and
+                            index_tip_x > ring_tip_x and index_tip_x > ring_dip_x and index_dip_x > ring_tip_x and index_dip_x > ring_dip_x
                         )
                         # Check if other fingers are down
                         are_middle_ring_pinky_down = (
@@ -165,7 +165,7 @@ with handsModule.Hands(static_image_mode=False, min_detection_confidence=0.7, mi
 
                         if is_index_pointing_left:
                             print("Gesture Detected: Point Right!")
-                            
+
         # Below shows the current frame to the desktop
         cv2.imshow("Frame", frame1)
         key = cv2.waitKey(1) & 0xFF

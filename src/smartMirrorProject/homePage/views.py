@@ -28,7 +28,6 @@ def getConfigFile(username):
     filePath = os.path.join(os.path.dirname(__file__), "..", configFileName)
     with open(filePath, "r") as file:
         config = yaml.safe_load(file)
-        print(config)
     return config
 
 
@@ -95,14 +94,8 @@ def createWidgetsObject(config, api_links, api_timeout):
 
         app_name = generate_app_name(widget)
 
-        # Custom approach to music widget is needed because it does not use an internal API
-        if widget == "music":
-            widgetObject[widget] = {
-                "id": index,
-                "appName": app_name,
-                "templateName": widget,
-            }
-        else:
+        # Only add apiCall to widgets that need aditional data and thus use an internal API key.
+        if widget in api_links:
             widgetObject[widget] = {
                 "id": index,
                 "appName": app_name,
@@ -111,6 +104,12 @@ def createWidgetsObject(config, api_links, api_timeout):
                 "apiCall": lambda link=api_links[widget]: requests.get(
                     link, timeout=api_timeout
                 ).json(),
+            }
+        else:
+            widgetObject[widget] = {
+                "id": index,
+                "appName": app_name,
+                "templateName": widget,
             }
 
     return widgetObject
@@ -162,7 +161,7 @@ def index(request):
     # Using the internal API's, generate data for each widget.
     # Skip generation of data for music widget since it does not use internal generated data
     for widget in widgets.values():
-        if widget["appName"] == "musicWidget":
+        if "apiCall" not in widget:
             continue
 
         widget["data"] = widget["apiCall"]()

@@ -28,10 +28,11 @@ def getConfigFile(username):
     filePath = os.path.join(os.path.dirname(__file__), "..", configFileName)
     with open(filePath, "r") as file:
         config = yaml.safe_load(file)
+        print(config)
     return config
 
 
-def getApiTimout(config):
+def getGeneralSettings(config):
     """
     Gets the Api timeout from the config file.
 
@@ -154,9 +155,9 @@ def index(request):
 
     internalApiLinks = createApiLinks(config)
 
-    apiTimout = getApiTimout(config)
+    apiTimeout = getGeneralSettings(config)
 
-    widgets = createWidgetsObject(config, internalApiLinks, apiTimout)
+    widgets = createWidgetsObject(config, internalApiLinks, apiTimeout)
 
     # Using the internal API's, generate data for each widget.
     # Skip generation of data for music widget since it does not use internal generated data

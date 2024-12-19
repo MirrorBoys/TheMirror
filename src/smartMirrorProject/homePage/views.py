@@ -123,9 +123,8 @@ def generatePlacesWidgets(config):
     used_places = set()
     available_widgets = list(config.keys())
 
-    for widget in available_widgets[1:]:
-        if config[widget]["PLACE"] is not None:
-            used_places.add(config[widget]["PLACE"])
+    for widget in available_widgets[1:] and config[widget]["PLACE"] is not None:
+        used_places.add(config[widget]["PLACE"])
 
     current_place = 1
     placesDict = {}
@@ -139,8 +138,6 @@ def generatePlacesWidgets(config):
         else:
             placesDict[widget] = config[widget]["PLACE"]
     return placesDict
-
-
 
 
 @login_required

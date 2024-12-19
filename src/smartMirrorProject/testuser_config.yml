@@ -1,3 +1,4 @@
+---
 general_settings:
   # The time that the smartmirror wil try to reach the api.
   API_TIMEOUT: 10
@@ -56,3 +57,6 @@ time:
 
 note:
   VISIBLE: True
+---
+test:
+  tekst: "Dit is een test"

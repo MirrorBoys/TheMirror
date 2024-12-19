@@ -73,6 +73,19 @@ with handsModule.Hands(static_image_mode=False, min_detection_confidence=0.7, mi
                         ring_mcp_y = handLandmarks.landmark[handsModule.HandLandmark.RING_FINGER_MCP].y
                         pinky_mcp_y = handLandmarks.landmark[handsModule.HandLandmark.PINKY_MCP].y
 
+                        index_tip_x = handLandmarks.landmark[handsModule.HandLandmark.INDEX_FINGER_TIP].x
+                        index_dip_x = handLandmarks.landmark[handsModule.HandLandmark.INDEX_FINGER_DIP].x
+                        index_pip_x = handLandmarks.landmark[handsModule.HandLandmark.INDEX_FINGER_PIP].x
+                        index_mcp_x = handLandmarks.landmark[handsModule.HandLandmark.INDEX_FINGER_MCP].x
+
+                        middle_tip_x = handLandmarks.landmark[handsModule.HandLandmark.MIDDLE_FINGER_TIP].x
+                        middle_dip_x = handLandmarks.landmark[handsModule.HandLandmark.MIDDLE_FINGER_DIP].x
+                        middle_pip_x = handLandmarks.landmark[handsModule.HandLandmark.MIDDLE_FINGER_PIP].x
+
+                        ring_tip_x = handLandmarks.landmark[handsModule.HandLandmark.RING_FINGER_TIP].x
+                        ring_dip_x = handLandmarks.landmark[handsModule.HandLandmark.RING_FINGER_DIP].x
+                        ring_pip_x = handLandmarks.landmark[handsModule.HandLandmark.RING_FINGER_PIP].x
+
                         # Check if the fingers are up
                         is_thumb_up = thumb_tip_y < thumb_cmc_y and thumb_tip_y < thumb_ip_y
                         is_index_up = index_tip_y < index_mcp_y and index_tip_y < index_dip_y
@@ -80,6 +93,12 @@ with handsModule.Hands(static_image_mode=False, min_detection_confidence=0.7, mi
                         is_ring_up = ring_tip_y < ring_mcp_y and ring_tip_y < ring_dip_y
                         is_pinky_up = pinky_tip_y < pinky_mcp_y and pinky_tip_y < pinky_dip_y
 
+                        is_index_pointing_left = (
+                            index_tip_x < index_dip_x and index_dip_x < index_pip_x and
+                            
+                            index_tip_x < middle_tip_x and index_tip_x < middle_dip_x and index_dip_x < middle_tip_x and index_dip_x < middle_dip_x and
+                            index_tip_x < ring_tip_x and index_tip_x < ring_dip_x and index_dip_x < ring_tip_x and index_dip_x < ring_dip_x
+                        )
                         # Check if other fingers are down
                         are_middle_ring_pinky_down = (
                             middle_tip_y > middle_mcp_y and
@@ -100,6 +119,18 @@ with handsModule.Hands(static_image_mode=False, min_detection_confidence=0.7, mi
                             is_middle_up and
                             is_ring_up and
                             is_pinky_up
+                        )
+
+                        is_my_pinky_up = (
+                            pinky_tip_y < index_mcp_y and pinky_tip_y < index_dip_y and pinky_tip_y < index_pip_y and pinky_tip_y < index_tip_y and
+                            pinky_dip_y < index_mcp_y and pinky_dip_y < index_dip_y and pinky_dip_y < index_pip_y and pinky_dip_y < index_tip_y and
+
+                            pinky_tip_y < middle_mcp_y and pinky_tip_y < middle_dip_y and pinky_tip_y < middle_pip_y and pinky_tip_y < middle_tip_y and
+                            pinky_dip_y < middle_mcp_y and pinky_dip_y < middle_dip_y and pinky_dip_y < middle_pip_y and pinky_dip_y < middle_tip_y and
+
+                            pinky_tip_y < ring_mcp_y and pinky_tip_y < ring_dip_y and pinky_tip_y < ring_pip_y and pinky_tip_y < ring_tip_y and
+                            pinky_dip_y < ring_mcp_y and pinky_dip_y < ring_dip_y and pinky_dip_y < ring_pip_y and pinky_dip_y < ring_tip_y
+
                         )
 
                         is_my_thumb_up = (
@@ -127,8 +158,14 @@ with handsModule.Hands(static_image_mode=False, min_detection_confidence=0.7, mi
                             print("Gesture Detected: All Fingers Up!")
 
                         if is_my_thumb_up:
-                            print("Gesture Detected: My Thumb Up!")
+                            print("Gesture Detected: Like And Subscribe")
 
+                        if is_pinky_up and is_my_pinky_up:
+                            print("Gesture Detected: Pinky Up!")
+
+                        if is_index_pointing_left:
+                            print("Gesture Detected: Point Right!")
+                            
         # Below shows the current frame to the desktop
         cv2.imshow("Frame", frame1)
         key = cv2.waitKey(1) & 0xFF

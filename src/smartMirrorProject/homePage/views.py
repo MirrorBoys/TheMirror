@@ -47,7 +47,7 @@ INTERNAL_API_LINKS = {
 }
 
 
-def createWidgetsObject(config, api_links, api_timeout):
+def create_widgets_object(config, api_links, api_timeout):
     """
     Creates a dictionary of widget objects based on the provided configuration.
 
@@ -61,8 +61,8 @@ def createWidgetsObject(config, api_links, api_timeout):
               widget settings.
     """
     available_widgets = list(config.keys())
-    widgetObject = {}
-    placesDict = generatePlacesWidgets(config)
+    widget_object = {}
+    placed_dict = generate_places_widgets(config)
 
     # Skip first index because this contains the general_settings
     for widget in available_widgets[1:]:
@@ -73,14 +73,14 @@ def createWidgetsObject(config, api_links, api_timeout):
 
         # Custom approach to music widget is needed because it does not use an internal API
         if widget == "music":
-            widgetObject[widget] = {
-                "id": placesDict[widget],
+            widget_object[widget] = {
+                "id": placed_dict[widget],
                 "appName": app_name,
                 "templateName": widget,
             }
         else:
-            widgetObject[widget] = {
-                "id": placesDict[widget],
+            widget_object[widget] = {
+                "id": placed_dict[widget],
                 "appName": app_name,
                 "templateName": widget,
                 "data": "",
@@ -88,7 +88,7 @@ def createWidgetsObject(config, api_links, api_timeout):
                     link, timeout=api_timeout
                 ).json(),
             }
-    return widgetObject
+    return widget_object
 
 
 def generate_app_name(widget_name: str):
@@ -109,7 +109,7 @@ def generate_app_name(widget_name: str):
     return app_name
 
 
-def generatePlacesWidgets(config):
+def generate_places_widgets(config):
     """
     Creates a dictionary of widget places based on the information provided in the config file. If no spaces is specified the first available place is used.
 
@@ -158,7 +158,7 @@ def index(request):
     Returns:
         HttpResponse: The rendered homepage with the widgets context.
     """
-    widgets = createWidgetsObject(CONFIG, INTERNAL_API_LINKS, API_TIMEOUT)
+    widgets = create_widgets_object(CONFIG, INTERNAL_API_LINKS, API_TIMEOUT)
 
     # Using the internal API's, generate data for each widget.
     # Skip generation of data for music widget since it does not use internal generated data

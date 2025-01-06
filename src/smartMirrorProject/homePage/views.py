@@ -42,8 +42,8 @@ def get_general_settings(config):
 
     """
     # Settings for all widgets
-    API_TIMEOUT = config["general_settings"]["API_TIMEOUT"]
-    return API_TIMEOUT
+    general_settings = config["general_settings"]
+    return general_settings
 
 
 def create_api_links(config):
@@ -156,7 +156,9 @@ def index(request):
 
     internal_api_links = create_api_links(config)
 
-    api_timeout = get_general_settings(config)
+    general_settings = get_general_settings(config)
+
+    api_timeout = general_settings["API_TIMEOUT"]
 
     widgets = create_widgets_object(config, internal_api_links, api_timeout)
 

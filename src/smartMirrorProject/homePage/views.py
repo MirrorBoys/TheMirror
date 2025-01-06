@@ -123,8 +123,9 @@ def generatePlacesWidgets(config):
     used_places = set()
     available_widgets = list(config.keys())
 
-    for widget in available_widgets[1:] and config[widget]["PLACE"] is not None:
-        used_places.add(config[widget]["PLACE"])
+    for widget in available_widgets[1:]:
+        if config[widget]["PLACE"] is not None:
+            used_places.add(config[widget]["PLACE"])
 
     # Generate dictonary with the places of the different widgets, if no place was give the first available place is given
     current_place = 1

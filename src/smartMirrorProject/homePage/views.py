@@ -25,7 +25,9 @@ def get_config_file(username):
         (dict): A dictionary containing widget configurations.
     """
     config_file_name = username + "_config.yml"
-    file_path = os.path.join(os.path.dirname(__file__), "..", config_file_name)
+    file_path = os.path.join(
+        os.path.dirname(__file__), "..", "config", config_file_name
+    )
     with open(file_path, "r") as file:
         config = yaml.safe_load(file)
     return config

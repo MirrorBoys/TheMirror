@@ -13,7 +13,7 @@ news:
   NEWS_NUMBER_OF_ARTICLES: 2
 
 travel_journeys:
-  VISIBLE: True
+  VISIBLE: False
   #The api key to get information from the NS, currentyl only the NS is supported
   NS_KEY:
   #The begin station and end station for displayed traject.
@@ -25,7 +25,7 @@ travel_journeys:
   TRAVEL_JOURNEY_NUMBER_OF_TRIPS: 2
 
 travel_departures:
-  VISIBLE: True
+  VISIBLE: False
   #The api key to get information from the NS, currentyl only the NS is supported
   NS_KEY:
   #The depature station needs to be given by the code that is assigned by rijdendetreinen, to check wich code you need download the file on https://www.rijdendetreinen.nl/en/open-data/stations

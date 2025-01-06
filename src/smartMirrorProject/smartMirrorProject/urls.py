@@ -35,5 +35,8 @@ urlpatterns = [
     path("api/agenda/", include("agendaWidget.urls")),
     path("api/radar/", include("radarWidget.urls")),
     path("api/gesture/", include("utilities.gestureUtility.urls")),
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 ]

@@ -1,19 +1,32 @@
 from django.http import JsonResponse
+from threading import Timer
 
 # Create your views here.
-    
-#def gesture(request):
-#    ...code for each gesture
-#
-#    gestureData = None
-#
-#    if swipeLeft:
-#        gestureData = 'LEFT'
-#    elif swipeRight:
-#        gestureData = 'RIGHT'
-#
-#    return JsonResponse({'gesture': 'gestureData'})
 
-def math(request):
-    gestureData = 'LEFT'
-    return JsonResponse({'gesture': gestureData})
+# Imagine this would be a hand gesture recognition function that would set the global variable gesture to the gesture that was recognized.
+gesture = ''
+
+def setGestureData():
+    global gesture
+    action = None
+    if gesture == 'fist':
+        action = 'PAUSE'
+    elif gesture == 'one':
+        action = 'PLAY'
+    elif gesture == 'two':
+        action = 'SKIP'
+    elif gesture == 'l':
+        action = 'LOGIN'
+    
+    return action
+
+def sendGestureData(request):
+    gestureData = setGestureData()
+    
+    response_data = {'gesture': gestureData}
+    
+    # Reset gesture after sending
+    global gesture
+    gesture = None
+    
+    return JsonResponse(response_data)

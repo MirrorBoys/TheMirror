@@ -57,38 +57,12 @@ document.addEventListener('DOMContentLoaded', () => {
         player.togglePlay();
     };
 
-    // Toggle play with space key
-    document.addEventListener('keydown', function (event) {
-        if (event.key == ' ') {
-            player.getCurrentState().then(state => {
-                if (state.paused) {
-                    player.resume().then(() => {
-                        document.getElementById('togglePlay').innerText = 'Playing';
-                    });
-                } else {
-                    player.pause().then(() => {
-                        document.getElementById('togglePlay').innerText = 'Paused';
-                    });
-                }
-            });
-        }
-    });
-
     // Skip track with button
     document.getElementById('skipTrack').onclick = function () {
         player.nextTrack().then(() => {
             console.log('Skipped to next track!');
         });
     };
-
-    // Skip track with arrow up key
-    document.addEventListener('keydown', function (event) {
-        if (event.key == 'ArrowUp') {
-            player.nextTrack().then(() => {
-                console.log('Skipped to next track!');
-            });
-        }
-    });
 
     // Add song to queue
     document.getElementById('add-to-queue').onclick = function () {

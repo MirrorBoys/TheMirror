@@ -17,4 +17,4 @@ TODO: [43](https://github.com/MirrorBoys/TheMirror/issues/43)
 TODO: [#7](https://github.com/MirrorBoys/TheMirror/issues/7)
 
 # Documentation
-- Development: see [the development docs](docs/DEVELOPMENT.md) for information related to development and contributing.
+- Development: see [the development docs](docs/DEVELOPMENT.md) for information related to development and contributing!

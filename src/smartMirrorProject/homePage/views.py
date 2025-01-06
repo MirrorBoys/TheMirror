@@ -5,7 +5,7 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 
 
-def getUserName(request):
+def get_username(request):
     """
     Retrieves the username of the currently logged in user.
     """
@@ -14,7 +14,7 @@ def getUserName(request):
     return ""
 
 
-def getConfigFile(username):
+def get_config_file(username):
     """
     Retrieves the config file based on the username
 
@@ -24,15 +24,14 @@ def getConfigFile(username):
     Returns:
         (dict): A dictionary containing widget configurations.
     """
-    configFileName = username + "_config.yml"
-    filePath = os.path.join(os.path.dirname(__file__), "..", configFileName)
-    with open(filePath, "r") as file:
+    config_file_name = username + "_config.yml"
+    file_path = os.path.join(os.path.dirname(__file__), "..", config_file_name)
+    with open(file_path, "r") as file:
         config = yaml.safe_load(file)
-        print(config)
     return config
 
 
-def getGeneralSettings(config):
+def get_general_settings(config):
     """
     Gets the Api timeout from the config file.
 
@@ -45,7 +44,7 @@ def getGeneralSettings(config):
     return API_TIMEOUT
 
 
-def createApiLinks(config):
+def create_api_links(config):
     """
     Creates a dictionary of the different internal api links with the provided configuration.
 
@@ -72,7 +71,7 @@ def createApiLinks(config):
     return API_LINKS
 
 
-def createWidgetsObject(config, api_links, api_timeout):
+def create_widgets_object(config, api_links, api_timeout):
     """
     Creates a dictionary of widget objects based on the provided configuration.
 
@@ -86,7 +85,7 @@ def createWidgetsObject(config, api_links, api_timeout):
               widget settings.
     """
     available_widgets = list(config.keys())
-    widgetObject = {}
+    widget_object = {}
 
     # Skip first index because this contains the general_settings
     for index, widget in enumerate(available_widgets[1:]):
@@ -95,15 +94,9 @@ def createWidgetsObject(config, api_links, api_timeout):
 
         app_name = generate_app_name(widget)
 
-        # Custom approach to music widget is needed because it does not use an internal API
-        if widget == "music":
-            widgetObject[widget] = {
-                "id": index,
-                "appName": app_name,
-                "templateName": widget,
-            }
-        else:
-            widgetObject[widget] = {
+        # Only add apiCall to widgets that need aditional data and thus use an internal API key.
+        if widget in api_links:
+            widget_object[widget] = {
                 "id": index,
                 "appName": app_name,
                 "templateName": widget,
@@ -112,8 +105,14 @@ def createWidgetsObject(config, api_links, api_timeout):
                     link, timeout=api_timeout
                 ).json(),
             }
+        else:
+            widget_object[widget] = {
+                "id": index,
+                "appName": app_name,
+                "templateName": widget,
+            }
 
-    return widgetObject
+    return widget_object
 
 
 def generate_app_name(widget_name: str):
@@ -149,20 +148,20 @@ def index(request):
     Returns:
         HttpResponse: The rendered homepage with the widgets context.
     """
-    username = getUserName(request)
+    username = get_username(request)
 
-    config = getConfigFile(username)
+    config = get_config_file(username)
 
-    internalApiLinks = createApiLinks(config)
+    internal_api_links = create_api_links(config)
 
-    apiTimeout = getGeneralSettings(config)
+    api_timeout = get_general_settings(config)
 
-    widgets = createWidgetsObject(config, internalApiLinks, apiTimeout)
+    widgets = create_widgets_object(config, internal_api_links, api_timeout)
 
     # Using the internal API's, generate data for each widget.
     # Skip generation of data for music widget since it does not use internal generated data
     for widget in widgets.values():
-        if widget["appName"] == "musicWidget":
+        if "apiCall" not in widget:
             continue
 
         widget["data"] = widget["apiCall"]()

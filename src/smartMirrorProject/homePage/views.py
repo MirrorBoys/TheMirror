@@ -74,6 +74,7 @@ def create_api_links(config):
 
 
 def create_widgets_object(config, api_links, api_timeout):
+def create_widgets_object(config, api_links, api_timeout):
     """
     Creates a dictionary of widget objects based on the provided configuration.
 
@@ -90,7 +91,7 @@ def create_widgets_object(config, api_links, api_timeout):
     widget_object = {}
 
     # Skip first index because this contains the general_settings
-    for index, widget in enumerate(available_widgets[1:]):
+    for widget in available_widgets[1:]:
         if not config[widget]["VISIBLE"]:
             continue
 

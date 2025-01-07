@@ -32,9 +32,9 @@ travel_departures:
   #The api key to get information from the NS, currentyl only the NS is supported
   NS_KEY:
   #The depature station needs to be given by the code that is assigned by rijdendetreinen, to check wich code you need download the file on https://www.rijdendetreinen.nl/en/open-data/stations
-  TRAVEL_DEPARTURES_STATION: "AH"
+  TRAVEL_DEPARTURES_STATION: "APD"
   # String containing the stations to filter on, separated by a hyphen. If "", no filter is applied.
-  TRAVEL_DEPARTURES_FILTER: "Nijmegen-Winterswijk-Doetinchem"
+  TRAVEL_DEPARTURES_FILTER: ""
   PLACE:
 
 music:

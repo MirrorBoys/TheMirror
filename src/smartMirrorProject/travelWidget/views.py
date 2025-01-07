@@ -255,6 +255,7 @@ def fetch_departures(request, station, destination_filter=None):
                 }
             )
 
+            # Get the name of the station based on the code to show on the mirror
             list_of_stations = fetch_ns_stations(NS_KEY)
             list_of_nl_stations = extract_nl_station_names_and_codes(list_of_stations)
             station_name = get_station_name_by_code(station, list_of_nl_stations)

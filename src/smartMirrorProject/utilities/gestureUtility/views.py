@@ -169,17 +169,22 @@ def start_camera():
                                 #("Gesture Detected: Point Right!")
                                 action = 'SKIP'
 
-            # Below shows the current frame to the desktop
-            cv2.imshow("Frame", frame1)
-            key = cv2.waitKey(1) & 0xFF
+            # # Below shows the current frame to the desktop
+            # cv2.imshow("Frame", frame1)
+            # key = cv2.waitKey(1) & 0xFF
 
-            # Below states that if the |q| is pressed on the keyboard, it will stop the system
-            if key == ord("q"):
-                break
+            # # Below states that if the |q| is pressed on the keyboard, it will stop the system
+            # if key == ord("q"):
+            #     break
             
-# Start the camera function in a separate thread
-camera_thread = Thread(target=start_camera)
-camera_thread.start()
+# Function to start the camera in a new thread
+def start_camera_in_background():
+    camera_thread = Thread(target=start_camera)
+    camera_thread.daemon = True
+    camera_thread.start()
+
+# Call this function to start the camera in the background
+start_camera_in_background()
 
 def sendGestureData(request):
     global action

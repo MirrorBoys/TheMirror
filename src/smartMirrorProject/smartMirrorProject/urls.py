@@ -20,13 +20,9 @@ from django.urls import path, include
 from django.contrib.auth.views import LoginView
 
 urlpatterns = [
-    path("", include("homePage.urls")),
-    path("logout/", include("loginPage.urls")),
-    path("api/note/", include("noteWidget.urls")),
-    path(
-        "login/", LoginView.as_view(template_name="loginPage/index.html"), name="login"
-    ),
     path("admin/", admin.site.urls),
+    path("", include("homePage.urls")),
+    path("", include("loginPage.urls")),
     path("api/time/", include("timeWidget.urls")),
     path("musicWidget/", include("musicWidget.urls")),
     path("api/weather/", include("weatherWidget.urls")),
@@ -35,4 +31,6 @@ urlpatterns = [
     path("api/agenda/", include("agendaWidget.urls")),
     path("api/radar/", include("radarWidget.urls")),
     path("api/gesture/", include("utilities.gestureUtility.urls")),
+    path("api/note/", include("noteWidget.urls")),
+    path("api/nfc/", include("utilities.nfcUtility.urls")),
 ]

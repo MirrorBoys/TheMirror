@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     "timeWidget",
     "radarWidget",
     "utilities.gestureUtility"
+    "utilities.nfcUtility",
 ]
 
 MIDDLEWARE = [
@@ -117,6 +118,8 @@ AUTH_PASSWORD_VALIDATORS = [
         "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
     },
 ]
+
+AUTH_USER_MODEL = "loginPage.User"
 
 # LOGIN_URL: The URL where requests are redirected for login.
 LOGIN_URL = "/login"

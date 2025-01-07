@@ -47,7 +47,7 @@ INTERNAL_API_LINKS = {
 }
 
 
-def createWidgetsObject(config, api_links, api_timeout):
+def create_widgets_object(config, api_links, api_timeout):
     """
     Creates a dictionary of widget objects based on the provided configuration.
 
@@ -61,10 +61,11 @@ def createWidgetsObject(config, api_links, api_timeout):
               widget settings.
     """
     available_widgets = list(config.keys())
-    widgetObject = {}
+    widget_object = {}
+    placed_dict = generate_places_widgets(config)
 
     # Skip first index because this contains the general_settings
-    for index, widget in enumerate(available_widgets[1:]):
+    for widget in available_widgets[1:]:
         if not config[widget]["VISIBLE"]:
             continue
 
@@ -72,14 +73,14 @@ def createWidgetsObject(config, api_links, api_timeout):
 
         # Custom approach to music widget is needed because it does not use an internal API
         if widget == "music":
-            widgetObject[widget] = {
-                "id": index,
+            widget_object[widget] = {
+                "id": placed_dict[widget],
                 "appName": app_name,
                 "templateName": widget,
             }
         else:
-            widgetObject[widget] = {
-                "id": index,
+            widget_object[widget] = {
+                "id": placed_dict[widget],
                 "appName": app_name,
                 "templateName": widget,
                 "data": "",
@@ -87,8 +88,7 @@ def createWidgetsObject(config, api_links, api_timeout):
                     link, timeout=api_timeout
                 ).json(),
             }
-
-    return widgetObject
+    return widget_object
 
 
 def generate_app_name(widget_name: str):
@@ -109,6 +109,40 @@ def generate_app_name(widget_name: str):
     return app_name
 
 
+def generate_places_widgets(config):
+    """
+    Creates a dictionary of widget places based on the information provided in the config file. If no spaces is specified the first available place is used.
+
+    Args:
+        config (dict): A dictionary containing widget configurations.
+
+    Returns:
+        dict: A dictionary where each key is the place a widget will be placed
+    """
+    # Get all places that are specified in the config file
+    used_places = set()
+    available_widgets = list(config.keys())
+
+    for widget in available_widgets[1:]:
+        if config[widget]["PLACE"] is not None:
+            used_places.add(config[widget]["PLACE"])
+
+    # Generate dictonary with the places of the different widgets, if no place was give the first available place is given
+    current_place = 1
+    places_dict = {}
+
+    for widget in available_widgets[1:]:
+        if config[widget]["PLACE"] is None:
+            while current_place in used_places:
+                # this makes it so that current_place will be incremented untill a place is found that is not in use
+                current_place += 1
+            places_dict[widget] = current_place
+            used_places.add(current_place)
+        else:
+            # if a place is specified get that space and put it in the dictonary
+            places_dict[widget] = config[widget]["PLACE"]
+    return places_dict
+
 
 @login_required
 def index(request):
@@ -125,8 +159,7 @@ def index(request):
     Returns:
         HttpResponse: The rendered homepage with the widgets context.
     """
-
-    widgets = createWidgetsObject(CONFIG, INTERNAL_API_LINKS, API_TIMEOUT)
+    widgets = create_widgets_object(CONFIG, INTERNAL_API_LINKS, API_TIMEOUT)
 
     # Using the internal API's, generate data for each widget.
     # Skip generation of data for music widget since it does not use internal generated data

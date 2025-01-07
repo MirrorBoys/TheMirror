@@ -74,7 +74,6 @@ def create_api_links(config):
 
 
 def create_widgets_object(config, api_links, api_timeout):
-def create_widgets_object(config, api_links, api_timeout):
     """
     Creates a dictionary of widget objects based on the provided configuration.
 

@@ -2,6 +2,7 @@ from django.http import JsonResponse
 from threading import Thread
 import mediapipe
 import cv2
+import time
 
 # Use MediaPipe to draw the hand framework over the top of hands it identifies in Real-Time
 drawingModule = mediapipe.solutions.drawing_utils
@@ -9,13 +10,15 @@ handsModule = mediapipe.solutions.hands
 
 # Define the gesture variables globally
 action = None
+last_action_time = 0
+action_interval = 5  # 5 seconds interval
 
 # Use CV2 Functionality to create a Video stream and add some values
 cap = cv2.VideoCapture(0)
 fourcc = cv2.VideoWriter_fourcc('m', 'p', '4', 'v')
 
 def start_camera():
-    global action
+    global action, last_action_time
     # Add confidence values and extra settings to MediaPipe hand tracking.
     # As we are using a live video stream this is not a static image mode,
     # confidence values in regards to overall detection and tracking,
@@ -150,24 +153,24 @@ def start_camera():
                                 pinky_dip_y < ring_mcp_y and pinky_dip_y < ring_dip_y and pinky_dip_y < ring_pip_y and pinky_dip_y < ring_tip_y
                             )
 
-                            # if is_index_up and are_middle_ring_pinky_down:
-                            #     #("Gesture Detected: Index Finger Up!")
-                            #     action = 'LOGIN'
-                            if is_middle_up and are_index_ring_pinky_down:
-                                #("Gesture Detected: You are very rude!!!") 
-                                action = 'SHUTDOWN'
-                            elif are_all_fingers_up:
-                                #("Gesture Detected: All Fingers Up!")        
-                                action = 'PAUSE'
-                            elif is_my_thumb_up:
-                                #("Gesture Detected: Like And Subscribe")   
-                                action = 'PLAY'
-                            elif is_pinky_up and is_my_pinky_up:
-                                #("Gesture Detected: Pinky Up!")    
-                                action = 'REFRESH'
-                            elif is_index_pointing_left:
-                                #("Gesture Detected: Point Right!")
-                                action = 'SKIP'
+                            current_time = time.time()
+                            if current_time - last_action_time >= action_interval:
+                                if is_middle_up and are_index_ring_pinky_down:
+                                    #("Gesture Detected: You are very rude!!!") 
+                                    action = 'SHUTDOWN'
+                                elif are_all_fingers_up:
+                                    #("Gesture Detected: All Fingers Up!")        
+                                    action = 'PAUSE'
+                                elif is_my_thumb_up:
+                                    #("Gesture Detected: Like And Subscribe")   
+                                    action = 'PLAY'
+                                elif is_pinky_up and is_my_pinky_up:
+                                    #("Gesture Detected: Pinky Up!")    
+                                    action = 'REFRESH'
+                                elif is_index_pointing_left:
+                                    #("Gesture Detected: Point Right!")
+                                    action = 'SKIP'
+                                last_action_time = current_time
 
             # # Below shows the current frame to the desktop
             # cv2.imshow("Frame", frame1)

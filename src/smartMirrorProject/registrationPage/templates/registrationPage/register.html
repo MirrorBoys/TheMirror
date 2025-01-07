@@ -21,7 +21,46 @@
 <body>
     <header>PLACEHOLDER FOR HEADER</header>
     <main>
-        temp
+        <div class="registration-container">
+            <form method="post" action="{% url 'register' %}">
+                {% csrf_token %}
+                <h2>Registreer</h2>
+                <div class="form-group">
+                    <label for="id_username">Gebruikersnaam:</label>
+                    <input type="text" name="username" maxlength="150" required="" id="id_username">
+                    <span class="helptext" id="id_username_helptext">Verplicht. 150 tekens of minder. Alleen letters,
+                        cijfers en @/./+/-/_.</span>
+                </div>
+                <div class="form-group">
+                    <label for="id_password1">Wachtwoord:</label>
+                    <input type="password" name="password1" required="" id="id_password1">
+                </div>
+                <div class="form-group">
+                    <label for="id_password2">Wachtwoord (bevestiging):</label>
+                    <input type="password" name="password2" required="" id="id_password2">
+                </div>
+                <div class="form-group">
+                    <label for="nfc_tag_id">NFC-tag ID</label>
+                    <input type="hidden" id="nfc_tag_id" name="nfc_tag_id">
+                    <p class="helptext helptext-nfc">Scan je NFC-tag om deze aan je account te koppelen.</p>
+                </div>
+                <button type="submit" id="register-button" disabled>Registreer</button>
+
+                <!-- Display errors -->
+                {% if form.errors %}
+                <div class="messages">
+                    {% for field in form %}
+                    {% for error in field.errors %}
+                    <p class="error">{{ error }}</p>
+                    {% endfor %}
+                    {% endfor %}
+                    {% for error in form.non_field_errors %}
+                    <p class="error">{{ error }}</p>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </form>
+        </div>
     </main>
     <footer>PLACEHOLDER FOR FOOTER</footer>
 </body>

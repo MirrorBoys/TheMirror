@@ -25,29 +25,36 @@
             <form method="post" action="{% url 'loginPage' %}">
                 {% csrf_token %}
                 <h2>Login</h2>
-                <div class="form-group">
-                    <label for="username">Gebruikersnaam</label>
-                    <input type="text" id="username" name="username">
+                <div id="loginFields" class="loginFields">
+                    <div class="form-group">
+                        <label for="username">Gebruikersnaam</label>
+                        <input type="text" id="username" name="username">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Wachtwoord</label>
+                        <input type="password" id="password" name="password">
+                    </div>
+                    <button type="submit" id="loginButton">Inloggen</button>
                 </div>
-                <div class="form-group">
-                    <label for="password">Wachtwoord</label>
-                    <input type="password" id="password" name="password">
-                </div>
-                <input type="hidden" id="nfc_tag_id" name="nfc_tag_id">
-                <input type="hidden" id="nfc_tag_data" name="nfc_tag_data">
-                <button type="submit" id="loginButton">Inloggen</button>
-                {% if form.errors %}
-                <div class="messages">
-                    {% for field in form %}
-                    {% for error in field.errors %}
-                    <p class="error">{{ error }}</p>
-                    {% endfor %}
-                    {% endfor %}
-                    {% for error in form.non_field_errors %}
-                    <p class="error">{{ error }}</p>
-                    {% endfor %}
-                </div>
-                {% endif %}
+                <div>
+                    <p>To login hold the NFC-Tag against the reader.</p>
+                    <p>If you want to log in with your username and password, press</p>
+                    <a href="#" id="showLoginFields">here</a>
+                    <input type="hidden" id="nfc_tag_id" name="nfc_tag_id">
+                    <input type="hidden" id="nfc_tag_data" name="nfc_tag_data">
+
+                    {% if form.errors %}
+                    <div class="messages">
+                        {% for field in form %}
+                        {% for error in field.errors %}
+                        <p class="error">{{ error }}</p>
+                        {% endfor %}
+                        {% endfor %}
+                        {% for error in form.non_field_errors %}
+                        <p class="error">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
             </form>
         </div>
     </main>

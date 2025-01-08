@@ -29,6 +29,9 @@ async function executeGesture() {
         } else if (gesture == 'LOGIN') {
             document.getElementById('gesture-feedback').innerText = 'Gesture: LOGIN';
             loginLogout();
+        } else if (gesture == 'REFRESH') {
+            document.getElementById('gesture-feedback').innerText = 'Gesture: REFRESH';
+            refreshPage();
         }
     }
 

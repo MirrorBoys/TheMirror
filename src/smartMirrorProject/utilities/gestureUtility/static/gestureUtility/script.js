@@ -32,11 +32,18 @@ async function executeGesture() {
         } else if (gesture == 'REFRESH') {
             document.getElementById('gesture-feedback').innerText = 'Gesture: REFRESH';
             refreshPage();
-        }
+        } else if (gesture == 'LOGOUT') {
+            document.getElementById('gesture-feedback').innerText = 'Gesture: LOGOUT';
+            logoutMirror();
     }
+}
 
 // Periodically check for gesture changes
 setInterval(executeGesture, 1000); // Check every second
+
+function logoutMirror() {
+    document.getElementById('logout-button').click();
+}
 
 // Page reload
 function refreshPage() {

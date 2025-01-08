@@ -157,7 +157,7 @@ def start_camera():
                             if current_time - last_action_time >= action_interval:
                                 if is_middle_up and are_index_ring_pinky_down:
                                     #("Gesture Detected: You are very rude!!!") 
-                                    action = 'SHUTDOWN'
+                                    action = 'LOGOUT'
                                 elif are_all_fingers_up:
                                     #("Gesture Detected: All Fingers Up!")        
                                     action = 'PAUSE'

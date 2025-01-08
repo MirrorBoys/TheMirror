@@ -14,7 +14,6 @@ def run():
             "first_name": "Bart",
             "last_name": "van de Griendt",
             "nfc_tag_id": "553760008684",
-            "nfc_tag_data": "Syrup1-Aching",
         },
         {
             "username": "thorsten",
@@ -23,7 +22,6 @@ def run():
             "first_name": "Thorsten",
             "last_name": "Hol",
             "nfc_tag_id": "52958068524",
-            "nfc_tag_data": "Pureness-Scabbed5",
         },
         {
             "username": "brian",
@@ -32,7 +30,6 @@ def run():
             "first_name": "Brian",
             "last_name": "Dreuning",
             "nfc_tag_id": "598485893029",
-            "nfc_tag_data": "Rundown-Cozy",
         },
         {
             "username": "darren",
@@ -41,7 +38,6 @@ def run():
             "first_name": "Darren",
             "last_name": "Samuels",
             "nfc_tag_id": "658087044303",
-            "nfc_tag_data": "Tiger3-Perjurer",
         },
     ]
 
@@ -54,7 +50,6 @@ def run():
                 first_name=user_data["first_name"],
                 last_name=user_data["last_name"],
                 nfc_tag_id=user_data["nfc_tag_id"],
-                nfc_tag_data=user_data["nfc_tag_data"],
             )
             print(f"{user_data['username']} created")
         else:
@@ -68,7 +63,6 @@ def run():
             first_name="Admin",
             last_name="User",
             nfc_tag_id="658087044303",
-            nfc_tag_data="!Q@W#E$R%T",
         )
         print("admin created")
     else:

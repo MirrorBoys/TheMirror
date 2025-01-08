@@ -4,4 +4,3 @@ from django.db import models
 
 class User(AbstractUser):
     nfc_tag_id = models.CharField(max_length=255, blank=True, null=True)
-    nfc_tag_data = models.TextField(blank=True, null=True)

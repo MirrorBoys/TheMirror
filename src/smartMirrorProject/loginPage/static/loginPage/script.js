@@ -1,14 +1,12 @@
-// NOTE: Some refered functions are defined in TheMirror/src/smartMirrorProject/globalStatic/global_script.js
+// NOTE: Some referred functions are defined in TheMirror/src/smartMirrorProject/globalStatic/global_script.js
 
 /**
  * Populates the NFC tag ID and data into the corresponding input fields on the login page.
  *
  * @param {string} tagId - The ID of the NFC tag.
- * @param {string} tagData - The data associated on the NFC tag.
  */
-function enterNfcData(tagId, tagData) {
+function enterNfcData(tagId) {
     document.getElementById('nfc_tag_id').value = tagId;
-    document.getElementById('nfc_tag_data').value = tagData;
 }
 
 /**
@@ -29,7 +27,7 @@ function login() {
 async function loginWithNfc() {
     const data = await retrieveNfcData();
     if (data) {
-        enterNfcData(data.tagId, data.tagData);
+        enterNfcData(data.tagId);
         login();
     }
 }

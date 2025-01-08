@@ -161,6 +161,9 @@ def start_camera():
                                 elif are_all_fingers_up:
                                     #("Gesture Detected: All Fingers Up!")        
                                     action = 'PAUSE'
+                                elif is_index_up and are_middle_ring_pinky_down:
+                                    #print("Gesture Detected: Index Finger Up!")
+                                    action = 'LOGIN'
                                 elif is_my_thumb_up:
                                     #("Gesture Detected: Like And Subscribe")   
                                     action = 'PLAY'

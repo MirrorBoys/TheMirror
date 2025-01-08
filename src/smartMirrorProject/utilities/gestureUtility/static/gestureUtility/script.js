@@ -27,6 +27,7 @@ async function executeGesture() {
             document.getElementById('gesture-feedback').innerText = 'Gesture: SKIP';
             skipMusic();
         } else if (gesture == 'LOGIN') {
+            document.getElementById('gesture-feedback').innerText = 'Gesture: LOGIN';
             loginLogout();
         }
     }
@@ -67,7 +68,7 @@ function skipMusic() {
 
 
 
-// Spotify login/logout with 'l' key
+// Spotify login/logout
 function loginLogout() {
     const loginButton = document.getElementById('login');
     const logoutButton = document.getElementById('logout');

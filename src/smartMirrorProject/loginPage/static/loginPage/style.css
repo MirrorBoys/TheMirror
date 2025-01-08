@@ -60,3 +60,8 @@ button:hover {
 .loginFields {
     display: none
 }
+
+p {
+    margin-top: 10px;
+    font-weight: Bold;
+}

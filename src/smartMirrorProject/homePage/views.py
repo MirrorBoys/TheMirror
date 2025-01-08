@@ -4,47 +4,73 @@ import yaml
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 
-CONFIG_FILE_PATH = os.path.join(os.path.dirname(__file__), "..", "config.yml")
-with open(CONFIG_FILE_PATH, "r") as file:
-    CONFIG = yaml.safe_load(file)
 
-# Settings for all widgets
-API_TIMEOUT = CONFIG["general_settings"]["API_TIMEOUT"]
+def get_username(request):
+    """
+    Retrieves the username of the currently logged in user.
+    """
+    if request and request.user.is_authenticated:
+        return request.user.username
+    return ""
 
-# Weather widget settings
-WEATHER_NUMBER_OF_DAYS = CONFIG["weather"]["WEATHER_NUMBER_OF_DAYS"]
 
-# News widget settings
-NEWS_NUMBER_OF_ARTICLES = CONFIG["news"]["NEWS_NUMBER_OF_ARTICLES"]
+def get_config_file(username):
+    """
+    Retrieves the config file based on the username
 
-# Time widget settings
-TIME_TIMEZONE = CONFIG["time"]["TIMEZONE"]
-TIME_ENCODED_TIMEZONE = TIME_TIMEZONE.replace("/", "-")
+    Args:
+        Username (str)
 
-# Travel journeys widget settings
-TRAVEL_JOURNEY_BEGIN_STATION = CONFIG["travel_journeys"]["TRAVEL_JOURNEY_BEGIN_STATION"]
-TRAVEL_JOURNEY_END_STATION = CONFIG["travel_journeys"]["TRAVEL_JOURNEY_END_STATION"]
-TRAVEL_JOURNEY_NUMBER_OF_TRIPS = CONFIG["travel_journeys"][
-    "TRAVEL_JOURNEY_NUMBER_OF_TRIPS"
-]
+    Returns:
+        (dict): A dictionary containing widget configurations.
+    """
+    config_file_name = username + "_config.yml"
+    file_path = os.path.join(
+        os.path.dirname(__file__), "..", "config", config_file_name
+    )
+    with open(file_path, "r") as file:
+        config = yaml.safe_load(file)
+    return config
 
-# Travel departures widget settings
-TRAVEL_DEPARTURES_STATION = CONFIG["travel_departures"]["TRAVEL_DEPARTURES_STATION"]
-TRAVEL_DEPARTURES_FILTER = CONFIG["travel_departures"]["TRAVEL_DEPARTURES_FILTER"]
 
-# Radar widget settings
-RADAR_CITY = CONFIG["radar"]["RADAR_CITY"]
+def get_general_settings(config):
+    """
+    Gets the Api timeout from the config file.
 
-INTERNAL_API_LINKS = {
-    "agenda": "http://localhost:8000/api/agenda/fetch/",
-    "news": f"http://localhost:8000/api/news/fetch/{NEWS_NUMBER_OF_ARTICLES}",
-    "note": "http://localhost:8000/api/note/fetch/",
-    "travel_journeys": f"http://localhost:8000/api/travel/fetch/journeys/{TRAVEL_JOURNEY_BEGIN_STATION}/{TRAVEL_JOURNEY_END_STATION}/{TRAVEL_JOURNEY_NUMBER_OF_TRIPS}",
-    "travel_departures": f"http://localhost:8000/api/travel/fetch/departures/{TRAVEL_DEPARTURES_STATION}/{TRAVEL_DEPARTURES_FILTER}",
-    "weather": f"http://localhost:8000/api/weather/fetch/{WEATHER_NUMBER_OF_DAYS}",
-    "radar": f"http://localhost:8000/api/radar/fetch/coordinates/{RADAR_CITY}",
-    "time": f"http://localhost:8000/api/time/fetch/{TIME_ENCODED_TIMEZONE}",
-}
+    Args:
+        config (dict): A dictionary containing widget configurations.
+
+    """
+    # Settings for all widgets
+    general_settings = config["general_settings"]
+    return general_settings
+
+
+def create_api_links(config):
+    """
+    Creates a dictionary of the different internal api links with the provided configuration.
+
+    Args:
+        config (dict): A dictionary containing widget configurations.
+
+    Returns:
+        dict: A dictionary where each key is a widget and contains the internal api link.
+    """
+
+    TIME_TIMEZONE = config["time"]["TIMEZONE"]
+    TIME_ENCODED_TIMEZONE = TIME_TIMEZONE.replace("/", "-")
+
+    API_LINKS = {
+        "agenda": "http://localhost:8000/api/agenda/fetch/",
+        "news": f"http://localhost:8000/api/news/fetch/{config['news']['NEWS_NUMBER_OF_ARTICLES']}",
+        "note": "http://localhost:8000/api/note/fetch/",
+        "travel_journeys": f"http://localhost:8000/api/travel/fetch/journeys/{config['travel_journeys']['TRAVEL_JOURNEY_BEGIN_STATION']}/{config['travel_journeys']['TRAVEL_JOURNEY_END_STATION']}/{config['travel_journeys']['TRAVEL_JOURNEY_NUMBER_OF_TRIPS']}",
+        "travel_departures": f"http://localhost:8000/api/travel/fetch/departures/{config['travel_departures']['TRAVEL_DEPARTURES_STATION']}/{config['travel_departures']['TRAVEL_DEPARTURES_FILTER']}",
+        "weather": f"http://localhost:8000/api/weather/fetch/{config['weather']['WEATHER_NUMBER_OF_DAYS']}",
+        "radar": f"http://localhost:8000/api/radar/fetch/coordinates/{config['radar']['RADAR_CITY']}",
+        "time": f"http://localhost:8000/api/time/fetch/{TIME_ENCODED_TIMEZONE}",
+    }
+    return API_LINKS
 
 
 def create_widgets_object(config, api_links, api_timeout):
@@ -62,7 +88,6 @@ def create_widgets_object(config, api_links, api_timeout):
     """
     available_widgets = list(config.keys())
     widget_object = {}
-    placed_dict = generate_places_widgets(config)
 
     # Skip first index because this contains the general_settings
     for widget in available_widgets[1:]:
@@ -71,16 +96,10 @@ def create_widgets_object(config, api_links, api_timeout):
 
         app_name = generate_app_name(widget)
 
-        # Custom approach to music widget is needed because it does not use an internal API
-        if widget == "music":
+        # Only add apiCall to widgets that need aditional data and thus use an internal API key.
+        if widget in api_links:
             widget_object[widget] = {
-                "id": placed_dict[widget],
-                "appName": app_name,
-                "templateName": widget,
-            }
-        else:
-            widget_object[widget] = {
-                "id": placed_dict[widget],
+                "id": index,
                 "appName": app_name,
                 "templateName": widget,
                 "data": "",
@@ -88,6 +107,13 @@ def create_widgets_object(config, api_links, api_timeout):
                     link, timeout=api_timeout
                 ).json(),
             }
+        else:
+            widget_object[widget] = {
+                "id": index,
+                "appName": app_name,
+                "templateName": widget,
+            }
+
     return widget_object
 
 
@@ -109,41 +135,6 @@ def generate_app_name(widget_name: str):
     return app_name
 
 
-def generate_places_widgets(config):
-    """
-    Creates a dictionary of widget places based on the information provided in the config file. If no spaces is specified the first available place is used.
-
-    Args:
-        config (dict): A dictionary containing widget configurations.
-
-    Returns:
-        dict: A dictionary where each key is the place a widget will be placed
-    """
-    # Get all places that are specified in the config file
-    used_places = set()
-    available_widgets = list(config.keys())
-
-    for widget in available_widgets[1:]:
-        if config[widget]["PLACE"] is not None:
-            used_places.add(config[widget]["PLACE"])
-
-    # Generate dictonary with the places of the different widgets, if no place was give the first available place is given
-    current_place = 1
-    places_dict = {}
-
-    for widget in available_widgets[1:]:
-        if config[widget]["PLACE"] is None:
-            while current_place in used_places:
-                # this makes it so that current_place will be incremented untill a place is found that is not in use
-                current_place += 1
-            places_dict[widget] = current_place
-            used_places.add(current_place)
-        else:
-            # if a place is specified get that space and put it in the dictonary
-            places_dict[widget] = config[widget]["PLACE"]
-    return places_dict
-
-
 @login_required
 def index(request):
     """
@@ -159,12 +150,22 @@ def index(request):
     Returns:
         HttpResponse: The rendered homepage with the widgets context.
     """
-    widgets = create_widgets_object(CONFIG, INTERNAL_API_LINKS, API_TIMEOUT)
+    username = get_username(request)
+
+    config = get_config_file(username)
+
+    internal_api_links = create_api_links(config)
+
+    general_settings = get_general_settings(config)
+
+    api_timeout = general_settings["API_TIMEOUT"]
+
+    widgets = create_widgets_object(config, internal_api_links, api_timeout)
 
     # Using the internal API's, generate data for each widget.
     # Skip generation of data for music widget since it does not use internal generated data
     for widget in widgets.values():
-        if widget["appName"] == "musicWidget":
+        if "apiCall" not in widget:
             continue
 
         widget["data"] = widget["apiCall"]()

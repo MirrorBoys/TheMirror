@@ -62,12 +62,12 @@ def create_api_links(config):
 
     API_LINKS = {
         "agenda": "http://localhost:8000/api/agenda/fetch/",
-        "news": f"http://localhost:8000/api/news/fetch/{config["news"]["NEWS_NUMBER_OF_ARTICLES"]}",
+        "news": f"http://localhost:8000/api/news/fetch/{config['news']['NEWS_NUMBER_OF_ARTICLES']}",
         "note": "http://localhost:8000/api/note/fetch/",
-        "travel_journeys": f"http://localhost:8000/api/travel/fetch/journeys/{config["travel_journeys"]["TRAVEL_JOURNEY_BEGIN_STATION"]}/{config["travel_journeys"]["TRAVEL_JOURNEY_END_STATION"]}/{config["travel_journeys"]["TRAVEL_JOURNEY_NUMBER_OF_TRIPS"]}",
-        "travel_departures": f"http://localhost:8000/api/travel/fetch/departures/{config["travel_departures"]["TRAVEL_DEPARTURES_STATION"]}/{config["travel_departures"]["TRAVEL_DEPARTURES_FILTER"]}",
-        "weather": f"http://localhost:8000/api/weather/fetch/{config["weather"]["WEATHER_NUMBER_OF_DAYS"]}",
-        "radar": f"http://localhost:8000/api/radar/fetch/coordinates/{config["radar"]["RADAR_CITY"]}",
+        "travel_journeys": f"http://localhost:8000/api/travel/fetch/journeys/{config['travel_journeys']['TRAVEL_JOURNEY_BEGIN_STATION']}/{config['travel_journeys']['TRAVEL_JOURNEY_END_STATION']}/{config['travel_journeys']['TRAVEL_JOURNEY_NUMBER_OF_TRIPS']}",
+        "travel_departures": f"http://localhost:8000/api/travel/fetch/departures/{config['travel_departures']['TRAVEL_DEPARTURES_STATION']}/{config['travel_departures']['TRAVEL_DEPARTURES_FILTER']}",
+        "weather": f"http://localhost:8000/api/weather/fetch/{config['weather']['WEATHER_NUMBER_OF_DAYS']}",
+        "radar": f"http://localhost:8000/api/radar/fetch/coordinates/{config['radar']['RADAR_CITY']}",
         "time": f"http://localhost:8000/api/time/fetch/{TIME_ENCODED_TIMEZONE}",
     }
     return API_LINKS

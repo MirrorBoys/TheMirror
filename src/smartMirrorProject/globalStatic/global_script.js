@@ -34,8 +34,7 @@ async function isRunningOnRaspberryPi() {
     try {
         const response = await fetch('/api/nfc/isPi/');
         const data = await response.json();
-        console.log(data)
-        return data.is_raspberry_pi
+        return data.is_raspberry_pi;
     } catch (error) {
         console.error('Error checking system info:', error);
         return false;

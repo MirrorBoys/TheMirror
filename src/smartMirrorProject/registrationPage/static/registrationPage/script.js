@@ -1,3 +1,35 @@
+/**
+ * Hides the NFC help text.
+ */
+function hideNfcHelptext() {
+    document.getElementById("helptext-nfc").style.display = 'none';
+}
+
+/**
+ * Retrieves NFC data and populates the NFC tag ID input field with the retrieved tag ID and hides NFC helptext.
+ * 
+ * @function enterNfcTagId
+ * @returns {Promise<void>} A promise that resolves when the NFC data has been retrieved and processed.
+ */
+async function enterNfcTagId() {
+    const data = await retrieveNfcData();
+    if (data) {
+        document.getElementById('nfc_tag_id').value = data.tagId;
+        // Manually trigger an input event to simulate human input. Needed for eventListener which enabled submit button
+        document.getElementById('nfc_tag_id').dispatchEvent(new Event('input'));
+        hideNfcHelptext();
+    }
+}
+
+// On load, check if current system is a Raspberry Pi. If so, enable functionality to add NFC-tag to registration form.
+window.onload = async function () {
+    const isRaspberryPi = await isRunningOnRaspberryPi();
+    if (isRaspberryPi) {
+        enterNfcTagId();
+    }
+}
+
+// Wait until entire HTML is loaded before executing this code. 
 document.addEventListener("DOMContentLoaded", function () {
     const usernameInput = document.getElementById("id_username");
     const password1Input = document.getElementById("id_password1");
@@ -5,6 +37,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const nfcTagIdInput = document.getElementById("nfc_tag_id");
     const registerButton = document.getElementById("register-button");
 
+    /**
+     * Toggle the register button based on the input fields' values. 
+     */
     function toggleRegisterButton() {
         if (
             usernameInput.value.trim() !== "" &&
@@ -22,7 +57,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // Initial check
+    // Run this function at start
     toggleRegisterButton();
 
     // Add event listeners to check the input fields on change

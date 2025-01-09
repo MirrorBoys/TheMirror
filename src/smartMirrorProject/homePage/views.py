@@ -61,7 +61,7 @@ def create_api_links(config):
     TIME_ENCODED_TIMEZONE = TIME_TIMEZONE.replace("/", "-")
 
     API_LINKS = {
-        "agenda": "http://localhost:8000/api/agenda/fetch/",
+        "agenda": "http://localhost:8000/api/agenda/fetch",
         "news": f"http://localhost:8000/api/news/fetch/{config['news']['NEWS_NUMBER_OF_ARTICLES']}",
         "note": "http://localhost:8000/api/note/fetch/",
         "travel_journeys": f"http://localhost:8000/api/travel/fetch/journeys/{config['travel_journeys']['TRAVEL_JOURNEY_BEGIN_STATION']}/{config['travel_journeys']['TRAVEL_JOURNEY_END_STATION']}/{config['travel_journeys']['TRAVEL_JOURNEY_NUMBER_OF_TRIPS']}",
@@ -71,14 +71,6 @@ def create_api_links(config):
         "time": f"http://localhost:8000/api/time/fetch/{TIME_ENCODED_TIMEZONE}",
     }
     return API_LINKS
-
-
-def safe_api_call(link, api_timeout):
-    try:
-        response = requests.get(link, timeout=api_timeout)
-        return response.json
-    except requests.exceptions.RequestException:
-        return None
 
 
 def create_widgets_object(config, api_links, api_timeout):
@@ -111,9 +103,9 @@ def create_widgets_object(config, api_links, api_timeout):
                 "appName": app_name,
                 "templateName": widget,
                 "data": "",
-                "apiCall": lambda link=api_links[widget]: safe_api_call(
-                    link, api_timeout
-                ),
+                "apiCall": lambda link=api_links[widget]: requests.get(
+                    link, timeout=api_timeout
+                ).json(),
             }
         else:
             widget_object[widget] = {
@@ -172,11 +164,18 @@ def index(request):
 
     # Using the internal API's, generate data for each widget.
     # Skip generation of data for music widget since it does not use internal generated data
+    widgets_to_delete = []
     for widget in widgets.values():
         if "apiCall" not in widget:
             continue
 
-        widget["data"] = widget["apiCall"]()
+        try:
+            widget["data"] = widget["apiCall"]()
+        except Exception as e:
+            widgets_to_delete.append(widget["templateName"])
+
+    for widget_name in widgets_to_delete:
+        del widgets[widget_name]
 
     context = {"widgets": widgets}
     return render(request, "homePage/index.html", context)

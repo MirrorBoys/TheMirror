@@ -85,7 +85,7 @@ window.onload = async function () {
 }
 
 
-// Even listnerer to show the loginfields when a user clicks on the link
+// Even listener to show the loginfields when a user clicks on the link
 document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("showLoginFields").addEventListener("click", function (event) {
         event.preventDefault(); // Prevent the default link behavior

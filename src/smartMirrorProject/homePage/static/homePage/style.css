@@ -33,6 +33,12 @@ nav ul {
     fill: var(--white-color);
 }
 
+#gesture-feedback {
+    /* Align the gesture-feedback to the left side */
+    flex-grow: 1;  /* Make it take up available space */
+    text-align: left;  /* Align text to the left */
+}
+
 .grid-item {
     display: flex;
     justify-content: center;

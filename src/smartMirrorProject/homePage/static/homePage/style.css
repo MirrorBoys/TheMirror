@@ -8,7 +8,8 @@ main {
 
 header {
     display: flex;
-    justify-content: space-between;  /* Spread items across the header */
+    justify-content: space-between; /* Separate gesture feedback and nav */
+    align-items: center; /* Vertically align items */
     padding: 10px;
 }
 
@@ -16,6 +17,8 @@ nav ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
+    display: flex; /* Align logout button and username horizontally */
+    align-items: center; /* Vertically align items */
 }
 
 .logout-button {
@@ -25,6 +28,7 @@ nav ul {
     background: none;
     border: none;
     cursor: pointer;
+    margin-right: 10px; /* Add spacing between button and username */
 }
 
 .logout-icon {
@@ -33,10 +37,17 @@ nav ul {
     fill: var(--white-color);
 }
 
+#gesture-section {
+    flex-grow: 1; /* Take up space to push the nav to the right */
+    text-align: left;
+}
+
 #gesture-feedback {
-    /* Align the gesture-feedback to the left side */
-    flex-grow: 1;  /* Make it take up available space */
-    text-align: left;  /* Align text to the left */
+    margin: 0; /* Remove extra margin from paragraph */
+}
+
+.username-display {
+    margin: 0;
 }
 
 .grid-item {

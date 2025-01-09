@@ -22,24 +22,24 @@
 
 <body>
     <header>
+        <div id="gesture-section">
+            <p id="gesture-feedback">Gesture: ...</p>
+        </div>
         <nav>
-            <ul>
-                <p id="gesture-feedback">Gesture: ...</p>
-            </ul>
             <ul>
                 <li>
                     <a href="{% url 'logout' %}" id="logout-button" class="logout-button">
                         <button class="logout-button">
-                            <!-- This is the SVG-code for the logout button. Source: https://pictogrammers.com/library/mdi/icon/logout/ -->
+                            <!-- Logout SVG -->
                             <svg class="logout-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                                 <path
                                     d="M17 7L15.59 8.41L18.17 11H8V13H18.17L15.59 15.58L17 17L22 12M4 5H12V3H4C2.9 3 2 3.9 2 5V19C2 20.1 2.9 21 4 21H12V19H4V5Z" />
                             </svg>
                         </button>
                     </a>
+                </li>
                 <li class="username-display">
                     <span>{{ request.user.username }}</span>
-                </li>
                 </li>
             </ul>
         </nav>

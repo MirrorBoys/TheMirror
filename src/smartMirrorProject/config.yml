@@ -1,6 +1,6 @@
 general_settings:
   # The time that the smartmirror wil try to reach the api.
-  API_TIMEOUT: 10
+  API_TIMEOUT: 20
 
 agenda:
   VISIBLE: True

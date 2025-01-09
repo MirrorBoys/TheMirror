@@ -73,6 +73,14 @@ def create_api_links(config):
     return API_LINKS
 
 
+def safe_api_call(link, api_timeout):
+    try:
+        response = requests.get(link, timeout=api_timeout)
+        return response.json
+    except requests.exceptions.RequestException:
+        return None
+
+
 def create_widgets_object(config, api_links, api_timeout):
     """
     Creates a dictionary of widget objects based on the provided configuration.
@@ -103,9 +111,9 @@ def create_widgets_object(config, api_links, api_timeout):
                 "appName": app_name,
                 "templateName": widget,
                 "data": "",
-                "apiCall": lambda link=api_links[widget]: requests.get(
-                    link, timeout=api_timeout
-                ).json(),
+                "apiCall": lambda link=api_links[widget]: safe_api_call(
+                    link, api_timeout
+                ),
             }
         else:
             widget_object[widget] = {

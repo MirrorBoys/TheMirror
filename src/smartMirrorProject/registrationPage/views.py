@@ -25,12 +25,29 @@ class CustomUserCreationForm(UserCreationForm):
 def register(request):
     if request.method == "POST":
         form = CustomUserCreationForm(request.POST)
+
         if form.is_valid():
-            user = form.save(commit=False)
-            user.nfc_tag_id = request.POST.get("nfc_tag_id")
-            user.save()
-            login(request, user)
-            return redirect("homePageIndex")
+            nfc_tag_id = form.cleaned_data.get("nfc_tag_id")
+
+            if User.objects.filter(nfc_tag_id=nfc_tag_id).exists():
+                form.add_error(
+                    "nfc_tag_id", "A user with this NFC tag ID already exists."
+                )
+            else:
+                # Do not directly save user to enable first adding its NFC tag ID
+                user = form.save(commit=False)
+                user.nfc_tag_id = nfc_tag_id
+                user.save()
+
+                # Login user and redirect to homepage
+                login(request, user)
+                return redirect("homePageIndex")
+
+        else:
+            form.add_error(None, "The entered form is not valid.")
+
+    # Return blank registration form
     else:
         form = CustomUserCreationForm()
+
     return render(request, "registrationPage/register.html", {"form": form})

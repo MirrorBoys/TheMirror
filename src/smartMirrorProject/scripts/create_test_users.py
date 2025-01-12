@@ -54,16 +54,3 @@ def run():
             print(f"{user_data['username']} created")
         else:
             print(f"{user_data['username']} already exists")
-
-    if not User.objects.filter(username="admin").exists():
-        User.objects.create_superuser(
-            username="admin",
-            password="adminpassword123",
-            email="admin@example.com",
-            first_name="Admin",
-            last_name="User",
-            nfc_tag_id="658087044303",
-        )
-        print("admin created")
-    else:
-        print("admin already exists")

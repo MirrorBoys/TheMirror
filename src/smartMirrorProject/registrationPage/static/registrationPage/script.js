@@ -26,6 +26,12 @@ window.onload = async function () {
     const isRaspberryPi = await isRunningOnRaspberryPi();
     if (isRaspberryPi) {
         enterNfcTagId();
+    } else {
+        // Hide NFC fields, add dummy data to NFC-tag ID field and simulate user input to enable using the
+        // register button
+        document.getElementById('nfc-tag-group').style.display = 'none';
+        document.getElementById('nfc_tag_id').value = 'DUMMY_TAG_ID';
+        document.getElementById('nfc_tag_id').dispatchEvent(new Event('input'));
     }
 }
 

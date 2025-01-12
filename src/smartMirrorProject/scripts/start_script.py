@@ -41,6 +41,8 @@ commands = [
     'find . -path "*/migrations/*.pyc" -delete',
     # Delete database
     "rm ~/TheMirror/src/smartMirrorProject/db.sqlite3",
+    # Remove all config files except those for testusers
+    'find ~/TheMirror/src/smartMirrorProject/config -type f ! -name "bart_config.yml" ! -name "brian_config.yml" ! -name "darren_config.yml" ! -name "thorsten_config.yml" ! -name "example_config.yml" -delete',
     # Generate new migration files
     "python3 ~/TheMirror/src/smartMirrorProject/manage.py makemigrations",
     # Run migrations

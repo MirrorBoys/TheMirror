@@ -1,0 +1,67 @@
+general_settings:
+  # The time that the smartmirror wil try to reach the api.
+  API_TIMEOUT: 10
+
+agenda:
+  VISIBLE: True
+  # The api key for the agenda, currently only google agenda is supported
+  AGENDA_KEY:
+  PLACE:
+
+news:
+  VISIBLE: True
+  #The amount of articles that will be showed
+  NEWS_NUMBER_OF_ARTICLES: 2
+  PLACE:
+
+travel_journeys:
+  VISIBLE: True
+  #The api key to get information from the NS, currentyl only the NS is supported
+  NS_KEY:
+  #The begin station and end station for displayed traject.
+  #When the name of a city is filled in it will automatically use the central station in that city.
+  #stations in cities other than the central station follow the following syntax: "City Stationname", example "Arhnem Presikhaaf"
+  TRAVEL_JOURNEY_BEGIN_STATION: "Nijmegen"
+  TRAVEL_JOURNEY_END_STATION: "Arnhem"
+  #The amount of journey's into the future to be displayed
+  TRAVEL_JOURNEY_NUMBER_OF_TRIPS: 2
+  PLACE:
+
+travel_departures:
+  VISIBLE: True
+  #The api key to get information from the NS, currentyl only the NS is supported
+  NS_KEY:
+  #The depature station needs to be given by the code that is assigned by rijdendetreinen, to check wich code you need download the file on https://www.rijdendetreinen.nl/en/open-data/stations
+  TRAVEL_DEPARTURES_STATION: "AH"
+  # String containing the stations to filter on, separated by a hyphen. If "", no filter is applied.
+  TRAVEL_DEPARTURES_FILTER: "Nijmegen-Winterswijk-Doetinchem"
+  PLACE:
+
+music:
+  VISIBLE: True
+  SPOTIFY_CLIENT_ID:
+  SPOTIFY_CLIENT_SECRET:
+  PLACE:
+
+weather:
+  VISIBLE: True
+  #The api key to get the weather data from the KNMI, currently only the KNMI is supported
+  KNMI_API_KEY:
+  #The number of days that will be showed in the foreceast, default is 2, which will show the weather of today and tomorrow
+  WEATHER_NUMBER_OF_DAYS: 5
+  PLACE:
+
+radar:
+  VISIBLE: True
+  RADAR_CITY: "Arnhem"
+  PLACE:
+
+time:
+  VISIBLE: True
+  # Use TZ identifier (e.g. Europe/Amsterdam) or TZ database name (e.g. CET)
+  TIMEZONE: "Europe/Amsterdam"
+  PLACE:
+
+note:
+  VISIBLE: True
+  PLACE:

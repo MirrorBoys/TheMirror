@@ -5,6 +5,7 @@ from django.http import JsonResponse
 
 NS_KEY = os.getenv("NS_KEY")
 
+
 def calculate_delay(planned, actual):
     """
     Helper function to calculate delay
@@ -47,7 +48,7 @@ def format_time(time_str):
 
 def fetch_trip(request, start_station, end_station, amount_trips):
     """
-    Fetches trip information from the NS API and returns it as a JSON response. The codes for the stations can be retrieved with the NS API (https://apiportal.ns.nl/api-details#api=reisinformatie-api&operation=getStations). 
+    Fetches trip information from the NS API and returns it as a JSON response. The codes for the stations can be retrieved with the NS API (https://apiportal.ns.nl/api-details#api=reisinformatie-api&operation=getStations).
     We've saved a csv file with the station codes in Teams (Algemeen/NS_API).
 
     Args:
@@ -85,13 +86,11 @@ def fetch_trip(request, start_station, end_station, amount_trips):
         travelData = {
             "first_station": start_station,
             "last_station": end_station,
-            "trips": []
+            "trips": [],
         }
 
         for trip in data.get("trips", [])[:amount_trips]:
-            trip_data = {
-                "stations": []
-            }
+            trip_data = {"stations": []}
 
             for leg in trip.get("legs", []):
                 stops = leg.get("stops", [])
@@ -134,10 +133,57 @@ def fetch_trip(request, start_station, end_station, amount_trips):
 
         return JsonResponse(travelData)
 
-
     except Exception as e:
         print(f"Error fetching NS API: {e}")
         return JsonResponse({"error": "Unable to fetch travel information."})
+
+
+def fetch_ns_stations(api_key):
+    """
+    Get the station information from the NS API.
+
+    :param api_key: The NS API-key for authentication.
+    :return: JSON-object with station information.
+    """
+    url = "https://gateway.apiportal.ns.nl/reisinformatie-api/api/v2/stations"
+    headers = {
+        "Cache-Control": "no-cache",
+        "Ocp-Apim-Subscription-Key": api_key,
+    }
+    response = requests.get(url, headers=headers)
+    response.raise_for_status()
+    return response.json()["payload"]
+
+
+def extract_nl_station_names_and_codes(payload):
+    """
+    get only the dutch station names and codes from the NS API.
+
+    :param payload: the json with the response from
+    :return: A list of tuples with station names and their code.
+    """
+    nl_stations = []
+    for station in payload:
+        if station.get("land") == "NL":  # Controleer op landcode NL
+            full_name = station.get("namen", {}).get("lang", "Onbekende naam")
+            code = station.get("code", "Geen code")
+            nl_stations.append((full_name, code))
+    return nl_stations
+
+
+def get_station_name_by_code(station_code, stations):
+    """
+    Gets the name of a station from the given station code.
+
+    :param station_code: The station code.
+    :param stations: A list with tuples with station names and codes
+    :return: The name of a station as string, of None is the code is not found
+    """
+    for name, code in stations:
+        if code == station_code:
+            return name
+    return None
+
 
 def fetch_departures(request, station, destination_filter=None):
     """
@@ -209,7 +255,14 @@ def fetch_departures(request, station, destination_filter=None):
                 }
             )
 
-        return JsonResponse({"station": station, "departures": departures})  # Include station at the top level
+            # Get the name of the station based on the code to show on the mirror
+            list_of_stations = fetch_ns_stations(NS_KEY)
+            list_of_nl_stations = extract_nl_station_names_and_codes(list_of_stations)
+            station_name = get_station_name_by_code(station, list_of_nl_stations)
+
+        return JsonResponse(
+            {"station": station, "station_name": station_name, "departures": departures}
+        )  # Include station at the top level
 
     except requests.exceptions.RequestException as e:
         print(f"Error fetching departures: {e}")

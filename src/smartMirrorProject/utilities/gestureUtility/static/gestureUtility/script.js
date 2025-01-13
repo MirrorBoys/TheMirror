@@ -38,6 +38,8 @@ async function executeGesture() {
     }
 }
 
+setInterval(executeGesture, 1000); // Check every second
+
 function logoutMirror() {
     document.getElementById('logout-button').click();
 }

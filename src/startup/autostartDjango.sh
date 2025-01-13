@@ -11,7 +11,6 @@ exec > "$LOG_FILE" 2>&1
 
 # Navigate to the main project directory and update the repository
 cd ~/TheMirror
-git checkout 190-realiseren-achterliggende-functies-voor-gebaren
 git pull
 
 # Navigate to the smart mirror project directory and activate the virtual environment

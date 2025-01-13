@@ -21,7 +21,10 @@ def spotify_login(request):
     return redirect(auth_url)
 
 def spotify_logout(request):
-    request.session.flush()
+    spotify_keys = ['access_token', 'refresh_token', 'expires_at']
+    for key in spotify_keys:
+        if key in request.session:
+            del request.session[key]
     return redirect('/')
 
 def spotify_callback(request):

@@ -36,6 +36,8 @@ commands = [
     "python3 -m pip install --upgrade pip",
     # Install all packages in `requirements.txt`
     "pip install -r ~/TheMirror/src/smartMirrorProject/requirements.txt --no-cache-dir",
+    # Stop automatically started instances
+    "pkill -f runserver",
     # Remove old migration files
     'find . -path "*/migrations/*.py" -not -name "__init__.py" -delete',
     'find . -path "*/migrations/*.pyc" -delete',

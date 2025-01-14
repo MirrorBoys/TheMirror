@@ -6,7 +6,7 @@
     <script src="{% static 'travelWidget/script.js' %}"></script>
 
     <!-- Header Above the Table -->
-    <h3>Departures</h3>
+    <h3>Vertrek</h3>
 
     <div class="station-info">
         <p> {{ data.station_name }} </p>
@@ -15,12 +15,12 @@
     <table>
         <thead>
             <tr>
-                <th>Destination</th>
-                <th>Train Type</th>
-                <th>Planned Time</th>
-                <th>Actual Time</th>
-                <th>Delay</th>
-                <th>Track</th>
+                <th>Bestemming</th>
+                <th>Trein</th>
+                <th>Geplande Tijd</th>
+                <th>Actuele Tijd</th>
+                <th>Vertraging</th>
+                <th>Spoor</th>
             </tr>
         </thead>
         <tbody>
@@ -38,5 +38,5 @@
     </table>
 </div>
 {% else %}
-<p>No departure data available.</p>
+<p>Geen vertrekken beschikbaar</p>
 {% endif %}

@@ -11,7 +11,7 @@ agenda:
 news:
   VISIBLE: True
   #The amount of articles that will be showed
-  NEWS_NUMBER_OF_ARTICLES: 2
+  NEWS_NUMBER_OF_ARTICLES: 8
   PLACE:
 
 travel_journeys:

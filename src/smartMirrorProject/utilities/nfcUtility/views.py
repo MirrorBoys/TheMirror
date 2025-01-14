@@ -1,5 +1,8 @@
 from django.http import JsonResponse
 import json
+import threading
+
+nfc_lock = threading.Lock()
 
 
 def checkIfPi(request=None):
@@ -44,8 +47,12 @@ def fetchNfcTag(request):
     tagId = None
     tagData = None
     try:
-        reader = SimpleMFRC522()
-        tagId, tagData = reader.read()
+        with nfc_lock:
+            import RPi.GPIO as GPIO
+            from mfrc522 import SimpleMFRC522
+
+            reader = SimpleMFRC522()
+            tagId, tagData = reader.read()
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=500)
     finally:
@@ -64,9 +71,13 @@ def writeNfcTag(request, data):
         error message if an exception occurs.
     """
     try:
-        reader = SimpleMFRC522()
-        reader.write(data)
-        tagId = reader.read_id()
+        with nfc_lock:
+            import RPi.GPIO as GPIO
+            from mfrc522 import SimpleMFRC522
+
+            reader = SimpleMFRC522()
+            reader.write(data)
+            tagId = reader.read_id()
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=500)
     finally:

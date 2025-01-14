@@ -47,4 +47,11 @@ document.addEventListener("DOMContentLoaded", function () {
         event.preventDefault(); // Prevent the default link behavior
         document.getElementById("loginFields").style.display = "block";
     })
-})// Show the form
+
+    document.getElementById("loginForm").addEventListener("submit", function () {
+        document.getElementsByClassName("login-container")[0].style.display = "none"
+
+        const loadingOverlay = document.getElementById("loadingOverlay");
+        loadingOverlay.style.display = "flex";
+    });
+})

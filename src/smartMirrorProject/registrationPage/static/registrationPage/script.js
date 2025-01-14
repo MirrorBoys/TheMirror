@@ -71,4 +71,11 @@ document.addEventListener("DOMContentLoaded", function () {
     password1Input.addEventListener("input", toggleRegisterButton);
     password2Input.addEventListener("input", toggleRegisterButton);
     nfcTagIdInput.addEventListener("input", toggleRegisterButton);
+
+    document.getElementById("registerForm").addEventListener("submit", function () {
+        document.getElementsByClassName("registration-container")[0].style.display = "none"
+
+        const loadingOverlay = document.getElementById("loadingOverlay");
+        loadingOverlay.style.display = "flex";
+    });
 });

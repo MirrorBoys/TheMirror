@@ -21,7 +21,7 @@
 <body>
     <main>
         <div class="registration-container">
-            <form method="post" action="{% url 'register' %}">
+            <form id="registerForm" method="post" action="{% url 'register' %}">
                 {% csrf_token %}
                 <h2>Registreer</h2>
                 <div class="form-group">
@@ -71,6 +71,7 @@
             <p>Al een account? <a href="{% url 'loginPage' %}">Log in</a></p>
         </div>
     </main>
+    <div id="loadingOverlay" class="loading-overlay"></div>
 </body>
 
 </html>

@@ -39,3 +39,12 @@ window.onload = async function () {
         loginWithNfc();
     }
 }
+
+
+// Even listener to show the loginfields when a user clicks on the link
+document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("showLoginFields").addEventListener("click", function (event) {
+        event.preventDefault(); // Prevent the default link behavior
+        document.getElementById("loginFields").style.display = "block";
+    })
+})// Show the form

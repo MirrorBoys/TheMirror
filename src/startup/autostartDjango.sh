@@ -1,11 +1,24 @@
 #!/bin/bash
 
+export DISPLAY=:0
+
+# Get the directory of the current script
+SCRIPT_DIR=$(dirname "$(readlink -f "$0")")
+
+# Redirect all output to a log file in the same directory as the script
+LOG_FILE="$SCRIPT_DIR/autostart.log"
+exec > "$LOG_FILE" 2>&1
+
+# Navigate to the main project directory and update the repository
 cd ~/TheMirror
 git pull
 
+# Navigate to the smart mirror project directory and activate the virtual environment
 cd ~/TheMirror/src/smartMirrorProject
 source ~/.virtualEnvs/theMirrorEnv/bin/activate
-pip3 install -r ~/TheMirror/src/smartMirrorProject/requirements.txt --no-cache-dir
-python3 manage.py  runserver 0.0.0.0:8000 &
 
-exit 0
+# Install the required Python packages
+pip3 install -r ~/TheMirror/src/smartMirrorProject/requirements.txt --no-cache-dir
+
+# Start the Django server
+python3 manage.py runserver 0.0.0.0:8000 &

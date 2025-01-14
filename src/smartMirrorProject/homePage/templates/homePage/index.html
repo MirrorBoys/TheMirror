@@ -15,16 +15,20 @@
     <link rel="stylesheet" href="{% static 'homePage/style.css' %}">
     <script src="{% static 'homePage/script.js' %}"></script>
     <script src="{% static 'homePage/jquery-3.5.1.js' %}"></script>
+    <script src="{% static 'gestureUtility/script.js' %}"></script>
 
     <title>TheMirror</title>
 </head>
 
 <body>
     <header>
+        <div id="gesture-section">
+            <p id="gesture-feedback">Gesture: ...</p>
+        </div>
         <nav>
             <ul>
                 <li>
-                    <a href="{% url 'logout' %}" class="logout-button">
+                    <a href="{% url 'logout' %}" id="logout-button" class="logout-button">
                         <button class="logout-button">
                             <!-- This is the SVG-code for the logout button. Source: https://pictogrammers.com/library/mdi/icon/logout/ -->
                             <svg class="logout-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -33,9 +37,9 @@
                             </svg>
                         </button>
                     </a>
+                </li>
                 <li class="username-display">
                     <span>{{ request.user.username }}</span>
-                </li>
                 </li>
             </ul>
         </nav>

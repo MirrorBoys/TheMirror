@@ -88,6 +88,7 @@ def create_widgets_object(config, api_links, api_timeout):
     """
     available_widgets = list(config.keys())
     widget_object = {}
+    placed_dict = generate_places_widgets(config)
 
     # Skip first index because this contains the general_settings
     for widget in available_widgets[1:]:
@@ -99,7 +100,7 @@ def create_widgets_object(config, api_links, api_timeout):
         # Only add apiCall to widgets that need aditional data and thus use an internal API key.
         if widget in api_links:
             widget_object[widget] = {
-                "id": index,
+                "id": placed_dict[widget],
                 "appName": app_name,
                 "templateName": widget,
                 "data": "",
@@ -109,7 +110,7 @@ def create_widgets_object(config, api_links, api_timeout):
             }
         else:
             widget_object[widget] = {
-                "id": index,
+                "id": placed_dict[widget],
                 "appName": app_name,
                 "templateName": widget,
             }
@@ -133,6 +134,41 @@ def generate_app_name(widget_name: str):
         app_name = widget_name.split("_")[0] + "Widget"
 
     return app_name
+
+
+def generate_places_widgets(config):
+    """
+    Creates a dictionary of widget places based on the information provided in the config file. If no spaces is specified the first available place is used.
+
+    Args:
+        config (dict): A dictionary containing widget configurations.
+
+    Returns:
+        dict: A dictionary where each key is the place a widget will be placed
+    """
+    # Get all places that are specified in the config file
+    used_places = set()
+    available_widgets = list(config.keys())
+
+    for widget in available_widgets[1:]:
+        if config[widget]["PLACE"] is not None:
+            used_places.add(config[widget]["PLACE"])
+
+    # Generate dictonary with the places of the different widgets, if no place was give the first available place is given
+    current_place = 1
+    places_dict = {}
+
+    for widget in available_widgets[1:]:
+        if config[widget]["PLACE"] is None:
+            while current_place in used_places:
+                # this makes it so that current_place will be incremented untill a place is found that is not in use
+                current_place += 1
+            places_dict[widget] = current_place
+            used_places.add(current_place)
+        else:
+            # if a place is specified get that space and put it in the dictonary
+            places_dict[widget] = config[widget]["PLACE"]
+    return places_dict
 
 
 @login_required

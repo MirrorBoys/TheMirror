@@ -11,6 +11,7 @@ exec > "$LOG_FILE" 2>&1
 
 # Navigate to the main project directory and update the repository
 cd ~/TheMirror
+git checkout main
 git pull
 
 # Navigate to the smart mirror project directory and activate the virtual environment

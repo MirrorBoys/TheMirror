@@ -34,7 +34,7 @@ def start_camera():
 
         # Create an infinite loop which will produce the live feed to our desktop and that will search for hands
         while True:
-            frame = cap.read()
+            ret, frame = cap.read()
             # Uncomment the below line if your live feed is produced upside down
             # flipped = cv2.flip(frame, flipCode=-1)
 

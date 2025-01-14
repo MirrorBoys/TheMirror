@@ -133,7 +133,7 @@ LOGOUT_REDIRECT_URL = "/login"
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
-LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = "nl-nl"
 
 TIME_ZONE = "Europe/Amsterdam"
 

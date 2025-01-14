@@ -29,7 +29,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-_6cw15ikq*gt85b-j+*+t8ywd#-4c5a7gm!w+c+p+@a(u15sp!"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 # Allow any host to host the server
 ALLOWED_HOSTS = ["*"]
@@ -57,8 +57,8 @@ INSTALLED_APPS = [
     "timeWidget",
     "radarWidget",
     "utilities.nfcUtility",
-    "utilities.gestureUtility"
-    ]
+    "utilities.gestureUtility",
+]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",

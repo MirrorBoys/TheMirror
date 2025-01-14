@@ -6,16 +6,16 @@ agenda:
   VISIBLE: True
   # The api key for the agenda, currently only google agenda is supported
   AGENDA_KEY:
-  PLACE:
+  PLACE: 6
 
 news:
   VISIBLE: True
   #The amount of articles that will be showed
-  NEWS_NUMBER_OF_ARTICLES: 2
-  PLACE:
+  NEWS_NUMBER_OF_ARTICLES: 4
+  PLACE: 5
 
 travel_journeys:
-  VISIBLE: True
+  VISIBLE: False
   #The api key to get information from the NS, currentyl only the NS is supported
   NS_KEY:
   #The begin station and end station for displayed traject.
@@ -32,13 +32,13 @@ travel_departures:
   #The api key to get information from the NS, currentyl only the NS is supported
   NS_KEY:
   #The depature station needs to be given by the code that is assigned by rijdendetreinen, to check wich code you need download the file on https://www.rijdendetreinen.nl/en/open-data/stations
-  TRAVEL_DEPARTURES_STATION: "AH"
+  TRAVEL_DEPARTURES_STATION: "RS"
   # String containing the stations to filter on, separated by a hyphen. If "", no filter is applied.
-  TRAVEL_DEPARTURES_FILTER: "Nijmegen-Winterswijk-Doetinchem"
-  PLACE:
+  TRAVEL_DEPARTURES_FILTER: ""
+  PLACE: 4
 
 music:
-  VISIBLE: True
+  VISIBLE: False
   SPOTIFY_CLIENT_ID:
   SPOTIFY_CLIENT_SECRET:
   PLACE:
@@ -49,19 +49,19 @@ weather:
   KNMI_API_KEY:
   #The number of days that will be showed in the foreceast, default is 2, which will show the weather of today and tomorrow
   WEATHER_NUMBER_OF_DAYS: 5
-  PLACE:
+  PLACE: 2
 
 radar:
   VISIBLE: True
-  RADAR_CITY: "Arnhem"
-  PLACE:
+  RADAR_CITY: "Rosmalen"
+  PLACE: 3
 
 time:
   VISIBLE: True
   # Use TZ identifier (e.g. Europe/Amsterdam) or TZ database name (e.g. CET)
   TIMEZONE: "Europe/Amsterdam"
-  PLACE:
+  PLACE: 1
 
 note:
-  VISIBLE: True
+  VISIBLE: False
   PLACE:

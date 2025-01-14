@@ -57,8 +57,8 @@ INSTALLED_APPS = [
     "timeWidget",
     "radarWidget",
     "utilities.nfcUtility",
-    "utilities.gestureUtility"
-    ]
+    "utilities.gestureUtility",
+]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",

@@ -8,13 +8,10 @@ def user_login(request):
     form = AuthenticationForm(request, data=request.POST or None)
     if request.method == "POST":
         nfc_tag_id = request.POST.get("nfc_tag_id")
-        nfc_tag_data = request.POST.get("nfc_tag_data")
 
-        if nfc_tag_id and nfc_tag_data:
+        if nfc_tag_id:
             try:
-                user = User.objects.get(
-                    nfc_tag_id=nfc_tag_id, nfc_tag_data=nfc_tag_data
-                )
+                user = User.objects.get(nfc_tag_id=nfc_tag_id)
                 login(request, user)
                 return redirect("homePageIndex")
             except User.DoesNotExist:

@@ -22,6 +22,7 @@ from django.contrib.auth.views import LoginView
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("homePage.urls")),
+    path("", include("registrationPage.urls")),
     path("", include("loginPage.urls")),
     path("api/time/", include("timeWidget.urls")),
     path("musicWidget/", include("musicWidget.urls")),

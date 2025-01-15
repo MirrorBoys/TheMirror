@@ -18,22 +18,22 @@ async function fetchGesture() {
 async function executeGesture() {
     const gesture = await fetchGesture();
     if (gesture == 'PAUSE') {
-        document.getElementById('gesture-feedback').innerText = 'Gesture: PAUSE';
+        document.getElementById('gesture-feedback').innerText = 'Gesture: Pauzeren';
         pauseMusic();
     } else if (gesture == 'PLAY') {
-        document.getElementById('gesture-feedback').innerText = 'Gesture: PLAY';
+        document.getElementById('gesture-feedback').innerText = 'Gesture: Afspelen';
         playMusic();
     } else if (gesture == 'SKIP') {
-        document.getElementById('gesture-feedback').innerText = 'Gesture: SKIP';
+        document.getElementById('gesture-feedback').innerText = 'Gesture: Overslaan';
         skipMusic();
     } else if (gesture == 'LOGIN') {
-        document.getElementById('gesture-feedback').innerText = 'Gesture: LOGIN';
+        document.getElementById('gesture-feedback').innerText = 'Gesture: Inloggen';
         loginLogout();
     } else if (gesture == 'REFRESH') {
-        document.getElementById('gesture-feedback').innerText = 'Gesture: REFRESH';
+        document.getElementById('gesture-feedback').innerText = 'Gesture: Verversen';
         refreshPage();
     } else if (gesture == 'LOGOUT') {
-        document.getElementById('gesture-feedback').innerText = 'Gesture: LOGOUT';
+        document.getElementById('gesture-feedback').innerText = 'Gesture: Uitloggen';
         logoutMirror();
     }
 }
@@ -52,14 +52,14 @@ function refreshPage() {
 // Pause music
 function pauseMusic() {
     player.pause();
-    document.getElementById('togglePlay').innerText = 'Paused';
+    document.getElementById('togglePlay').innerText = 'Gepauzeerd';
 }
 
 
 // Play music
 function playMusic() {
     player.resume();
-    document.getElementById('togglePlay').innerText = 'Playing';
+    document.getElementById('togglePlay').innerText = 'Afspelen';
 }
 
 // Skip music

@@ -7,10 +7,10 @@
     <link rel="stylesheet" href="{% static 'timeWidget/style.css' %}">
     <script src="{% static 'timeWidget/script.js' %}"></script>
 
-    <h3>Current Date & Time</h3>
+    <h3>Datum & Tijd</h3>
     <p id="current-time">{{ data.current_time }}</p>
     <p id="timezone" type="hidden" timezone="{{ data.timezone }}"></p>
 </div>
 {% else %}
-<p>No time available</p>
+<p>Geen datum en/of tijd beschikbaar</p>
 {% endif %}

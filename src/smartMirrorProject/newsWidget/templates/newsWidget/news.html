@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="{% static 'newsWidget/style.css' %}">
     <script src="{% static 'newsWidget/script.js' %}"></script>
 
-    <h3>News Feed</h3>
+    <h3>Nieuws</h3>
     <ul>
         {% for article in data.articles %}
         <li>
@@ -18,5 +18,5 @@
 </div>
 
 {% else %}
-<p>No news available.</p>
+<p>Geen nieuws beschikaar</p>
 {% endif %}

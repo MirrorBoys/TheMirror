@@ -16,14 +16,14 @@ def calculate_delay(planned, actual):
 
     Returns:
         str: The delay in minutes as a string with a "+" prefix if there is a delay,
-             "On time" if there is no delay, or "N/A" if either planned or actual time is not provided.
+             "On time" if there is no delay, or "n.b." if either planned or actual time is not provided.
     """
     if not planned or not actual:
-        return "N/A"
+        return "n.b."
     planned_time = datetime.fromisoformat(planned)
     actual_time = datetime.fromisoformat(actual)
     delay_minutes = (actual_time - planned_time).total_seconds() / 60
-    return f"+{int(delay_minutes)} min" if delay_minutes > 0 else "On time"
+    return f"+{int(delay_minutes)} min" if delay_minutes > 0 else "Op tijd"
 
 
 def format_time(time_str):
@@ -34,16 +34,16 @@ def format_time(time_str):
         time_str (str): The time string in ISO format.
 
     Returns:
-        str: The formatted time string in "HH:MM:SS" format. If the input is None or invalid, returns "N/A".
+        str: The formatted time string in "HH:MM:SS" format. If the input is None or invalid, returns "n.b.".
     """
     if not time_str:
-        return "N/A"
+        return "n.b."
     try:
         # Convert from ISO format string to time
         time = datetime.fromisoformat(time_str)
         return time.strftime("%H:%M:%S")  # Format as HH:mm:ss
     except Exception:
-        return "N/A"
+        return "n.b."
 
 
 def fetch_trip(request, start_station, end_station, amount_trips):

@@ -6,7 +6,7 @@
     <script src="{% static 'weatherWidget/script.js' %}"></script>
 
     <h3>Weather Information</h3>
-    
+
     <div class="meta">
         <p><small>Bron: {{ data.source }} | Laatste update: {{ data.lastUpdate }}</small></p>
     </div>
@@ -27,8 +27,8 @@
                 {% for forecast in data.dailyForecast %}
                 <tr>
                     <td>{{ forecast.day }}</td>
-                    <td>{{ forecast.temperature.min }}-{{ forecast.temperature.max }}</td>
-                    <td>{{ forecast.precipitation.min }}-{{ forecast.precipitation.max }}</td>
+                    <td>{{ forecast.temperature.min }} / {{ forecast.temperature.max }}</td>
+                    <td>{{ forecast.precipitation.min }} / {{ forecast.precipitation.max }}</td>
                     <td>{{ forecast.precipitation.chance }}</td>
                 </tr>
                 {% endfor %}

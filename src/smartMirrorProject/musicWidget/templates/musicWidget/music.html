@@ -7,16 +7,13 @@
 
     <h3>Spotify</h3>
     {% if request.session.access_token %}
-    <button id="togglePlay">Toggle Play</button>
-    <button id="skipTrack">Skip Track</button><br>
-    <input type="text" id="track-uri" placeholder="Enter track URI">
-    <button id="add-to-queue">Add to Queue</button>
-    <p id="queue-message"></p>
-    <p id="current-track">Now Playing:</p>
-    <p id="next-track">Next:</p>
-    <a href="{% url 'spotify-logout' %}"><button id="logout">Logout</button></a>
+    <button id="togglePlay">Speel af</button>
+    <button id="skipTrack">Volgende</button><br>
+    <p id="current-track">Nu:</p>
+    <p id="next-track">Volgende:</p>
+    <a href="{% url 'spotify-logout' %}"><button id="logout">Uitloggen</button></a>
     {% else %}
-    <a href="{% url 'spotify-login' %}"><button id="login">Login to Spotify</button></a>
+    <a href="{% url 'spotify-login' %}"><button id="login">Inloggen</button></a>
     {% endif %}
 </div>
 

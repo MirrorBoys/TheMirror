@@ -6,7 +6,7 @@
     <script src="{% static 'travelWidget/script.js' %}"></script>
 
     <!-- Header Above the Table -->
-    <h3>Travel Information</h3>
+    <h3>Reisinformatie</h3>
 
     <!-- Display First and Last Station Info -->
     <div class="station-info">
@@ -14,14 +14,14 @@
     </div>
 
     {% for trip in data.trips %}
-    <h4>Trip {{ forloop.counter }}</h4>
+    <h4>Reis {{ forloop.counter }}</h4>
     <table>
         <thead>
             <tr>
                 <th>Station</th>
-                <th>Planned Time</th>
-                <th>Actual Time</th>
-                <th>Delay</th>
+                <th>Geplande Tijd</th>
+                <th>Actuele Tijd</th>
+                <th>Vertraging</th>
             </tr>
         </thead>
         <tbody>
@@ -46,5 +46,5 @@
 </div>
 
 {% else %}
-<p>No travel data available.</p>
+<p>Geen reisinformatie beschikbaar</p>
 {% endif %}

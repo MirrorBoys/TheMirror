@@ -3,7 +3,7 @@
     <link rel="stylesheet" href="{% static 'radarWidget/style.css' %}">
     <script src="{% static 'radarWidget/script.js' %}"></script>
 
-    <h3>Weather Radar</h3>
+    <h3>Buienradar</h3>
     <p> {{ widgets.radar.data.placename }}</p>
 
     {% if widgets.radar.data.latitude and widgets.radar.data.longitude %}
@@ -15,6 +15,6 @@
             frameborder="no">
         </iframe>
     {% else %}
-        <p>Coordinates not found</p>
+        <p>Geen coördinaten gevonden</p>
     {% endif %}
 </div>

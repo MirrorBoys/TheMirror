@@ -11,7 +11,7 @@ def fetch_notes(request):
             "subType": "li",
             "content": [
                 "test test test test test test test test test test test test test test test test test test test test test",
-                "It can have multiple lines, paragraphs, bulletpoints etc."
+                "hallo"
             ]
         },
         {
@@ -20,7 +20,7 @@ def fetch_notes(request):
             "subType": "",
             "content": [
                 "hoi",
-                "It can have multiple lines, paragraphs, bulletpoints etc."
+                "hoe gaat het"
             ]
         }
     ]

@@ -63,11 +63,11 @@ document.addEventListener('DOMContentLoaded', () => {
             player.getCurrentState().then(state => {
                 if (state.paused) {
                     player.resume().then(() => {
-                        document.getElementById('togglePlay').innerText = 'Playing';
+                        document.getElementById('togglePlay').innerText = 'Afspelen';
                     });
                 } else {
                     player.pause().then(() => {
-                        document.getElementById('togglePlay').innerText = 'Paused';
+                        document.getElementById('togglePlay').innerText = 'Gepauzeerd';
                     });
                 }
             });
